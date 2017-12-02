@@ -1,0 +1,11 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+
+#game-wrapper {
+	max-width: 70%;
+	height: 100vh;
+	margin: auto;
+}
