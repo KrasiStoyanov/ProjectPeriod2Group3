@@ -1,6 +1,7 @@
 'use strict';
 
 import * as traitsValidator from '../validators/traitsValidator';
+import * as cardTypeValidator from '../validators/cardTypeValidator';
 
 export default class Card {
 	constructor(type, traits) {
@@ -13,6 +14,8 @@ export default class Card {
 	}
 
 	set type(value) {
+		cardTypeValidator.validateCardType(value);
+		
 		this._type = value;
 	}
 

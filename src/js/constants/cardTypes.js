@@ -1,5 +1,7 @@
-let cardTypes = {
-	action: 'string',
-	challenge: 'string',
-	character: 'character'
-}
+const cardTypes = {
+	action: "action",
+	challenge: "challenge",
+	character: "character"
+};
+
+export default cardTypes;
