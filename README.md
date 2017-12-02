@@ -1,20 +1,23 @@
 # ProjectPeriod2Group3
 ### Getting started
 ------
-1. Install [NodeJS](https://nodejs.org/en/) (NodeJS comes with `npm` so you don't need to install it manually)
+1. Install Git in order to use GitHub https://git-scm.com/downloads.
+2. Copy the HTTPS link after clicking the green **Clone or download** button and open cmd/power shell/etc. somewhere you would like to clone the repository.
+3. Write `git clone [link you copied]` and press enter
+4. Install [NodeJS](https://nodejs.org/en/) (NodeJS comes with `npm` so you don't need to install it manually)
    * You need NodeJS for running your server as well as all plugins which you install using `npm`.
    * You install packages/plugins using `npm`. You write that in the **command prompt (cmd)/power shell/etc**.
    * When you need to install a package you just write `npm install [package name]` (**NOTE**: this way you only install the package in the folder you are in; some packages need to be installed globally; if needed so, please read the documentation [NPM](https://docs.npmjs.com/)).
    * If you have already got a `package.json` in your project and it has a list with the packages that the project is using, then you only need to run `npm install`.
    * If you want to install new packages you will need to read the documentation to fully understand the different ways you can do it [NPM](https://docs.npmjs.com/).
-2. Install `gulp` globally - `npm install --global gulp-cli`
-3. Open the cmd/power shell/etc. in the root folder of the project and type in `npm install`
+5. Install `gulp` globally - `npm install --global gulp-cli`
+6. Open the cmd/power shell/etc. in the root folder of the project and type in `npm install`
    * That way you will install all the packages/plugins you need in order to run the project.
-4. Type in the cmd/power shell/etc. `gulp development`
+7. Type in the cmd/power shell/etc. `gulp development`
    * After typing this, gulp will start running a local server which can be accessed at http://localhost:8080. However, just to be sure what the exact address is, it is always displayed after the server has started.
    * No only the server, but all other tasks that gulp needs to run in order to compile the code you are writing, etc. is also going through that command.
    * If you wish to see where these tasks are, you can open the `gulpfile.js` file in the root folder
-5. Open the browser and navigate to the server's address
+8. Open the browser and navigate to the server's address
 
 ### File structure
 ------
