@@ -2,6 +2,7 @@
 
 import characterCardsList from '../data/characterCardsList';
 import CharacterCard from '../card-types/CharacterCard';
+import * as helpers from './helpers';
 
 let characterDeck = [];
 for (let index = 0; index < characterCardsList.length; index += 1) {
@@ -15,4 +16,17 @@ for (let index = 0; index < characterCardsList.length; index += 1) {
 	characterDeck.push(currentCard);
 }
 
-export default characterDeck;
+function getDeck () {
+	return characterDeck;
+}
+
+function getCard (id) {
+	let card = helpers.getCard(characterDeck, id);
+
+	return card;
+}
+
+export {
+	getDeck,
+	getCard
+};

@@ -3,12 +3,18 @@
 import Card from './Card';
 import * as characterCardValidator from '../validators/characterCardValidator';
 
+let id = 0;
 export default class CharacterCard extends Card {
 	constructor(name, description, image, traits) {
 		super('character', traits);
+		this._id = id++;
 		this.name = name;
 		this.description = description;
 		this.image = image;
+	}
+
+	get id() {
+		return this._id;
 	}
 
 	get name() {

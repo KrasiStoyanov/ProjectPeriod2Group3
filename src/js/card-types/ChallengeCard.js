@@ -12,6 +12,10 @@ export default class ChallengeCard extends Card {
 		this.stage = stage;
 	}
 
+	get id() {
+		return this._id;
+	}
+
 	get challenge() {
 		return this._challenge;
 	}
@@ -30,9 +34,5 @@ export default class ChallengeCard extends Card {
 		challengeCardValidator.validateStage(value);
 
 		this._stage = value;
-	}
-
-	get id() {
-		return this._id;
 	}
 }

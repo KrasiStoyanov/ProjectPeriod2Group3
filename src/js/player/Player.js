@@ -2,12 +2,12 @@
 
 let id = 0;
 export default class Player {
-	constructor(name, characterCard) {
+	constructor(characterCard) {
 		this._id = id++;
 		this.characterCard = characterCard;
-		this.name = characterCard.name;
-		this.traits = characterCard.traits;
-		this.cardsInHand = [];
+		this._name = characterCard.name;
+		this._traits = characterCard.traits;
+		this._cardsInHand = [];
 	}
 
 	get id() {
@@ -23,14 +23,14 @@ export default class Player {
 	}
 
 	get name() {
-		return this.name;
+		return this._name;
 	}
 
 	get traits() {
-		return this.traits;
+		return this._traits;
 	}
 
 	get cardsInHand() {
-		return this.cardsInHand;
+		return this._cardsInHand;
 	}
 }
