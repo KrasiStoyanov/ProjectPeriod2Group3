@@ -1,5 +1,7 @@
+'use strict';
+
 import * as CharacterDeck from '../decks/characterDeck';
-import Player from '../player/Player';
+import * as playerHelpers from '../player/helpers';
 
 function characterSelection (game) {
     let characterDeck = CharacterDeck.getDeck();
@@ -31,7 +33,10 @@ function characterSelection (game) {
 
 function onCharacterSelect (button) {
     let characterCard = button.variable;
-    let player = new Player(characterCard);
+    playerHelpers.addPlayer(characterCard);
+    
+    let players = playerHelpers.getPlayers();
+    console.log(players);
 }
 
 export default characterSelection;
