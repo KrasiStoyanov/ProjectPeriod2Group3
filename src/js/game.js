@@ -1,34 +1,40 @@
 'use strict';
 
-import * as characterDeck from './decks/characterDeck';
 import Player from './player/Player';
+import characterSelection from './selection/characterSelection';
 
 let button,
 	player,
-	playerText;
+	playerText,
+	characterDeck;
 let mainState = {
 	preload: function () {
-		game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
+		game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 		game.load.spritesheet('button', './src/images/button.png');
 	},
 	create: function () {
 		game.stage.backgroundColor = '#71c5cf';
-    	button = game.add.button(game.world.centerX - 120, game.world.centerY - 120, 'button', this.actionOnClick, this);
+    	// button = game.add.button(game.world.centerX - 120, game.world.centerY - 120, 'button', this.actionOnClick, this);
+    	characterSelection(game);
 	},
 	update: function () {
 
 	},
-	actionOnClick: function () {
-		let characterCard = characterDeck.getCard(0);
+	onCharacterSelect: function () {
 
-		player = new Player(characterCard);
+	},
+	actionOnClick: function () {
+		// let characterCard = characterDeck.getCard(0);
+
+		// player = new Player(characterCard);
 
 		// TODO: Create constants for the font properties
-		let fontProps = {
-			font: '64px Karla'
-		};
+		// let fontProps = {
+		// 	font: '64px Karla'
+		// };
 
-		playerText = game.add.text(200, 100, player.name, fontProps);
+		// playerText = game.add.text(200, 100, player.name, fontProps);
+		// playerText = game.add.text(200, 164, player.traits, fontProps);
 	}
 };
 
