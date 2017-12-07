@@ -1,3 +1,5 @@
+'use strict';
+
 let playState = {
 	create: (game) => {
 
