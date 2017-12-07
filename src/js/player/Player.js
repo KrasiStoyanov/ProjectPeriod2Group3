@@ -1,6 +1,7 @@
 'use strict';
 
 import { validatePlayerAmountOfCards } from '../validators/playerValidator';
+import * as actionDeck from '../decks/actionDeck';
 
 let id = 0;
 export default class Player {
@@ -37,6 +38,14 @@ export default class Player {
 	}
 
 	receiveCards(amount) {
-		console.log(validatePlayerAmountOfCards(this.cardsInHand.length, amount));
+		let isAmountOfCardsInRange = validatePlayerAmountOfCards(this.cardsInHand.length, amount);
+		if (isAmountOfCardsInRange === true) {
+			for (let index = 0; index < amount; index += 1) {
+				let currentCard = actionDeck.getTopCard();
+
+				actionDeck.removeTopCard();
+				this.cardsInHand.push(currentCard);
+			}
+		}
 	}
 }

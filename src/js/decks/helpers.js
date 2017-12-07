@@ -9,6 +9,18 @@ function getCard (deck, id) {
 	}
 }
 
+function getTopCard (deck) {
+	let topCard =  deck[deck.length - 1];
+
+	return topCard;
+}
+
+function removeTopCard (deck) {
+	deck.pop();
+}
+
 export {
-	getCard
+	getCard,
+	getTopCard,
+	removeTopCard
 };

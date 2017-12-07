@@ -34,7 +34,9 @@ function characterSelection (game) {
 function onCharacterSelect (button) {
     let characterCard = button.variable;
     let player = playerHelpers.addPlayer(characterCard);
-    player.receiveCards(50);
+    player.receiveCards(5);
+
+    console.log(player);
     
     // let players = playerHelpers.getPlayers();
     // console.log(players);
