@@ -33,10 +33,11 @@ function characterSelection (game) {
 
 function onCharacterSelect (button) {
     let characterCard = button.variable;
-    playerHelpers.addPlayer(characterCard);
+    let player = playerHelpers.addPlayer(characterCard);
+    player.receiveCards(50);
     
-    let players = playerHelpers.getPlayers();
-    console.log(players);
+    // let players = playerHelpers.getPlayers();
+    // console.log(players);
 }
 
 export default characterSelection;

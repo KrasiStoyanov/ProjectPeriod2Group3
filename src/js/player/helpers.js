@@ -9,6 +9,8 @@ function addPlayer (characterCard) {
 	playerValidator.validateDuplicatingPlayerInstances(players, player, characterCard);
 
 	players.push(player);
+
+	return player;
 }
 
 function getPlayers () {

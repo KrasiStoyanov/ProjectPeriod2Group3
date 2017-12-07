@@ -1,5 +1,7 @@
 'use strict';
 
+import { validatePlayerAmountOfCards } from '../validators/playerValidator';
+
 let id = 0;
 export default class Player {
 	constructor(characterCard) {
@@ -32,5 +34,9 @@ export default class Player {
 
 	get cardsInHand() {
 		return this._cardsInHand;
+	}
+
+	receiveCards(amount) {
+		console.log(validatePlayerAmountOfCards(this.cardsInHand.length, amount));
 	}
 }
