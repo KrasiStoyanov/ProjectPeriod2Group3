@@ -36,10 +36,7 @@ function onCharacterSelect (button) {
     let player = playerHelpers.addPlayer(characterCard);
     player.receiveCards(5);
 
-    console.log(player);
-    
-    // let players = playerHelpers.getPlayers();
-    // console.log(players);
+    button.game.state.start('mainScreen');
 }
 
 export default characterSelection;

@@ -4,10 +4,13 @@ import characterSelection from '../selection/characterSelection';
 
 let mainScreen = {
 	create: (game) => {
-    	characterSelection(game);
+		// TODO: create main screen using the layot
 	},
-	play: (game) => {
-		game.state.start('play');
+	win: (game) => {
+		game.state.start('win');
+	},
+	lose: (game) => {
+		game.state.start('lose');
 	}
 };
 

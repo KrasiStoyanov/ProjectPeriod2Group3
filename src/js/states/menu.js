@@ -3,10 +3,10 @@
 let menuState = {
 	create: (game) => {
 		// TODO: remove this line and create main menu
-		game.state.start('mainScreen');
+		game.state.start('playerSelection');
 	},
 	start: (game) => {
-		game.state.start('mainScreen');
+		game.state.start('playerSelection');
 	}
 };
 
