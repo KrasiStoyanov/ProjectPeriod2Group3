@@ -9,6 +9,7 @@ export default class ActionCard extends Card {
 		super('action', traits);
 		this._id = id++;
 		this.action = action;
+		this.playerId;
 	}
 
 	get id() {
@@ -23,5 +24,14 @@ export default class ActionCard extends Card {
 		actionCardValidator.validateAction(value);
 
 		this._action = value;
+	}
+
+
+	get playerId() {
+		return this._playerId;
+	}
+
+	set playerId(value) {
+		this._playerId = value;
 	}
 }

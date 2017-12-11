@@ -3,9 +3,9 @@
 import { maxAmountOfCards } from '../constants/player';
 
 function validateDuplicatingPlayerInstances (players, player, characterCard) {
-	let isDuplicating = players.filter(player => player.name === characterCard.name);
+	let isDuplicating = players.filter(player => player.characterCard.id === characterCard.id);
 	if (isDuplicating.length) {
-		throw 'A player with that Name has already been added';
+		throw 'A player with that Character has already been added';
 	}
 }
 

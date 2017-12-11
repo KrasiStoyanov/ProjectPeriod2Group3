@@ -1,10 +1,9 @@
 'use strict';
 
-import characterSelection from '../selection/characterSelection';
-
 let menuState = {
 	create: (game) => {
-    	characterSelection(game);
+		// TODO: remove this line and create main menu
+		game.state.start('mainScreen');
 	},
 	start: (game) => {
 		game.state.start('mainScreen');
