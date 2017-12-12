@@ -11,8 +11,8 @@ let mainScreen = {
 		for (let index = 0; index < amountOfCardsToBeInitiallyDealt; index += 1) {
 			for (let jndex = 0; jndex < players.length; jndex += 1) {
 				let player = players[jndex];
-				
-				player.receiveCards(1);
+
+				player.receiveCards(1, player.id);
 			}
 		}
 

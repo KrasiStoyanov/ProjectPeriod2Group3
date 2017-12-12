@@ -37,11 +37,12 @@ export default class Player {
 		return this._cardsInHand;
 	}
 
-	receiveCards(amount) {
+	receiveCards(amount, playerId) {
 		let isAmountOfCardsInRange = validatePlayerAmountOfCards(this.cardsInHand.length, amount);
 		if (isAmountOfCardsInRange === true) {
 			for (let index = 0; index < amount; index += 1) {
 				let currentCard = actionDeck.getTopCard();
+				currentCard.playerId = playerId;
 
 				actionDeck.removeTopCard();
 				this.cardsInHand.push(currentCard);
