@@ -24,19 +24,19 @@ function getCard (id) {
 	return card;
 }
 
-function getTopCard () {
-	let card = helpers.getTopCard(actionDeck);
+function dealDeck () {
+	let card = helpers.dealDeck(actionDeck);
 
 	return card;
 }
 
-function removeTopCard (id) {
-	helpers.removeTopCard(actionDeck);
+function removeCard (id) {
+	helpers.removeCard(actionDeck, id);
 }
 
 export {
 	getDeck,
 	getCard,
-	getTopCard,
-	removeTopCard
+	dealDeck,
+	removeCard
 };

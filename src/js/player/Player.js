@@ -41,10 +41,10 @@ export default class Player {
 		let isAmountOfCardsInRange = validatePlayerAmountOfCards(this.cardsInHand.length, amount);
 		if (isAmountOfCardsInRange === true) {
 			for (let index = 0; index < amount; index += 1) {
-				let currentCard = actionDeck.getTopCard();
+				let currentCard = actionDeck.dealDeck();
 				currentCard.playerId = playerId;
 
-				actionDeck.removeTopCard();
+				actionDeck.removeCard(currentCard.id);
 				this.cardsInHand.push(currentCard);
 			}
 		}

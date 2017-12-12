@@ -2,6 +2,7 @@
 
 import characterSelection from '../selection/characterSelection';
 import * as playerHelpers from '../player/helpers';
+import * as actionDeck from '../decks/actionDeck';
 
 let mainScreen = {
 	create: (game) => {
@@ -16,7 +17,7 @@ let mainScreen = {
 			}
 		}
 
-		console.log(players);
+		console.log(players, actionDeck.getDeck());
 	},
 	win: (game) => {
 		game.state.start('win');
