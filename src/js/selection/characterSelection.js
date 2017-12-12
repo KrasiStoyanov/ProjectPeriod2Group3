@@ -2,6 +2,7 @@
 
 import * as CharacterDeck from '../decks/characterDeck';
 import * as playerHelpers from '../player/helpers';
+import * as playerValidator from '../validators/playerValidator';
 
 // Using this for now
 const characterCardImages = [
@@ -57,11 +58,12 @@ function characterSelection (game) {
 function onCharacterSelect (button) {
     let characterCard = button.variable;
     let player = playerHelpers.addPlayer(characterCard);
-
-    player.receiveCards(5);
 }
 
 function onPlaySelect (button) {
+    let players = playerHelpers.getPlayers();
+    playerValidator.validateNumberOfPlayersSelected(players);
+    
     button.game.state.start('mainScreen');
 }
 
