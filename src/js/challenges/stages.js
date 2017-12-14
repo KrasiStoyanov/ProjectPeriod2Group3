@@ -2,6 +2,7 @@
 
 import { dealDeck } from '../decks/challengeDeck';
 import { stages } from '../constants/challengeCards';
+import { isSuitableForChallenge } from '../validators/actionCardValidator';
 
 let currentChallenge;
 let currentStage = stages.early;
@@ -9,7 +10,13 @@ let challengesList = [];
 let placedActionCards = [];
 
 function placeActionCard (actionCard) {
-	placedActionCards.push(actionCard);
+	let isSuitable = isSuitableForChallenge(actionCard, currentChallenge);
+	if (isSuitable) {
+		placedActionCards.push(actionCard);
+	} else {
+		// Show the user that his card is not suitable for the challenge
+		console.log('NOT');
+	}
 }
 
 function calculatePoints () {
@@ -18,6 +25,9 @@ function calculatePoints () {
 
 function dealChallenge () {
 	let challenge = dealDeck(currentStage);
+
+	currentChallenge = challenge;
+	currentStage = challenge.stage;
 
 	return challenge;
 }

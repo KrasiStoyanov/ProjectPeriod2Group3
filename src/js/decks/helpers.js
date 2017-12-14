@@ -20,8 +20,6 @@ function dealDeck (deck, ...args) {
 		randomIdGenerator(deck, actionCardConstants.limits.minChallengeId, actionCardConstants.limits.maxChallengeId);
 	} else {
 		let currentStage = args[0].stage;
-		console.log(currentStage);
-		debugger;
 		switch (currentStage) {
 			case challengeCardConstants.stages.early:
 				randomIdGenerator(deck, challengeCardConstants.stageLimits.early.minChallengeId, challengeCardConstants.stageLimits.early.maxChallengeId);

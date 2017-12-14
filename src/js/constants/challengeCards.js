@@ -19,7 +19,10 @@ const stageLimits = {
 	}
 };
 
+const roundsPerStage = 2;
+
 export {
 	stages,
-	stageLimits
+	stageLimits,
+	roundsPerStage
 };
