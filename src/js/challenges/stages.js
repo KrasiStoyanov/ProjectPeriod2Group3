@@ -1,10 +1,11 @@
 'use strict';
 
 let challengesList = [];
-function addToList (challengeCard) {
-	challengesList.push(challengeCard);
+let placedActionCards = [];
+function placeActionCard (actionCard) {
+	placedActionCards.push(actionCard);
 }
 
 export {
-	addToList
+	placeActionCard
 }

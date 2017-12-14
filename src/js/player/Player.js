@@ -2,7 +2,7 @@
 
 import { validatePlayerAmountOfCards } from '../validators/playerValidator';
 import * as actionDeck from '../decks/actionDeck';
-import { addToList } from '../challenges/stages';
+import { placeActionCard } from '../challenges/stages';
 
 let id = 0;
 export default class Player {
@@ -56,7 +56,7 @@ export default class Player {
 	}
 
 	placeCard(card) {
-		addToList(card);
+		placeActionCard(card);
 
 		this.removeCard(card.id);
 	}
