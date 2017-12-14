@@ -2,6 +2,7 @@
 
 import { validatePlayerAmountOfCards } from '../validators/playerValidator';
 import * as actionDeck from '../decks/actionDeck';
+import { addToList } from '../challenges/stages';
 
 let id = 0;
 export default class Player {
@@ -37,6 +38,10 @@ export default class Player {
 		return this._cardsInHand;
 	}
 
+	set cardsInHand(value) {
+		this._cardsInHand = value;
+	}
+
 	receiveCards(amount, playerId) {
 		let isAmountOfCardsInRange = validatePlayerAmountOfCards(this.cardsInHand.length, amount);
 		if (isAmountOfCardsInRange === true) {
@@ -46,6 +51,23 @@ export default class Player {
 
 				actionDeck.removeCard(currentCard.id);
 				this.cardsInHand.push(currentCard);
+			}
+		}
+	}
+
+	placeCard(card) {
+		addToList(card);
+
+		this.removeCard(card.id);
+	}
+
+	removeCard(id) {
+		for (let index = 0; index < this.cardsInHand.length; index += 1) {
+			let currentCard = this.cardsInHand[index];
+			if (currentCard.id === id) {
+				this.cardsInHand.splice(index, 1);
+
+				return;
 			}
 		}
 	}

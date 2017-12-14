@@ -20,6 +20,12 @@ function getPlayers () {
 	return immutableList;
 }
 
+function getPlayer (id) {
+	let player = players.filter(p => p.id === id)[0];
+
+	return player;
+}
+
 function amountOfCardsToBeInitiallyDealt () {
 	if (players.length === 3) {
 		return playerConstants.maxAmountOfCards;
@@ -31,5 +37,6 @@ function amountOfCardsToBeInitiallyDealt () {
 export {
 	addPlayer,
 	getPlayers,
+	getPlayer,
 	amountOfCardsToBeInitiallyDealt
 }
