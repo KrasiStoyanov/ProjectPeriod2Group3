@@ -4,6 +4,7 @@ import characterSelection from '../selection/characterSelection';
 import * as playerInteraction from '../selection/playerInteraction';
 import { firstPlayerToStartId } from '../constants/player';
 import * as playerHelper from '../player/helpers';
+import { dealChallenge } from '../challenges/stages';
 
 let mainScreen = {
 	create: (game) => {
@@ -35,6 +36,9 @@ let mainScreen = {
 			text.inputEnabled = true;
 			text.events.onInputDown.add(() => playerInteraction.onActionCardClick(firstPlayerToStart, currentCard), this);
 		}
+
+		let currentChallenge = dealChallenge();
+		console.log(currentChallenge);
 	},
 	win: (game) => {
 		game.state.start('win');

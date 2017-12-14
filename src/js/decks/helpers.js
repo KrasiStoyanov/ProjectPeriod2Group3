@@ -1,9 +1,10 @@
 'use strict';
 
 import * as deckValidator from '../validators/deckValidator';
+import * as challengeCardConstants from '../constants/challengeCards';
+import * as actionCardConstants from '../constants/actionCards';
 
-let min = 0;
-let max = 21;
+let randomId;
 function getCard (deck, id) {
 	for (let index = 0; index < deck.length; index += 1) {
 		let currentCard = deck[index];
@@ -13,16 +14,27 @@ function getCard (deck, id) {
 	}
 }
 
-function dealDeck (deck) {
-	let isDone = false;
-	let randomId;
+function dealDeck (deck, ...args) {
+	if (args.length === 0) {
+		deckValidator.hasDeckBeenDealt(deck);
+		randomIdGenerator(deck, actionCardConstants.limits.minChallengeId, actionCardConstants.limits.maxChallengeId);
+	} else {
+		let currentStage = args[0].stage;
+		console.log(currentStage);
+		debugger;
+		switch (currentStage) {
+			case challengeCardConstants.stages.early:
+				randomIdGenerator(deck, challengeCardConstants.stageLimits.early.minChallengeId, challengeCardConstants.stageLimits.early.maxChallengeId);
 
-	deckValidator.hasDeckBeenDealt(deck);
-	while (!isDone) {
-		randomId = Math.floor(Math.random() * (max - min) + min);
-		let hasFoundCard = deck.filter(card => card.id === randomId);
-		if (hasFoundCard.length > 0) {
-			isDone = true;
+				break;
+			case challengeCardConstants.stages.mid:
+				randomIdGenerator(deck, challengeCardConstants.stageLimits.mid.minChallengeId, challengeCardConstants.stageLimits.mid.maxChallengeId);
+				
+				break;
+			case challengeCardConstants.stages.late:
+				randomIdGenerator(deck, challengeCardConstants.stageLimits.late.minChallengeId, challengeCardConstants.stageLimits.late.maxChallengeId);
+				
+				break;
 		}
 	}
 
@@ -30,6 +42,17 @@ function dealDeck (deck) {
 	removeCard(deck, randomId);
 
 	return randomCard;
+}
+
+function randomIdGenerator (deck, min, max) {
+	let isDone = false;
+	while (!isDone) {
+		randomId = Math.floor(Math.random() * (max - min) + min);
+		let hasFoundCard = deck.filter(card => card.id === randomId);
+		if (hasFoundCard.length > 0) {
+			isDone = true;
+		}
+	}
 }
 
 function removeCard (deck, id) {
