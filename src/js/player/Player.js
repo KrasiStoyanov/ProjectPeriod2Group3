@@ -56,9 +56,11 @@ export default class Player {
 	}
 
 	placeCard(card) {
-		placeActionCard(card);
+		let hasPlacedCard = placeActionCard(card);
 
-		this.removeCard(card.id);
+		if (hasPlacedCard) {
+			this.removeCard(card.id);
+		}
 	}
 
 	removeCard(id) {

@@ -13,9 +13,12 @@ function placeActionCard (actionCard) {
 	let isSuitable = isSuitableForChallenge(actionCard, currentChallenge);
 	if (isSuitable) {
 		placedActionCards.push(actionCard);
+
+		return true;
 	} else {
 		// Show the user that his card is not suitable for the challenge
 		console.log('NOT');
+		return false;
 	}
 }
 
