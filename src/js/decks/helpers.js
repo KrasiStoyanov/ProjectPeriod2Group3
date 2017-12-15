@@ -14,20 +14,14 @@ function getCard (deck, id) {
 }
 
 function dealDeck (deck) {
-	let isDone = false;
 	let randomId;
 
 	deckValidator.hasDeckBeenDealt(deck);
-	while (!isDone) {
-		randomId = Math.floor(Math.random() * (max - min) + min);
-		let hasFoundCard = deck.filter(card => card.id === randomId);
-		if (hasFoundCard.length > 0) {
-			isDone = true;
-		}
-	}
+	
+	randomId = Math.floor(Math.random() * deck.length);
 
-	let randomCard = getCard(deck, randomId);
-	removeCard(deck, randomId);
+	let randomCard = deck[randomId];
+	deck.splice(randomId,1);
 
 	return randomCard;
 }
