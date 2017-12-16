@@ -10,6 +10,12 @@ let challengesList = [];
 let placedActionCards = [];
 let remainingPoints = 0;
 
+/**
+ * @function
+ * @name placeActionCard
+ * @param { object } actionCard - The action card.
+ * @description Place action card on user interaction.
+ */
 function placeActionCard (actionCard) {
 	let hasAlreadyBeenPlaced = checkForDuplication(actionCard);
 	if (hasAlreadyBeenPlaced) {
@@ -29,6 +35,12 @@ function placeActionCard (actionCard) {
 	}
 }
 
+/**
+ * @function
+ * @name calculatePoints
+ * @param { object } trait - The trait of the action card.
+ * @description Calculate the points when placing an action card.
+ */
 function calculatePoints (trait) {
 	if (remainingPoints - trait.value <= 0) {
 		currentChallenge.passed = true;
@@ -43,6 +55,12 @@ function calculatePoints (trait) {
 	console.log(remainingPoints);
 }
 
+/**
+ * @function
+ * @name dealChallenge
+ * @return { object } The random challenge card.
+ * @description Deal a random challenge card.
+ */
 function dealChallenge () {
 	let challenge = dealDeck(currentStage);
 
@@ -54,6 +72,11 @@ function dealChallenge () {
 	return challenge;
 }
 
+/**
+ * @function
+ * @name changeStage
+ * @description Change the stage.
+ */
 function changeStage () {
 	let counter = 0;
 	for (let index = 0; index < challengesList.length; index += 1) {
@@ -75,6 +98,13 @@ function changeStage () {
 	placedActionCards = [];
 }
 
+/**
+ * @function
+ * @name checkForDuplication
+ * @param { object } actionCard - The action card.
+ * @return { boolean } The result from the check.
+ * @description Chec if the player has already placed this acction card.
+ */
 function checkForDuplication (actionCard) {
 	for (let index = 0; index < placedActionCards.length; index += 1) {
 		let currentCard = placedActionCards[index];

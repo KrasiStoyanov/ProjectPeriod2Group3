@@ -16,6 +16,12 @@ const characterCardImages = [
     "./src/images/character-8.png"
 ];
 
+/**
+ * @function
+ * @name characterSelection
+ * @param { object } game - The fame object.
+ * @description Rendering and manipulating the character selection function.
+ */
 function characterSelection (game) {
     let characterDeck = CharacterDeck.getDeck();
     let characterDeckLength = characterCardImages.length;
@@ -55,11 +61,23 @@ function characterSelection (game) {
     playButton.addChild(playButtonLabel);
 }
 
+/**
+ * @function
+ * @name onCharacterSelect
+ * @param { object } button - The button which is being clicked.
+ * @description Create new instance of the class Player on button click.
+ */
 function onCharacterSelect (button) {
     let characterCard = button.variable;
     let player = playerHelpers.addPlayer(characterCard);
 }
 
+/**
+ * @function
+ * @name onCharacterSelect
+ * @param { object } button - The button which is being clicked.
+ * @description Perform validations and proceed to the main playing screen.
+ */
 function onPlaySelect (button) {
     let players = playerHelpers.getPlayers();
     playerValidator.validateNumberOfPlayersSelected(players);
