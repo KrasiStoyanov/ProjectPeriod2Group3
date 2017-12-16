@@ -1,11 +1,11 @@
 'use strict';
 
 import { dealDeck } from '../decks/challengeDeck';
-import { stages } from '../constants/challengeCards';
+import * as challengeCardConstants from '../constants/challengeCards';
 import { isSuitableForChallenge } from '../validators/actionCardValidator';
 
 let currentChallenge;
-let currentStage = stages.early;
+let currentStage = challengeCardConstants.stages.early;
 let challengesList = [];
 let placedActionCards = [];
 let remainingPoints = 0;
@@ -56,20 +56,19 @@ function dealChallenge () {
 
 function changeStage () {
 	let counter = 0;
-	debugger;
 	for (let index = 0; index < challengesList.length; index += 1) {
 		counter += 1;
 	}
 
-	switch (counter / 2) {
+	switch (counter / challengeCardConstants.roundsPerStage) {
 		case 0:
-			currentStage = stages.early;
+			currentStage = challengeCardConstants.stages.early;
 			break;
 		case 1:
-			currentStage = stages.mid;
+			currentStage = challengeCardConstants.stages.mid;
 			break;
 		case 2:
-			currentStage = stages.late;
+			currentStage = challengeCardConstants.stages.late;
 			break;
 	}
 
