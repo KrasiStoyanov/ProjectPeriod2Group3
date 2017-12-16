@@ -7,6 +7,12 @@ import * as playerHelper from '../player/helpers';
 import { dealChallenge } from '../challenges/stages';
 
 let mainScreen = {
+	/**
+	 * @function
+	 * @name create
+	 * @param { object } game - The game object.
+	 * @description This is the place where the main play screen is displayed and manipulated.
+	 */
 	create: (game) => {
 		// TODO: create main screen using the layot
 		let players = playerHelper.getPlayers();
@@ -47,11 +53,14 @@ let mainScreen = {
 
 		let currentChallenge = dealChallenge();
 	},
+	/**
+	 * @function
+	 * @name win
+	 * @param { object } game - The game object.
+	 * @description After finishing the game go to next state.
+	 */
 	win: (game) => {
 		game.state.start('win');
-	},
-	lose: (game) => {
-		game.state.start('lose');
 	}
 };
 

@@ -5,7 +5,6 @@ import menuState from './states/menu';
 import playerSelectionState from './states/playerSelection';
 import mainScreenState from './states/mainScreen';
 import winState from './states/win';
-import loseState from './states/lose';
 
 let game = new Phaser.Game('100%', '100%', Phaser.AUTO, 'game-wrapper');
 
@@ -14,7 +13,6 @@ game.state.add('menu', menuState);
 game.state.add('playerSelection', playerSelectionState);
 game.state.add('mainScreen', mainScreenState);
 game.state.add('win', winState);
-game.state.add('lose', loseState);
 
 game.state.start('load');
 
