@@ -31,7 +31,7 @@ export default class Card {
 	}
 
 	/**
-     * Get the type of the card.
+     * Get the traits of the card.
      * @return { array } The traits of the card.
      */
 	get traits() {

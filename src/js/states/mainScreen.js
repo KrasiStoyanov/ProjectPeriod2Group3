@@ -15,7 +15,7 @@ let mainScreen = {
 			for (let jndex = 0; jndex < players.length; jndex += 1) {
 				let player = players[jndex];
 
-				player.receiveCards(1, player.id);
+				player.receiveCards(1);
 			}
 		}
 
