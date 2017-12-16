@@ -3,6 +3,7 @@
 import * as deckValidator from '../validators/deckValidator';
 import * as challengeCardConstants from '../constants/challengeCards';
 import * as actionCardConstants from '../constants/actionCards';
+import { getBoundriesOfStageIds } from '../decks/challengeDeck';
 
 let randomId;
 function getCard (deck, id) {
@@ -14,43 +15,26 @@ function getCard (deck, id) {
 	}
 }
 
+
 function dealDeck (deck, ...args) {
 	if (args.length === 0) {
 		deckValidator.hasDeckBeenDealt(deck);
-		randomIdGenerator(deck, actionCardConstants.limits.minChallengeId, actionCardConstants.limits.maxChallengeId);
+		randomIdGenerator(deck, 0, deck.length);
 	} else {
 		let currentStage = args[0].stage;
-		switch (currentStage) {
-			case challengeCardConstants.stages.early:
-				randomIdGenerator(deck, challengeCardConstants.stageLimits.early.minChallengeId, challengeCardConstants.stageLimits.early.maxChallengeId);
+		let boundriesOfStage = getBoundriesOfStageIds(currentStage);
 
-				break;
-			case challengeCardConstants.stages.mid:
-				randomIdGenerator(deck, challengeCardConstants.stageLimits.mid.minChallengeId, challengeCardConstants.stageLimits.mid.maxChallengeId);
-				
-				break;
-			case challengeCardConstants.stages.late:
-				randomIdGenerator(deck, challengeCardConstants.stageLimits.late.minChallengeId, challengeCardConstants.stageLimits.late.maxChallengeId);
-				
-				break;
-		}
+		randomIdGenerator(deck, boundriesOfStage.minId, boundriesOfStage.maxId);
 	}
 
-	let randomCard = getCard(deck, randomId);
-	removeCard(deck, randomId);
+	let randomCard = deck[randomId];
+	deck.splice(randomId, 1);
 
 	return randomCard;
 }
 
 function randomIdGenerator (deck, min, max) {
-	let isDone = false;
-	while (!isDone) {
-		randomId = Math.floor(Math.random() * (max - min) + min);
-		let hasFoundCard = deck.filter(card => card.id === randomId);
-		if (hasFoundCard.length > 0) {
-			isDone = true;
-		}
-	}
+	randomId = Math.floor(Math.random() * (max - min) + min);
 }
 
 function removeCard (deck, id) {

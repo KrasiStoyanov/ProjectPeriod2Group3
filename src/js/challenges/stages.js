@@ -8,11 +8,18 @@ let currentChallenge;
 let currentStage = stages.early;
 let challengesList = [];
 let placedActionCards = [];
+let remainingPoints = 0;
 
 function placeActionCard (actionCard) {
-	let isSuitable = isSuitableForChallenge(actionCard, currentChallenge);
-	if (isSuitable) {
+	let hasAlreadyBeenPlaced = checkForDuplication(actionCard);
+	if (hasAlreadyBeenPlaced) {
+		return false;
+	}
+
+	let hasReturnedSuitableTrait = isSuitableForChallenge(actionCard, currentChallenge);
+	if (hasReturnedSuitableTrait !== false) {
 		placedActionCards.push(actionCard);
+		calculatePoints(hasReturnedSuitableTrait);
 
 		return true;
 	} else {
@@ -22,8 +29,18 @@ function placeActionCard (actionCard) {
 	}
 }
 
-function calculatePoints () {
+function calculatePoints (trait) {
+	if (remainingPoints - trait.value <= 0) {
+		currentChallenge.passed = true;
+		challengesList.push(currentChallenge);
 
+		changeStage();
+		dealChallenge();
+	} else {
+		remainingPoints = remainingPoints - trait.value;
+	}
+
+	console.log(remainingPoints);
 }
 
 function dealChallenge () {
@@ -31,8 +48,43 @@ function dealChallenge () {
 
 	currentChallenge = challenge;
 	currentStage = challenge.stage;
+	remainingPoints = challenge.traits[0].value;
+	console.log(challenge);
 
 	return challenge;
+}
+
+function changeStage () {
+	let counter = 0;
+	debugger;
+	for (let index = 0; index < challengesList.length; index += 1) {
+		counter += 1;
+	}
+
+	switch (counter / 2) {
+		case 0:
+			currentStage = stages.early;
+			break;
+		case 1:
+			currentStage = stages.mid;
+			break;
+		case 2:
+			currentStage = stages.late;
+			break;
+	}
+
+	placedActionCards = [];
+}
+
+function checkForDuplication (actionCard) {
+	for (let index = 0; index < placedActionCards.length; index += 1) {
+		let currentCard = placedActionCards[index];
+		if (currentCard.id === actionCard.id) {
+			return true;
+		}
+	}
+
+	return false;
 }
 
 export {

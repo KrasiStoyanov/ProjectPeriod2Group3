@@ -46,7 +46,6 @@ let mainScreen = {
 		}
 
 		let currentChallenge = dealChallenge();
-		console.log(currentChallenge);
 	},
 	win: (game) => {
 		game.state.start('win');

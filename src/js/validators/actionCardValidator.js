@@ -14,7 +14,7 @@ function isSuitableForChallenge (card, challenge) {
 	for (let index = 0; index < actionCardTraits.length; index += 1) {
 		let currentTrait = actionCardTraits[index];
 		if (currentTrait.name === challengeTrait.name) {
-			return true;
+			return currentTrait;
 		}
 	}
 

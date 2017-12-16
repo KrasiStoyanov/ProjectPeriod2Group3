@@ -10,6 +10,7 @@ export default class ChallengeCard extends Card {
 		this._id = id++;
 		this.challenge = challenge;
 		this.stage = stage;
+		this.passed = false;
 	}
 
 	get id() {
@@ -34,5 +35,13 @@ export default class ChallengeCard extends Card {
 		challengeCardValidator.validateStage(value);
 
 		this._stage = value;
+	}
+
+	get passed() {
+		return this._passed;
+	}
+
+	set passed(value) {
+		this._passed = value;
 	}
 }

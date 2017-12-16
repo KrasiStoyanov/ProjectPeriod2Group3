@@ -35,9 +35,33 @@ function removeCard (id) {
 	helpers.removeCard(challengeDeck, id);
 }
 
+function getBoundriesOfStageIds (stage) {
+	let minId = 0;
+	let maxId = 0;
+	for (let index = 1; index < challengeDeck.length; index += 1) {
+		let previousCard = challengeDeck[index - 1];
+		let currentCard = challengeDeck[index];
+		let nextCard = challengeDeck[index + 1];
+
+		if (currentCard.stage === stage && previousCard.stage !== stage) {
+			minId = index;
+		}
+
+		if (currentCard.stage === stage && nextCard.stage !== stage) {
+			maxId = index;
+		}
+	}
+
+	return {
+		minId,
+		maxId
+	};
+}
+
 export {
 	getDeck,
 	getCard,
 	dealDeck,
-	removeCard
+	removeCard,
+	getBoundriesOfStageIds
 };
