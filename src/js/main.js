@@ -34,11 +34,11 @@ import game from './game';
 // 	}
 // }
 
-import challengeDeck from './decks/challengeDeck';
-console.log(challengeDeck);
+// import * as challengeDeck from './decks/challengeDeck';
+// console.log(challengeDeck.getDeck());
 
-import actionDeck from './decks/actionDeck';
-console.log(actionDeck);
+// import * as actionDeck from './decks/actionDeck';
+// console.log(actionDeck.getDeck());
 
-import characterDeck from './decks/characterDeck';
-console.log(characterDeck);
+// import * as characterDeck from './decks/characterDeck';
+// console.log(characterDeck.getDeck());

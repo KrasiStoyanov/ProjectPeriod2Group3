@@ -1,3 +1,4 @@
+/** The types of cards */
 const cardTypes = {
 	action: "action",
 	challenge: "challenge",

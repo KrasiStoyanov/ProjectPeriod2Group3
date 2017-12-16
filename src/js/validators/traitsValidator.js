@@ -2,6 +2,12 @@
 
 import * as traitConstants from '../constants/traitConstants';
 
+/**
+ * @function
+ * @name validateTrait
+ * @param { array } traits - The list of traits.
+ * @description Check the types of the traits' properties and values and check if it is one of the constant ones.
+ */
 function validateTrait (traits) {
 	for (let index = 0; index < traits.length; index += 1) {
 		let currentTrait = traits[index];

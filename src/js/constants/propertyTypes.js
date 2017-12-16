@@ -1,3 +1,4 @@
+/** The types of the card properties */
 let propertyTypes = {
 	action: 'string',
 	challenge: 'string',
