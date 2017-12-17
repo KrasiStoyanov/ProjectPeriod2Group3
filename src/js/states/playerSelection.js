@@ -1,6 +1,7 @@
 'use strict';
 
 import characterSelection from '../selection/characterSelection';
+import * as playerSlots from '../render/playerSlots';
 
 let playerSelectionState = {
 	/**
@@ -10,7 +11,7 @@ let playerSelectionState = {
 	 * @description This is the place where the users select the number of players and choose their characters.
 	 */
 	create: (game) => {
-    	// TODO: create the player selection screen
+    	playerSlots.create(game);
     	characterSelection(game);
 	},
 	/**

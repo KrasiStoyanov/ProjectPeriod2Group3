@@ -3,6 +3,7 @@
 import * as CharacterDeck from '../decks/characterDeck';
 import * as playerHelpers from '../player/helpers';
 import * as playerValidator from '../validators/playerValidator';
+import { slotCoordinates } from '../render/playerSlots';
 
 // Using this for now
 const characterCardImages = [
@@ -27,19 +28,16 @@ function characterSelection (game) {
     let characterDeckLength = characterCardImages.length;
     for (var index = 0; index < characterDeckLength; index += 1) {
     	let currentCard = characterDeck[index];
-    	let gutter = 30;
-    
-        let characterButton;
-        if (index === 0) {
-            characterButton = game.add.button(50, 50, `characterButton${index + 1}`);
-        } else {
-            characterButton = game.add.button(50 + (198 * index) + (gutter * index), 50, `characterButton${index + 1}`);
-        }
+    	let gutter = 50;
 
-        characterButton.scale.setTo(1, 1);
-        characterButton.inputEnabled = true;
-        characterButton.variable = currentCard;
-        characterButton.events.onInputDown.add(onCharacterSelect, this);
+        let characterCard = game.add.sprite((198 * index) + (gutter * (index + 1)), 50, `characterCard${index + 1}`);
+
+        characterCard.scale.setTo(1, 1);
+        characterCard.variable = currentCard;
+
+        characterCard.inputEnabled = true;
+        characterCard.input.enableDrag(true);
+        characterCard.events.onDragStop.add(onCharacterDragStop, this);
     }
 
     let playButton = game.add.button('100%' - 50, '100%' - 50, 'button');
@@ -67,9 +65,30 @@ function characterSelection (game) {
  * @param { object } button - The button which is being clicked.
  * @description Create new instance of the class Player on button click.
  */
-function onCharacterSelect (button) {
-    let characterCard = button.variable;
-    let player = playerHelpers.addPlayer(characterCard);
+function onCharacterDragStop (sprite, pointer) {
+    let droppedAt = {
+        x: sprite.position.x,
+        y: sprite.position.y
+    };
+
+    for (let index = 0; index < slotCoordinates.length; index += 1) {
+        let currentSlot = slotCoordinates[index];
+        if (currentSlot.isEmpty) {
+            if (droppedAt.x <= currentSlot.x + 100 && 
+                droppedAt.x >= currentSlot.x - 100) {
+                if (droppedAt.y <= currentSlot.y + 100 &&
+                    droppedAt.y >= currentSlot.y - 100) {
+                    sprite.position.x = currentSlot.x;
+                    sprite.position.y = currentSlot.y;
+
+                    let characterCard = sprite.variable;
+                    let player = playerHelpers.addPlayer(characterCard);
+
+                    slotCoordinates[index].isEmpty = false;
+                }
+            }
+        }
+    }
 }
 
 /**
