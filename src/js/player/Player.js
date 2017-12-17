@@ -18,6 +18,7 @@ export default class Player {
 		this._name = characterCard.name;
 		this._traits = characterCard.traits;
 		this._cardsInHand = [];
+		this._isSelected = false;
 	}
 
 	/**
@@ -68,6 +69,19 @@ export default class Player {
 	/** Set the cards in the player's hand. */
 	set cardsInHand(value) {
 		this._cardsInHand = value;
+	}
+
+	/**
+     * Say if a player is selected.
+     * @return { boolean } If player is selected.
+     */
+	get isSelected() {
+		return this._isSelected;
+	}
+
+	/** Set the state of the plpayer if he is selected. */
+	set isSelected(value) {
+		this._isSelected = value;
 	}
 
 	/**

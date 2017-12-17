@@ -20,7 +20,7 @@ const characterCardImages = [
 /**
  * @function
  * @name characterSelection
- * @param { object } game - The fame object.
+ * @param { object } game - The game object.
  * @description Rendering and manipulating the character selection function.
  */
 function characterSelection (game) {
@@ -59,12 +59,6 @@ function characterSelection (game) {
     playButton.addChild(playButtonLabel);
 }
 
-/**
- * @function
- * @name onCharacterSelect
- * @param { object } button - The button which is being clicked.
- * @description Create new instance of the class Player on button click.
- */
 function onCharacterDragStop (sprite, pointer) {
     let droppedAt = {
         x: sprite.position.x,

@@ -62,5 +62,5 @@ export {
 	addPlayer,
 	getPlayers,
 	getPlayer,
-	amountOfCardsToBeInitiallyDealt
+	amountOfCardsToBeInitiallyDealt,
 }

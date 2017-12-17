@@ -17,6 +17,7 @@ let remainingPoints = 0;
  * @description Place action card on user interaction.
  */
 function placeActionCard (actionCard) {
+	console.log(actionCard)
 	let hasAlreadyBeenPlaced = checkForDuplication(actionCard);
 	if (hasAlreadyBeenPlaced) {
 		return false;
