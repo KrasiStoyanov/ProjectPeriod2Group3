@@ -3,6 +3,7 @@
 import { dealDeck } from '../decks/challengeDeck';
 import * as challengeCardConstants from '../constants/challengeCards';
 import { isSuitableForChallenge } from '../validators/actionCardValidator';
+import { updatePointsLeft, updateChallenge } from '../render/challenges';
 
 let currentChallenge;
 let currentStage = challengeCardConstants.stages.early;
@@ -49,11 +50,12 @@ function calculatePoints (trait) {
 
 		changeStage();
 		dealChallenge();
+		updateChallenge();
 	} else {
 		remainingPoints = remainingPoints - trait.value;
 	}
 
-	console.log(remainingPoints);
+	updatePointsLeft(remainingPoints);
 }
 
 /**

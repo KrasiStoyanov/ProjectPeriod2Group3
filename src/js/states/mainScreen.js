@@ -16,7 +16,6 @@ let mainScreen = {
 	 * @description This is the place where the main play screen is displayed and manipulated.
 	 */
 	create: (game) => {
-		// TODO: create main screen using the layot
 		let players = playerHelpers.getPlayers();
 		let amountOfCardsToBeInitiallyDealt = playerHelpers.amountOfCardsToBeInitiallyDealt();
 		for (let index = 0; index < amountOfCardsToBeInitiallyDealt; index += 1) {
