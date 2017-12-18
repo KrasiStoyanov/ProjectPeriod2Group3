@@ -6,6 +6,7 @@ import { firstPlayerToStartId } from '../constants/player';
 import * as playerHelpers from '../player/helpers';
 import { dealChallenge } from '../challenges/stages';
 import * as playersRender from '../render/players';
+import { displayChallenge } from '../render/challenges';
 
 let mainScreen = {
 	/**
@@ -34,6 +35,7 @@ let mainScreen = {
 		playersRender.displaySidePlayers(game);
 
 		let currentChallenge = dealChallenge();
+		displayChallenge(game);
 	},
 	/**
 	 * @function

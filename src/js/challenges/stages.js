@@ -120,5 +120,7 @@ function checkForDuplication (actionCard) {
 export {
 	placeActionCard,
 	calculatePoints,
-	dealChallenge
+	dealChallenge,
+	currentChallenge,
+	currentStage
 }
