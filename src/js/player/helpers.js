@@ -58,9 +58,27 @@ function amountOfCardsToBeInitiallyDealt () {
 	}
 }
 
+/**
+ * @function
+ * @name updateSelectedPlayer
+ * @description Update the selected player
+ */
+function updateSelectedPlayer (id) {
+	for (let index = 0; index < players.length; index += 1) {
+		let currentPlayer = players[index];
+
+		if (currentPlayer.id === id) {
+			currentPlayer.isSelected = true;
+		} else {
+			currentPlayer.isSelected = false;
+		}
+	}
+}
+
 export {
 	addPlayer,
 	getPlayers,
 	getPlayer,
 	amountOfCardsToBeInitiallyDealt,
+	updateSelectedPlayer
 }
