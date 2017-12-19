@@ -23,6 +23,7 @@ let loadState = {
 		game.load.image('whiteTransparentLogo', './src/images/white-transparent-logo.png');
 
 		game.load.image('waves', './src/images/waves.png');
+		game.load.image('wavesCopy', './src/images/waves.png');
 	},
 	/**
 	 * @function
