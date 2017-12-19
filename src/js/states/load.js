@@ -18,6 +18,11 @@ let loadState = {
 		game.load.image('characterCard6', './src/images/character-6.png');
 		game.load.image('characterCard7', './src/images/character-7.png');
 		game.load.image('characterCard8', './src/images/character-8.png');
+
+		game.load.image('logo', './src/images/logo.png');
+		game.load.image('whiteTransparentLogo', './src/images/white-transparent-logo.png');
+
+		game.load.image('waves', './src/images/waves.png');
 	},
 	/**
 	 * @function
@@ -26,8 +31,6 @@ let loadState = {
 	 * @description When done with the preload function, go to next state.
 	 */
 	create: (game) => {
-		game.stage.backgroundColor = '#71c5cf';
-
 		game.state.start('menu');
 	}
 };
