@@ -115,6 +115,8 @@ export default class Player {
 		if (hasPlacedCard) {
 			this.removeCard(card.id);
 		}
+
+		// console.log(this.cardsInHand);
 	}
 
 	/**

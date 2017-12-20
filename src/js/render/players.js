@@ -17,6 +17,7 @@ let listOfCardsGroup;
 let playersGroup;
 
 function displaySelectedPlayer (gameObject, id) {
+	console.log(playerHelpers.getPlayers());
 	game = gameObject;
 
 	let players = playerHelpers.getPlayers();
@@ -55,8 +56,9 @@ function displaySidePlayers (gameObject) {
 
 function updateSelectedPlayer (player) {
 	let playerName = player.name;
+	console.log(player.id, player.cardsInHand);
 
-	listOfCardsGroup.removeAll();
+	listOfCardsGroup.removeAll(true);
 	playerHelpers.updateSelectedPlayer(player.id);
 
 	displaySelectedPlayerCards(player);
