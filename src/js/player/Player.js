@@ -92,14 +92,12 @@ export default class Player {
 	 */
 	receiveCards(amount) {
 		let isAmountOfCardsInRange = validatePlayerAmountOfCards(this.cardsInHand.length, amount);
+		console.log(isAmountOfCardsInRange);
 		if (isAmountOfCardsInRange === true) {
-			for (let index = 0; index < amount; index += 1) {
-				let currentCard = actionDeck.dealDeck();
-				currentCard.playerId = this.id;
+			let currentCard = actionDeck.dealDeck();
+			currentCard.playerId = this.id;
 
-				actionDeck.removeCard(currentCard.id);
-				this.cardsInHand.push(currentCard);
-			}
+			this.cardsInHand.push(currentCard);
 		}
 	}
 
@@ -115,8 +113,6 @@ export default class Player {
 		if (hasPlacedCard) {
 			this.removeCard(card.id);
 		}
-
-		// console.log(this.cardsInHand);
 	}
 
 	/**

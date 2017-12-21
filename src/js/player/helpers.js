@@ -52,9 +52,9 @@ function getPlayer (id) {
  */
 function amountOfCardsToBeInitiallyDealt () {
 	if (players.length === 3) {
-		return playerConstants.maxAmountOfCards;
+		return playerConstants.maxAmountOfCardsInitial;
 	} else if (players.length > 3) {
-		return playerConstants.minAmountOfCards;
+		return playerConstants.minAmountOfCardsInitial;
 	}
 }
 
@@ -75,10 +75,19 @@ function updateSelectedPlayer (id) {
 	}
 }
 
+function playersReceiveCardsAfterChallenge () {
+	for (let index = 0; index < players.length; index += 1) {
+		let currentPlayer = players[index];
+// console.log(currentPlayer)
+		currentPlayer.receiveCards(1);
+	}
+}
+
 export {
 	addPlayer,
 	getPlayers,
 	getPlayer,
 	amountOfCardsToBeInitiallyDealt,
-	updateSelectedPlayer
+	updateSelectedPlayer,
+	playersReceiveCardsAfterChallenge
 }

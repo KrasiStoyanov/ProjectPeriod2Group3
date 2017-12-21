@@ -1,8 +1,12 @@
 'use strict';
 
 /** The min and max amount of cards that the players should have initially */
-const minAmountOfCards = 5;
-const maxAmountOfCards = 6;
+const minAmountOfCardsInitial = 5;
+const maxAmountOfCardsInitial = 6;
+
+/** The min and max amount of cards that the players should have */
+const minAmountOfCards = 0;
+const maxAmountOfCards = 12;
 
 /** The min and max amount of players who can participate in the game */
 const minAmountOfPlayers = 3;
@@ -12,9 +16,11 @@ const maxAmountOfPlayers = 5;
 const firstPlayerToStartId = 0;
 
 export {
+	minAmountOfCardsInitial,
+	maxAmountOfCardsInitial,
 	minAmountOfCards,
 	maxAmountOfCards,
 	minAmountOfPlayers,
 	maxAmountOfPlayers,
-	firstPlayerToStartId
+	firstPlayerToStartId,
 };
