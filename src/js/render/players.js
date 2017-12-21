@@ -16,6 +16,12 @@ let cardGroup;
 let listOfCardsGroup;
 let playersGroup;
 
+/**
+ * @function
+ * @name displaySelectedPlayer
+ * @param { object } gameObject - The game object.
+ * @description Display the selected.
+ */
 function displaySelectedPlayer (gameObject, id) {
 	game = gameObject;
 	selectedPlayerGroup = game.add.group();
@@ -33,6 +39,11 @@ function displaySelectedPlayer (gameObject, id) {
 	game.world.add(selectedPlayerGroup);
 }
 
+/**
+ * @function
+ * @name displaySidePlayers
+ * @description Display side players.
+ */
 function displaySidePlayers (gameObject) {
 	game = gameObject ? gameObject : game;
 
@@ -51,6 +62,11 @@ function displaySidePlayers (gameObject) {
 	}
 }
 
+/**
+ * @function
+ * @name updateSelectedPlayer
+ * @description Update the selected player.
+ */
 function updateSelectedPlayer (player) {
 	let playerName = player.name;
 
@@ -63,12 +79,22 @@ function updateSelectedPlayer (player) {
 	updateSidePlayers();
 }
 
+/**
+ * @function
+ * @name updateSidePlayers
+ * @description Update side players.
+ */
 function updateSidePlayers () {
 	playersGroup.removeAll(true);
 
 	displaySidePlayers();
 }
 
+/**
+ * @function
+ * @name displaySelectedPlayerCards
+ * @description Display the cards of the selected player.
+ */
 function displaySelectedPlayerCards (player) {
 	let cardsInHand = player.cardsInHand;
 	listOfCardsGroup = game.add.group();

@@ -25,6 +25,12 @@ let challengeText;
 let traitText;
 let remainingPointsText;
 
+/**
+ * @function
+ * @name displayChallenge
+ * @param { object } gameObject - The game object.
+ * @description Display the current challenge.
+ */
 function displayChallenge (gameObject) {
 	challenge = currentChallenge.challenge;
 	stage = currentChallenge.stage;
@@ -44,6 +50,11 @@ function displayChallenge (gameObject) {
 	displaySurrenderButton();
 }
 
+/**
+ * @function
+ * @name displayStage
+ * @description Display the current stage.
+ */
 function displayStage () {
 	stageText = game.add.text(game.world.centerX, 50, `${stage} life`, fontProps);
 
@@ -51,6 +62,11 @@ function displayStage () {
 	stageText.anchor.y = 0;
 }
 
+/**
+ * @function
+ * @name displayTrait
+ * @description Display the challenge's trait.
+ */
 function displayTrait () {
 	traitText = game.add.text(game.world.centerX, 215, `${traitName}: ${traitValue}`, fontProps);
 
@@ -58,6 +74,11 @@ function displayTrait () {
 	traitText.anchor.y = 0;
 }
 
+/**
+ * @function
+ * @name displayPointsLeft
+ * @description Display the points left which are needed for passing the challenge.
+ */
 function displayPointsLeft () {
 	remainingPointsText = game.add.text(game.world.centerX, game.world.centerY, `${traitValue}/${traitValue}`, fontProps);
 
@@ -65,6 +86,11 @@ function displayPointsLeft () {
 	remainingPointsText.anchor.y = 0;
 }
 
+/**
+ * @function
+ * @name displaySurrenderButton
+ * @description Display the surrender option.
+ */
 function displaySurrenderButton () {
 	surrenderButton = game.add.text(game.world.centerX, game.world.centerY - 50, 'Surrender', fontProps);
 
@@ -75,12 +101,22 @@ function displaySurrenderButton () {
 	surrenderButton.events.onInputDown.add(surrender, this);
 }
 
+/**
+ * @function
+ * @name updatePointsLeft
+ * @description Update the points left which are needed for passing the challenge.
+ */
 function updatePointsLeft (remainingPoints) {
 	let initialPoints = traitValue;
 
 	remainingPointsText.setText(`${remainingPoints}/${initialPoints}`);
 }
 
+/**
+ * @function
+ * @name updateChallenge
+ * @description Update the current challenge.
+ */
 function updateChallenge () {
 	challenge = currentChallenge.challenge;
 	stage = currentChallenge.stage;
@@ -93,6 +129,11 @@ function updateChallenge () {
 	traitText.setText(`${traitName}: ${traitValue}`);
 }
 
+/**
+ * @function
+ * @name endGame
+ * @description Change screen after game is finished.
+ */
 function endGame () {
 	game.state.start('win');
 }

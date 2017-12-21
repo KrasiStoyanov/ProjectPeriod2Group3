@@ -14,7 +14,7 @@ let wavesTweenWavy;
 /**
  * @function
  * @name displayMainMenu
- * @param { object } game - The game object.
+ * @param { object } gameObject - The game object.
  * @description Display the main menu.
  */
 function displayMainMenu (gameObject) {
