@@ -92,7 +92,6 @@ export default class Player {
 	 */
 	receiveCards(amount) {
 		let isAmountOfCardsInRange = validatePlayerAmountOfCards(this.cardsInHand.length, amount);
-		console.log(isAmountOfCardsInRange);
 		if (isAmountOfCardsInRange === true) {
 			let currentCard = actionDeck.dealDeck();
 			currentCard.playerId = this.id;

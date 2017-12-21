@@ -1,6 +1,6 @@
 'use strict';
 
-import { currentChallenge } from '../challenges/stages';
+import { currentChallenge, surrender } from '../challenges/stages';
 
 let fontProps = {
 	font: '18px Karla',
@@ -17,6 +17,7 @@ let stage;
 let trait;
 let traitName;
 let traitValue;
+let surrenderButton;
 let game;
 
 let stageText;
@@ -30,6 +31,7 @@ function displayChallenge (gameObject) {
 	trait = currentChallenge.traits[0];
 	traitName = trait.name;
 	traitValue = trait.value;
+	
 	game = gameObject;
 
 	challengeText = game.add.text(game.world.centerX, 100, challenge, fontProps);
@@ -39,6 +41,7 @@ function displayChallenge (gameObject) {
 	displayStage();
 	displayTrait();
 	displayPointsLeft();
+	displaySurrenderButton();
 }
 
 function displayStage () {
@@ -62,6 +65,16 @@ function displayPointsLeft () {
 	remainingPointsText.anchor.y = 0;
 }
 
+function displaySurrenderButton () {
+	surrenderButton = game.add.text(game.world.centerX, game.world.centerY - 50, 'Surrender', fontProps);
+
+	surrenderButton.anchor.x = 0.5;
+	surrenderButton.anchor.y = 0.5;
+
+	surrenderButton.inputEnabled = true;
+	surrenderButton.events.onInputDown.add(surrender, this);
+}
+
 function updatePointsLeft (remainingPoints) {
 	let initialPoints = traitValue;
 
@@ -80,8 +93,13 @@ function updateChallenge () {
 	traitText.setText(`${traitName}: ${traitValue}`);
 }
 
+function endGame () {
+	game.state.start('win');
+}
+
 export {
 	displayChallenge,
 	updatePointsLeft,
-	updateChallenge
+	updateChallenge,
+	endGame
 }

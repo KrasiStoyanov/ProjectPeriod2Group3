@@ -3,7 +3,7 @@
 import { dealDeck } from '../decks/challengeDeck';
 import * as challengeCardConstants from '../constants/challengeCards';
 import { isSuitableForChallenge } from '../validators/actionCardValidator';
-import { updatePointsLeft, updateChallenge } from '../render/challenges';
+import { updatePointsLeft, updateChallenge, endGame } from '../render/challenges';
 import { playersReceiveCardsAfterChallenge } from '../player/helpers';
 
 let currentChallenge;
@@ -19,7 +19,6 @@ let remainingPoints = 0;
  * @description Place action card on user interaction.
  */
 function placeActionCard (actionCard) {
-	console.log(actionCard)
 	let hasAlreadyBeenPlaced = checkForDuplication(actionCard);
 	if (hasAlreadyBeenPlaced) {
 		return false;
@@ -33,7 +32,6 @@ function placeActionCard (actionCard) {
 		return true;
 	} else {
 		// Show the user that his card is not suitable for the challenge
-		console.log('NOT');
 		return false;
 	}
 }
@@ -72,7 +70,6 @@ function dealChallenge () {
 	currentChallenge = challenge;
 	currentStage = challenge.stage;
 	remainingPoints = challenge.traits[0].value;
-	console.log(challenge);
 
 	return challenge;
 }
@@ -83,10 +80,7 @@ function dealChallenge () {
  * @description Change the stage.
  */
 function changeStage () {
-	let counter = 0;
-	for (let index = 0; index < challengesList.length; index += 1) {
-		counter += 1;
-	}
+	let counter = challengesList.length;
 
 	switch (counter / challengeCardConstants.roundsPerStage) {
 		case 0:
@@ -98,6 +92,9 @@ function changeStage () {
 		case 2:
 			currentStage = challengeCardConstants.stages.late;
 			break;
+		case 3:
+			endGame();
+			break;
 	}
 
 	placedActionCards = [];
@@ -108,7 +105,7 @@ function changeStage () {
  * @name checkForDuplication
  * @param { object } actionCard - The action card.
  * @return { boolean } The result from the check.
- * @description Chec if the player has already placed this acction card.
+ * @description Check if the player has already placed this acction card.
  */
 function checkForDuplication (actionCard) {
 	for (let index = 0; index < placedActionCards.length; index += 1) {
@@ -121,10 +118,26 @@ function checkForDuplication (actionCard) {
 	return false;
 }
 
+/**
+ * @function
+ * @name surrender
+ * @description Set the card's passed property to false and update back end and UI
+ */
+function surrender () {
+	currentChallenge.passed = false;
+	challengesList.push(currentChallenge);
+
+	changeStage();
+	dealChallenge();
+	updateChallenge();
+	playersReceiveCardsAfterChallenge();
+}
+
 export {
 	placeActionCard,
 	calculatePoints,
 	dealChallenge,
 	currentChallenge,
-	currentStage
+	currentStage,
+	surrender
 }

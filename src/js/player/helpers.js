@@ -61,7 +61,7 @@ function amountOfCardsToBeInitiallyDealt () {
 /**
  * @function
  * @name updateSelectedPlayer
- * @description Update the selected player
+ * @description Update the selected player.
  */
 function updateSelectedPlayer (id) {
 	for (let index = 0; index < players.length; index += 1) {
@@ -75,10 +75,15 @@ function updateSelectedPlayer (id) {
 	}
 }
 
+/**
+ * @function
+ * @name playersReceiveCardsAfterChallenge
+ * @description Player should receive a card after passing/failing a challenge.
+ */
 function playersReceiveCardsAfterChallenge () {
 	for (let index = 0; index < players.length; index += 1) {
 		let currentPlayer = players[index];
-// console.log(currentPlayer)
+
 		currentPlayer.receiveCards(1);
 	}
 }

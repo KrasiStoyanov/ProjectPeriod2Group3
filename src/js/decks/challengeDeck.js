@@ -76,6 +76,12 @@ function getBoundriesOfStageIds (stage) {
 			minId = index;
 		}
 
+		if (currentCard.stage === stage && index + 1 === challengeDeck.length - 1) {
+			maxId = index;
+
+			break;
+		}
+
 		if (currentCard.stage === stage && nextCard.stage !== stage) {
 			maxId = index;
 		}
