@@ -29,7 +29,7 @@ let mainScreen = {
 		let firstPlayerToStart = playerHelpers.getPlayer(firstPlayerToStartId);
 		let listOfCards = firstPlayerToStart.cardsInHand;
 
-		firstPlayerToStart.isSelected = true;
+		playerHelpers.updateSelectedPlayer(firstPlayerToStartId);
 		playersRender.displaySelectedPlayer(game, firstPlayerToStartId);
 		playersRender.displaySidePlayers(game);
 

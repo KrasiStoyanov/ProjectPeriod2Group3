@@ -3,8 +3,10 @@
 import Player from './Player';
 import * as playerValidator from '../validators/playerValidator';
 import * as playerConstants from '../constants/player';
+import { currentChallenge } from '../challenges/stages';
 
 let players = [];
+let selectedPlayer;
 
 /**
  * @function
@@ -69,10 +71,22 @@ function updateSelectedPlayer (id) {
 
 		if (currentPlayer.id === id) {
 			currentPlayer.isSelected = true;
+
+			selectedPlayer = currentPlayer;
 		} else {
 			currentPlayer.isSelected = false;
 		}
 	}
+}
+
+/**
+ * @function
+ * @name getSelectedPlayer
+ * @return { object } The selected player.
+ * @description Receive the selected player.
+ */
+function getSelectedPlayer () {
+	return selectedPlayer;
 }
 
 /**
@@ -100,12 +114,65 @@ function giftActionCard (card, playerId) {
 	console.log(receivingPlayer);
 }
 
+/**
+ * @function
+ * @name suitablePlayersSuggestion
+ * @return { array } The suitable players.
+ * @description Detect all suitable players to receive the gifted card.
+ */
+function suitablePlayersSuggestion (card) {
+	let suitablePlayers = [];
+	let cardTraits = card.traits;
+	let currentChallengeTrait = currentChallenge.traits[0];
+
+	for (let index = 0; index < players.length; index += 1) {
+		let currentPlayer = players[index];
+		let playerTraits = currentPlayer.traits;
+		for (let jndex = 0; jndex < cardTraits.length; jndex += 1) {
+			for (let key in playerTraits) {
+				let trait = playerTraits[key];
+				let ifArrayContainsCurrentPlayer = ifSuitablePlayersContainCurrentPlayer(suitablePlayers, currentPlayer);
+				if (currentPlayer.id !== selectedPlayer.id && !ifArrayContainsCurrentPlayer) {
+					if (trait.name === currentChallengeTrait.name) {
+						if (trait.value > 0) {
+							suitablePlayers.push(currentPlayer);
+
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return suitablePlayers;
+}
+
+/**
+ * @function
+ * @name ifSuitablePlayersContainCurrentPlayer
+ * @return { boolean } If player is already in array.
+ * @description Check if player is already in the array of suitable players.
+ */
+function ifSuitablePlayersContainCurrentPlayer (suitablePlayers, player) {
+	for (let index = 0; index < suitablePlayers.length; index += 1) {
+		let currentPlayer = suitablePlayers[index];
+		if (currentPlayer.id === player.id) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 export {
 	addPlayer,
 	getPlayers,
 	getPlayer,
 	amountOfCardsToBeInitiallyDealt,
 	updateSelectedPlayer,
+	getSelectedPlayer,
 	playersReceiveCardsAfterChallenge,
-	giftActionCard
+	giftActionCard,
+	suitablePlayersSuggestion
 }

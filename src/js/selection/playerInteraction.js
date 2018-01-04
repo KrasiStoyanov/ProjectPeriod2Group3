@@ -1,5 +1,7 @@
 'use strict';
 
+import {suitablePlayersSuggestion } from '../player/helpers';
+
 /**
  * @function
  * @name onActionCardClick
@@ -9,6 +11,7 @@
  */
 function onActionCardClick (player, card) {
 	player.placeCard(card);
+	// suitablePlayersSuggestion(card);
 	// player.giftCard(card, 2);
 }
 
