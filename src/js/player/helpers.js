@@ -88,11 +88,24 @@ function playersReceiveCardsAfterChallenge () {
 	}
 }
 
+/**
+ * @function
+ * @name giftActionCard
+ * @description Gift the action card to the chosen player.
+ */
+function giftActionCard (card, playerId) {
+	let receivingPlayer = getPlayer(playerId);
+
+	receivingPlayer.cardsInHand.push(card);
+	console.log(receivingPlayer);
+}
+
 export {
 	addPlayer,
 	getPlayers,
 	getPlayer,
 	amountOfCardsToBeInitiallyDealt,
 	updateSelectedPlayer,
-	playersReceiveCardsAfterChallenge
+	playersReceiveCardsAfterChallenge,
+	giftActionCard
 }

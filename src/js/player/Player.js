@@ -3,6 +3,7 @@
 import { validatePlayerAmountOfCards } from '../validators/playerValidator';
 import * as actionDeck from '../decks/actionDeck';
 import { placeActionCard } from '../challenges/stages';
+import { giftActionCard } from './helpers';
 
 let id = 0;
 
@@ -112,6 +113,18 @@ export default class Player {
 		if (hasPlacedCard) {
 			this.removeCard(card.id);
 		}
+	}
+
+	/**
+	 * @function
+	 * @name giftCard
+	 * @param { object } card - The card that the player gifts.
+	 * @description Gift the card to the chosen player.
+	 */
+	giftCard(card, playerId) {
+		giftActionCard(card, playerId);
+
+		this.removeCard(card.id);
 	}
 
 	/**

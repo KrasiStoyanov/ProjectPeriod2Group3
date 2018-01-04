@@ -9,6 +9,7 @@
  */
 function onActionCardClick (player, card) {
 	player.placeCard(card);
+	// player.giftCard(card, 2);
 }
 
 export {
