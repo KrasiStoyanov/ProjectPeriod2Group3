@@ -5,6 +5,7 @@ import * as playerValidator from '../validators/playerValidator';
 import * as playerConstants from '../constants/player';
 
 let players = [];
+let selectedPlayer;
 
 /**
  * @function
@@ -69,10 +70,22 @@ function updateSelectedPlayer (id) {
 
 		if (currentPlayer.id === id) {
 			currentPlayer.isSelected = true;
+
+			selectedPlayer = currentPlayer;
 		} else {
 			currentPlayer.isSelected = false;
 		}
 	}
+}
+
+/**
+ * @function
+ * @name getSelectedPlayer
+ * @return { object } The selected player.
+ * @description Receive the selected player.
+ */
+function getSelectedPlayer () {
+	return selectedPlayer;
 }
 
 /**
@@ -94,5 +107,6 @@ export {
 	getPlayer,
 	amountOfCardsToBeInitiallyDealt,
 	updateSelectedPlayer,
+	getSelectedPlayer,
 	playersReceiveCardsAfterChallenge
 }
