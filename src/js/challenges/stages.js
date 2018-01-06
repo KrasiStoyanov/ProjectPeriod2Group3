@@ -45,27 +45,48 @@ function placeActionCard (actionCard) {
 function calculatePoints (trait) {
 	let player = getSelectedPlayer();
 	let playerTraits = player.traits;
-	let bonusTrait = 0;
+	let bonusPoints = 0;
+
 	for (let index = 0; index < playerTraits.length; index++){
-		let currentPlayerTrait = player.traits[index];
+		let currentPlayerTrait = playerTraits[index];
 		if (currentPlayerTrait.name === trait.name) {
-			bonusTrait = currentPlayerTrait.value;
+			bonusPoints = currentPlayerTrait.value;
+
+			break;
 		}
 	}
-	let finalTrait = trait.value + bonusTrait;
-	if (remainingPoints - finalTrait <= 0) {
-		currentChallenge.passed = true;
-		challengesList.push(currentChallenge);
 
-		changeStage();
-		dealChallenge();
-		updateChallenge();
-		playersReceiveCardsAfterChallenge();
+	let finalPoints = trait.value + bonusPoints;
+	if (finalPoints < 0) {
+		if (remainingPoints + finalPoints <= 0) {
+			challengePassed();
+		} else {
+			remainingPoints += finalPoints;
+		}
 	} else {
-		remainingPoints = remainingPoints - finalTrait;
+		if (remainingPoints - finalPoints <= 0) {
+			challengePassed();
+		} else {
+			remainingPoints -= finalPoints;
+		}
 	}
 
 	updatePointsLeft(remainingPoints);
+}
+
+/**
+ * @function
+ * @name challengePassed
+ * @description Update everything after challenge is passed.
+ */
+function challengePassed () {
+	currentChallenge.passed = true;
+	challengesList.push(currentChallenge);
+
+	changeStage();
+	dealChallenge();
+	updateChallenge();
+	playersReceiveCardsAfterChallenge();
 }
 
 /**
