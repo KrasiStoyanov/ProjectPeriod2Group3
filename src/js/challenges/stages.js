@@ -4,7 +4,7 @@ import { dealDeck } from '../decks/challengeDeck';
 import * as challengeCardConstants from '../constants/challengeCards';
 import { isSuitableForChallenge } from '../validators/actionCardValidator';
 import { updatePointsLeft, updateChallenge, endGame } from '../render/challenges';
-import { playersReceiveCardsAfterChallenge } from '../player/helpers';
+import { playersReceiveCardsAfterChallenge, getSelectedPlayer, updateSelectedPlayer } from '../player/helpers';
 
 let currentChallenge;
 let currentStage = challengeCardConstants.stages.early;
@@ -43,7 +43,17 @@ function placeActionCard (actionCard) {
  * @description Calculate the points when placing an action card.
  */
 function calculatePoints (trait) {
-	if (remainingPoints - trait.value <= 0) {
+	let player = getSelectedPlayer();
+	let playerTraits = player.traits;
+	let bonusTrait = 0;
+	for (let index = 0; index < playerTraits.length; index++){
+		let currentPlayerTrait = player.traits[index];
+		if (currentPlayerTrait.name === trait.name) {
+			bonusTrait = currentPlayerTrait.value;
+		}
+	}
+	let finalTrait = trait.value + bonusTrait;
+	if (remainingPoints - finalTrait <= 0) {
 		currentChallenge.passed = true;
 		challengesList.push(currentChallenge);
 
@@ -52,7 +62,7 @@ function calculatePoints (trait) {
 		updateChallenge();
 		playersReceiveCardsAfterChallenge();
 	} else {
-		remainingPoints = remainingPoints - trait.value;
+		remainingPoints = remainingPoints - finalTrait;
 	}
 
 	updatePointsLeft(remainingPoints);
