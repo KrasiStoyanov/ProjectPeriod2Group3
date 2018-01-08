@@ -42,6 +42,7 @@ function displaySelectedPlayer (gameObject, id) {
 /**
  * @function
  * @name displaySidePlayers
+ * @param { object } gameObject - The game object.
  * @description Display side players.
  */
 function displaySidePlayers (gameObject) {
@@ -65,6 +66,7 @@ function displaySidePlayers (gameObject) {
 /**
  * @function
  * @name updateSelectedPlayer
+ * @param { object } player - The clicked player.
  * @description Update the selected player.
  */
 function updateSelectedPlayer (player) {
@@ -95,8 +97,9 @@ function updateSidePlayers () {
  * @name displaySelectedPlayerCards
  * @description Display the cards of the selected player.
  */
-function displaySelectedPlayerCards (player) {
-	let cardsInHand = player.cardsInHand;
+function displaySelectedPlayerCards () {
+	let selectedPlayer = playerHelpers.getSelectedPlayer();
+	let cardsInHand = selectedPlayer.cardsInHand;
 	listOfCardsGroup = game.add.group();
 
 	for (let index in cardsInHand) {
@@ -114,7 +117,7 @@ function displaySelectedPlayerCards (player) {
 
 			let traitText = game.add.text((150 * index) + 50, 650 + (50 * jndex), `${currentTrait.name}: ${currentTrait.value}`, traitFontProps);
 
-			traitText.events.onInputDown.add(() => playerInteraction.onActionCardClick(player, currentCard), this);
+			traitText.events.onInputDown.add(() => playerInteraction.onActionCardClick(selectedPlayer, currentCard), this);
 			cardGroup.add(traitText);
 		}
 
@@ -122,7 +125,19 @@ function displaySelectedPlayerCards (player) {
 	}
 }
 
+/**
+ * @function
+ * @name updateSelectedPlayerCards
+ * @description Update selected player cards.
+ */
+function updateSelectedPlayerCards () {
+	listOfCardsGroup.removeAll(true);
+
+	displaySelectedPlayerCards();
+}
+
 export {
 	displaySelectedPlayer,
-	displaySidePlayers
+	displaySidePlayers,
+	updateSelectedPlayerCards
 }

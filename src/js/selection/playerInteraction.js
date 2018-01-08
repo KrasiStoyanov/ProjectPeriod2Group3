@@ -1,5 +1,7 @@
 'use strict';
 
+import { updateSelectedPlayerCards } from '../render/players';
+
 /**
  * @function
  * @name onActionCardClick
@@ -9,6 +11,7 @@
  */
 function onActionCardClick (player, card) {
 	player.placeCard(card);
+	updateSelectedPlayerCards();
 }
 
 export {
