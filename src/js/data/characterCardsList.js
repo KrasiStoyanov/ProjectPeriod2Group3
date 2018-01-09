@@ -72,7 +72,7 @@ export default [
 			},
 			{
 				"name": "pop culture",
-				"value": +3
+				"value": 3
 			},
 			{
 				"name": "empathy",

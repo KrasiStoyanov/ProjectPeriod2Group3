@@ -3,8 +3,8 @@ export default [
 		"action": "Be supportive",
 		"traits": [
 			{
-				"name": "intelligence",
-				"charisma": 2
+				"name": "charisma",
+				"value": 2
 			},
 			{
 				"name": "intelligence",
