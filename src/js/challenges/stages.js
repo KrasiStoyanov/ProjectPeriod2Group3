@@ -4,7 +4,8 @@ import { dealDeck } from '../decks/challengeDeck';
 import * as challengeCardConstants from '../constants/challengeCards';
 import { isSuitableForChallenge } from '../validators/actionCardValidator';
 import { updatePointsLeft, updateChallenge, endGame } from '../render/challenges';
-import { playersReceiveCardsAfterChallenge, getSelectedPlayer, updateSelectedPlayer } from '../player/helpers';
+import { updateSelectedPlayerCards } from '../render/players';
+import { playersReceiveCardsAfterChallenge, getSelectedPlayer, updateSelectedPlayer, getPlayer } from '../player/helpers';
 
 let currentChallenge;
 let currentStage = challengeCardConstants.stages.early;
@@ -151,6 +152,21 @@ function checkForDuplication (actionCard) {
 
 /**
  * @function
+ * @name returnActionCardAfterSurrendered
+ * @description Return all the cards that have been placed to the player who have placed them
+ */
+function returnActionCardAfterSurrendered() {
+	for (let index = 0; index < placedActionCards.length; index++) {
+		let currentCard	= placedActionCards[index];
+		let playerWhoPlacedThisCard = getPlayer(currentCard.playerId);
+		playerWhoPlacedThisCard.cardsInHand.push(currentCard);
+	}
+	placedActionCards = [];
+	
+}
+
+/**
+ * @function
  * @name surrender
  * @description Set the card's passed property to false and update back end and UI
  */
@@ -158,10 +174,17 @@ function surrender () {
 	currentChallenge.passed = false;
 	challengesList.push(currentChallenge);
 
+	returnActionCardAfterSurrendered();
 	changeStage();
 	dealChallenge();
 	updateChallenge();
 	playersReceiveCardsAfterChallenge();
+	updateSelectedPlayerCards();//Add to refresh the display player's action cards
+	/**
+	 * The updateSelectedPlayerCards should be here 
+	 * because the selected player can't see the new action card from the new stage if it's not here
+	 * You can change it if you have better solution
+	 */
 }
 
 export {
