@@ -164,6 +164,7 @@ function surrender () {
 	dealChallenge();
 	updateChallenge();
 	playersReceiveCardsAfterChallenge();
+	updateSelectedPlayerCards();
 }
 
 /**
