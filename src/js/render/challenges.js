@@ -1,6 +1,7 @@
 'use strict';
 
-import { currentChallenge, surrender } from '../challenges/stages';
+import { currentChallenge } from '../challenges/stages';
+import { onSurrenderClick } from '../selection/playerInteraction';
 
 let fontProps = {
 	font: '18px Karla',
@@ -98,7 +99,7 @@ function displaySurrenderButton () {
 	surrenderButton.anchor.y = 0.5;
 
 	surrenderButton.inputEnabled = true;
-	surrenderButton.events.onInputDown.add(surrender, this);
+	surrenderButton.events.onInputDown.add(onSurrenderClick, this);
 }
 
 /**
@@ -124,9 +125,11 @@ function updateChallenge () {
 	traitName = trait.name;
 	traitValue = trait.value;
 
-	stageText.setText(stage);
 	challengeText.setText(challenge);
+	stageText.setText(stage);
 	traitText.setText(`${traitName}: ${traitValue}`);
+
+	updatePointsLeft(traitValue);
 }
 
 /**

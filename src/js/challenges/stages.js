@@ -4,7 +4,8 @@ import { dealDeck } from '../decks/challengeDeck';
 import * as challengeCardConstants from '../constants/challengeCards';
 import { isSuitableForChallenge } from '../validators/actionCardValidator';
 import { updatePointsLeft, updateChallenge, endGame } from '../render/challenges';
-import { playersReceiveCardsAfterChallenge, getSelectedPlayer, updateSelectedPlayer } from '../player/helpers';
+import { updateSelectedPlayerCards } from '../render/players';
+import { playersReceiveCardsAfterChallenge, getSelectedPlayer, updateSelectedPlayer, getPlayer } from '../player/helpers';
 
 let currentChallenge;
 let currentStage = challengeCardConstants.stages.early;
@@ -158,10 +159,29 @@ function surrender () {
 	currentChallenge.passed = false;
 	challengesList.push(currentChallenge);
 
+	playersReceiveCardsBackAfterSurrender();
 	changeStage();
 	dealChallenge();
 	updateChallenge();
 	playersReceiveCardsAfterChallenge();
+}
+
+/**
+ * @function
+ * @name playersReceiveCardsBackAfterSurrender
+ * @description Give all the players who have placed their cards back.
+ */
+function playersReceiveCardsBackAfterSurrender () {
+	for (let index = 0; index < placedActionCards.length; index += 1) {
+		let currentCard = placedActionCards[index];
+		let playerWhoPlacedTheCard = getPlayer(currentCard.playerId);
+		let selectedPlayer = getSelectedPlayer();
+
+		playerWhoPlacedTheCard.cardsInHand.push(currentCard);
+		if (playerWhoPlacedTheCard.id === selectedPlayer.id) {
+			updateSelectedPlayerCards();
+		}
+	}
 }
 
 export {

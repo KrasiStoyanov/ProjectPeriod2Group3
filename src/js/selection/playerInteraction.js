@@ -1,6 +1,7 @@
 'use strict';
 
 import { updateSelectedPlayerCards } from '../render/players';
+import { surrender } from '../challenges/stages';
 
 /**
  * @function
@@ -14,6 +15,17 @@ function onActionCardClick (player, card) {
 	updateSelectedPlayerCards();
 }
 
+/**
+ * @function
+ * @name onSurrenderClick
+ * @description Call the back end functionality for surrender and update render.
+ */
+function onSurrenderClick () {
+	surrender();
+	updateSelectedPlayerCards();
+}
+
 export {
-	onActionCardClick
+	onActionCardClick,
+	onSurrenderClick
 };
