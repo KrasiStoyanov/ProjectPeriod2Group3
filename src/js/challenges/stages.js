@@ -152,21 +152,6 @@ function checkForDuplication (actionCard) {
 
 /**
  * @function
- * @name returnActionCardAfterSurrendered
- * @description Return all the cards that have been placed to the player who have placed them
- */
-function returnActionCardAfterSurrendered() {
-	for (let index = 0; index < placedActionCards.length; index++) {
-		let currentCard	= placedActionCards[index];
-		let playerWhoPlacedThisCard = getPlayer(currentCard.playerId);
-		playerWhoPlacedThisCard.cardsInHand.push(currentCard);
-	}
-	placedActionCards = [];
-	
-}
-
-/**
- * @function
  * @name surrender
  * @description Set the card's passed property to false and update back end and UI
  */
@@ -174,17 +159,30 @@ function surrender () {
 	currentChallenge.passed = false;
 	challengesList.push(currentChallenge);
 
-	returnActionCardAfterSurrendered();
+	playersReceiveCardsBackAfterSurrender();
 	changeStage();
 	dealChallenge();
 	updateChallenge();
 	playersReceiveCardsAfterChallenge();
-	updateSelectedPlayerCards();//Add to refresh the display player's action cards
-	/**
-	 * The updateSelectedPlayerCards should be here 
-	 * because the selected player can't see the new action card from the new stage if it's not here
-	 * You can change it if you have better solution
-	 */
+	updateSelectedPlayerCards();
+}
+
+/**
+ * @function
+ * @name playersReceiveCardsBackAfterSurrender
+ * @description Give all the players who have placed their cards back.
+ */
+function playersReceiveCardsBackAfterSurrender () {
+	for (let index = 0; index < placedActionCards.length; index += 1) {
+		let currentCard = placedActionCards[index];
+		let playerWhoPlacedTheCard = getPlayer(currentCard.playerId);
+		let selectedPlayer = getSelectedPlayer();
+
+		playerWhoPlacedTheCard.cardsInHand.push(currentCard);
+		if (playerWhoPlacedTheCard.id === selectedPlayer.id) {
+			updateSelectedPlayerCards();
+		}
+	}
 }
 
 export {
