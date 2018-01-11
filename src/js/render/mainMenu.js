@@ -84,6 +84,9 @@ function randomBackgroundColor () {
  * @description Start waves animation on screen click.
  */
 function onScreenClick () {
+	game.input.onTap.removeAll();
+	whiteTransparentLogo.inputEnabled = false;
+
 	let wavesTweenRise = game.add
 		.tween(waves)
 		.from({
