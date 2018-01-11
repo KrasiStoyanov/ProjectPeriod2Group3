@@ -1,5 +1,6 @@
 'use strict';
 
+import * as helpers from './helpers';
 import * as mainMenuConstants from '../constants/mainMenu';
 
 let mainMenuGroup;
@@ -20,7 +21,7 @@ let wavesTweenWavy;
 function displayMainMenu (gameObject) {
 	game = gameObject;
 
-	randomBackgroundColor();
+	helpers.generateRandomBackgroundColor(game);
 
 	whiteTransparentLogo = game.add.button(game.world.centerX, game.world.centerY, 'whiteTransparentLogo', onScreenClick, this);
 	whiteTransparentLogo.anchor.x = 0.5;
@@ -62,20 +63,6 @@ function displayMainMenu (gameObject) {
 
 	game.world.bringToTop(mainMenuGroup);
 	game.input.onTap.add(onScreenClick, this);
-}
-
-/**
- * @function
- * @name randomBackgroundColor
- * @description Generate and set a random background color.
- */
-function randomBackgroundColor () {
-	let backgroundColors = mainMenuConstants.backgroundColors;
-	let keysOfBackgroundColors = Object.keys(backgroundColors);
-	let randomIndex = Math.floor(Math.random() * (keysOfBackgroundColors.length - 0) + 0);
-	let randomColorName = keysOfBackgroundColors[randomIndex];
-
-	game.stage.backgroundColor = backgroundColors[randomColorName];
 }
 
 /**

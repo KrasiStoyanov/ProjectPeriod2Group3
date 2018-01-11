@@ -1,8 +1,15 @@
 /** An array of all our background colors */
 let backgroundColors = {
-	green: '#4AC2BD',
-	red: '#EF545A',
-	purple: '#9354A2'
+	solid: {
+		green: '#4AC2BD',
+		red: '#EF545A',
+		purple: '#9354A2'
+	},
+	light: {
+		green: '#C9EDEC',
+		red: '#FBCCCE',
+		purple: '#DFCCE4'
+	}
 };
 
 /** The durations of the tweens in the main menu */

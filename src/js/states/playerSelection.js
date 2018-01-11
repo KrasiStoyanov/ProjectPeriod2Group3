@@ -1,5 +1,6 @@
 'use strict';
 
+import { lightenBackgroundColor } from '../render/helpers';
 import characterSelection from '../selection/characterSelection';
 import * as playerSlots from '../render/playerSlots';
 
@@ -11,6 +12,7 @@ let playerSelectionState = {
 	 * @description This is the place where the users select the number of players and choose their characters.
 	 */
 	create: (game) => {
+		lightenBackgroundColor();
     	playerSlots.create(game);
     	characterSelection(game);
 	}
