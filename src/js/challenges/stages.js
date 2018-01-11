@@ -188,6 +188,7 @@ function surrender () {
 }
 
 export {
+	challengesList,
 	placeActionCard,
 	calculatePoints,
 	dealChallenge,
