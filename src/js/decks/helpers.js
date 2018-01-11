@@ -86,5 +86,6 @@ function returnDeckRemain (deck) {
 export {
 	getCard,
 	dealDeck,
-	removeCard
+	removeCard,
+	returnDeckRemain
 };
