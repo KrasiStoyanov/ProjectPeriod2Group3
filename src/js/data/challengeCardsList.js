@@ -11,7 +11,7 @@ export default [
 	},
 	{
 		"stage": "Early",
-		"challenge": "Your friend is having trouble with one of his/her school teachers. Apparently he is failing your friend with no reason.",
+		"challenge": "Your friend is having trouble with one of his/her school teachers. Apparently he is failing your friend for no reason.",
 		"traits": [
 			{
 				"name": "charisma",
@@ -51,7 +51,7 @@ export default [
 	},
 	{
 		"stage": "Mid",
-		"challenge": "Although",
+		"challenge": "Although university was fun, now the loans are making your friend's life miserable.",
 		"traits": [
 			{
 				"name": "intelligence",
@@ -61,77 +61,77 @@ export default [
 	},
 	{
 		"stage": "Mid",
-		"challenge": "High school exams are around the corner and your friend couldn't be more nervous about it.",
+		"challenge": "Your friend is getting married! Tihs is really exciting but stressful at the same time; a lot of planning.",
 		"traits": [
 			{
-				"name": "intelligence",
+				"name": "pop culture",
 				"value": 20
 			}
 		]
 	},
 	{
 		"stage": "Mid",
-		"challenge": "High school exams are around the corner and your friend couldn't be more nervous about it.",
+		"challenge": "your friend just got divorced and is going through a tough time in life.",
 		"traits": [
 			{
-				"name": "intelligence",
+				"name": "empathy",
 				"value": 20
 			}
 		]
 	},
 	{
 		"stage": "Mid",
-		"challenge": "High school exams are around the corner and your friend couldn't be more nervous about it.",
+		"challenge": "Your friend's car broke down and to fix it would take a lot of time and money.",
 		"traits": [
 			{
-				"name": "intelligence",
+				"name": "perseverance",
 				"value": 20
 			}
 		]
 	},
 	{
 		"stage": "Mid",
-		"challenge": "High school exams are around the corner and your friend couldn't be more nervous about it.",
+		"challenge": "Your friend has been partying every day and getting drunk for the past few weeks.",
 		"traits": [
 			{
-				"name": "intelligence",
+				"name": "charisma",
 				"value": 20
 			}
 		]
 	},
 	{
 		"stage": "Late",
-		"challenge": "High school exams are around the corner and your friend couldn't be more nervous about it.",
+		"challenge": "Your friend just got diagnosed with a rare disease and this made him/her really depressed.",
 		"traits": [
 			{
-				"name": "intelligence",
+				"name": "empathy",
 				"value": 25
 			}
 		]
 	},
 	{
 		"stage": "Late",
-		"challenge": "High school exams are around the corner and your friend couldn't be more nervous about it.",
+		"challenge": "Your friend's grandkid is a troublemaker, which is causing your friend a lot of issues.",
 		"traits": [
 			{
-				"name": "intelligence",
+				"name": "charisma",
 				"value": 25
 			}
 		]
 	},
 	{
 		"stage": "Late",
-		"challenge": "High school exams are around the corner and your friend couldn't be more nervous about it.",
+		"challenge": "As time passes, new technology develops, but your friend is havong some trouble keeping up with it.",
 		"traits": [
 			{
-				"name": "intelligence",
+				"name": "pop culture",
 				"value": 25
 			}
 		]
 	},
 	{
 		"stage": "Late",
-		"challenge": "High school exams are around the corner and your friend couldn't be more nervous about it.",
+		"challenge": "Your friend's monthly pention didn't come through and he/she doesn't have enough money without it.",
 		"traits": [
 			{
 				"name": "intelligence",

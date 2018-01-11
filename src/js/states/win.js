@@ -1,8 +1,16 @@
 'use strict';
 
+import { displayEnding } from '../render/endings';
+
 let winState = {
-	create: (gmae) => {
-		
+	/**
+	 * @function
+	 * @name create
+	 * @param { object } game - The game object.
+	 * @description This is the place where the ending is displayed.
+	 */
+	create: (game) => {
+		displayEnding(game);
 	}
 };
 

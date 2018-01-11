@@ -109,9 +109,9 @@ function playersReceiveCardsAfterChallenge () {
  */
 function giftActionCard (card, playerId) {
 	let receivingPlayer = getPlayer(playerId);
-
+	
+	card.playerId = receivingPlayer.id;
 	receivingPlayer.cardsInHand.push(card);
-	console.log(receivingPlayer);
 }
 
 /**

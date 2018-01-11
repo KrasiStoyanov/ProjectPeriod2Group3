@@ -73,8 +73,19 @@ function removeCard (deck, id) {
 	}
 }
 
+/**
+ * @function 
+ * @name returnDeckRemain
+ * @param { array } deck 
+ * @description Return how many cards left in the deck array.
+ */
+function returnDeckRemain (deck) {
+	return deck.length;
+}
+
 export {
 	getCard,
 	dealDeck,
-	removeCard
+	removeCard,
+	returnDeckRemain
 };

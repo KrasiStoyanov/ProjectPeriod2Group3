@@ -1,6 +1,7 @@
 'use strict';
 
-import {suitablePlayersSuggestion } from '../player/helpers';
+import { updateSelectedPlayerCards } from '../render/players';
+import { surrender } from '../challenges/stages';
 
 /**
  * @function
@@ -10,11 +11,22 @@ import {suitablePlayersSuggestion } from '../player/helpers';
  * @description Place card on user interaction.
  */
 function onActionCardClick (player, card) {
-	player.placeCard(card);
-	// suitablePlayersSuggestion(card);
-	// player.giftCard(card, 2);
+	// player.placeCard(card);
+	player.giftCard(card, 2);
+	updateSelectedPlayerCards();
+}
+
+/**
+ * @function
+ * @name onSurrenderClick
+ * @description Call the back end functionality for surrender and update render.
+ */
+function onSurrenderClick () {
+	surrender();
+	updateSelectedPlayerCards();
 }
 
 export {
-	onActionCardClick
+	onActionCardClick,
+	onSurrenderClick
 };
