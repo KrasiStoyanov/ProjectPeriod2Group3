@@ -1,7 +1,7 @@
 'use strict';
 
 import { challengesList } from '../challenges/stages';
-import { goodEnding, neutralEnding, badEnding } from '../constants/endings'
+import * as endings from '../constants/endings';
 
 let fontProps = {
 	font: '18px Karla',
@@ -13,32 +13,9 @@ let fontProps = {
 	wordWrapWidth: 400
 };
 
-let endingText;
 let game;
-let endingType;//0 is good ending,1 is neutral ending and 2 is bad ending
-
-/**
- * @function
- * @name decideEndingsId
- * @description Calculate the failure times and decide which ending it is.
- */
-function decideEndingsId() {
-    let failureTimes = 0;
-    for (let index = 0; index < challengesList.length; index++) {
-        if (challengesList[index].passed === false){
-            failureTimes++;
-        }
-    }
-    if (failureTimes === 0) {
-        endingType = 0;
-    } else if (failureTimes === 1) {
-        endingType = 1;
-    } else if (failureTimes > 1) {
-        endingType = 2;
-    } else {
-        endingType = 3;//invalid failure Times
-    }
-}
+let ending;
+let endingText;
 
 /**
  * @function
@@ -46,23 +23,37 @@ function decideEndingsId() {
  * @param { object } gameObject 
  * @description Display the ending of this game on screen
  */
-function displayEnding(gameObject) {
-    game = gameObject;
-    let currentEnding;
-    decideEndingsId();
-    switch (endingType) {
-        case 0:
-            currentEnding = goodEnding;
-            break;
-        case 1:
-            currentEnding = neutralEnding;
-            break;
-        case 2:
-            currentEnding = badEnding;
-            break;
-    }
-    endingText = game.add.text(game.world.centerX, game.world.centerY, currentEnding, fontProps);
+function displayEnding (gameObject) {
+    game = gameObject ? gameObject : game;
+
+    let ending;
+    ending = getEndingBasedOnResults();
+
+    endingText = game.add.text(game.world.centerX, game.world.centerY, ending, fontProps);
     endingText.anchor.setTo(0.5, 0.5);
+}
+
+/**
+ * @function
+ * @name decideEndingsId
+ * @description Calculate the failure times and decide which ending it is.
+ */
+function getEndingBasedOnResults () {
+    let failureCounter = 0;
+    for (let index = 0; index < challengesList.length; index++) {
+        let currentChallenge = challengesList[index];
+        if (currentChallenge.passed === false){
+            failureCounter += 1;
+        }
+    }
+
+    if (failureCounter === 0) {
+        return endings.good;
+    } else if (failureCounter === 1) {
+        returnendings.neutral;
+    } else if (failureCounter > 1) {
+        return endings.bad;
+    }
 }
 
 export  {
