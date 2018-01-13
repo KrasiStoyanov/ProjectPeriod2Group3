@@ -15,6 +15,7 @@ let selectedPlayerGroup;
 let cardGroup;
 let listOfCardsGroup;
 let playersGroup;
+let traitsGroup;
 
 /**
  * @function
@@ -34,7 +35,8 @@ function displaySelectedPlayer (gameObject, id) {
 	nameText = game.add.text(50, 600, playerName, fontProps);
 	selectedPlayerGroup.add(nameText);
 
-	displaySelectedPlayerCards(player);
+	displaySelectedPlayerTraits();
+	displaySelectedPlayerCards();
 
 	game.world.add(selectedPlayerGroup);
 }
@@ -75,7 +77,8 @@ function updateSelectedPlayer (player) {
 	listOfCardsGroup.removeAll(true);
 	playerHelpers.updateSelectedPlayer(player.id);
 
-	displaySelectedPlayerCards(player);
+	updateSelectedPlayerCards();
+	updateSelectedPlayerTraits();
 	nameText.setText(playerName);
 
 	updateSidePlayers();
@@ -134,6 +137,67 @@ function updateSelectedPlayerCards () {
 	listOfCardsGroup.removeAll(true);
 
 	displaySelectedPlayerCards();
+}
+
+/**
+ * @function
+ * @name displaySelectedPlayerTraits
+ * @description Display selected player traits.
+ */
+function displaySelectedPlayerTraits () {
+	let selectedPlayer = playerHelpers.getSelectedPlayer();
+	let traits = selectedPlayer.traits;
+	traitsGroup = game.add.group();
+
+	const fontProps = {
+		font: '18px Karla',
+		fill: '#333333'
+	};
+
+	const traitIconSize = 35;
+	const textMarginLeft = 15;
+	const groupMarginLeft = 25;
+	let previousGroupWidths = 0;
+	for (let index in traits) {
+		index = parseInt(index);
+		let currentTrait = traits[index];
+		let traitGroup = game.add.group();
+		let traitIcon;
+		if (currentTrait.value > 0) {
+			traitIcon = game.add.sprite(0, 0, 'positiveTraits');
+		} else {
+			traitIcon = game.add.sprite(0, 0, 'negativeTraits');
+		}
+
+		let traitText = game.add.text(traitIconSize + textMarginLeft, 10, currentTrait.value, fontProps);
+
+		traitIcon.frame = index;
+		traitGroup.add(traitIcon);
+		traitGroup.add(traitText);
+		traitGroup.left = previousGroupWidths;
+
+		previousGroupWidths += traitGroup.width + groupMarginLeft;
+		traitsGroup.add(traitGroup);
+	}
+
+	let worldBottomPosition = game.world.height;
+	let worldLeftPosition = 0;
+	const marginBottom = 215;
+	const marginLeft = 340;
+
+	traitsGroup.bottom = worldBottomPosition - marginBottom;
+	traitsGroup.left = worldLeftPosition + marginLeft;
+}
+
+/**
+ * @function
+ * @name displaySelectedPlayerTraits
+ * @description Update selected player traits.
+ */
+function updateSelectedPlayerTraits () {
+	traitsGroup.removeAll(true);
+
+	displaySelectedPlayerTraits();
 }
 
 export {
