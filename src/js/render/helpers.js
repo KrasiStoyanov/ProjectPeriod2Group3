@@ -1,6 +1,7 @@
 'use strict';
 
 import * as mainMenuConstants from '../constants/mainMenu';
+import * as traitConstants from '../constants/traitConstants';
 
 let game;
 let backgroundColor;
@@ -48,8 +49,21 @@ function lightenBackgroundColor () {
 	game.stage.backgroundColor = lightBackgroundColors[backgroundColorName];
 }
 
+function getIdOfTraitIcon (trait) {
+	let index = 0;
+	for (let key in traitConstants.types) {
+		let currentTrait = traitConstants.types[key];
+		if (currentTrait === trait) {
+			return index;
+		}
+
+		index += 1;
+	}
+}
+
 export {
 	generateRandomBackgroundColor,
 	getBackgroundColor,
-	lightenBackgroundColor
+	lightenBackgroundColor,
+	getIdOfTraitIcon
 }

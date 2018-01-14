@@ -23,6 +23,8 @@ let loadState = {
 		game.load.spritesheet('negativeTraits', './src/images/trait-icons-negative-spritesheeet.png', 36, 36, 5);
 		game.load.spritesheet('whiteTraits', './src/images/trait-icons-white-spritesheeet.png', 50, 50, 5);
 
+		game.load.image('actionCardBack', './src/images/action-card-back.png');
+
 		game.load.image('logo', './src/images/logo.png');
 		game.load.image('whiteTransparentLogo', './src/images/white-transparent-logo.png');
 

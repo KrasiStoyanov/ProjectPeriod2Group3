@@ -1,10 +1,10 @@
 /** The types of the trait */
 const types = {
 	charisma: "charisma",
-	empathy: "empathy",
-	intelligence: "intelligence",
 	perseverance: "perseverance",
-	popCulture: "pop culture"
+	intelligence: "intelligence",
+	popCulture: "pop culture",
+	empathy: "empathy"
 };
 
 /** The types of the properties of the trait object */
