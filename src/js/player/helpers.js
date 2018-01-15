@@ -3,6 +3,8 @@
 import Player from './Player';
 import * as playerValidator from '../validators/playerValidator';
 import * as playerConstants from '../constants/player';
+import { updateDeckCounter } from '../render/actionDeck';
+
 
 let players = [];
 let selectedPlayer;
@@ -98,6 +100,7 @@ function playersReceiveCardsAfterChallenge () {
 		let currentPlayer = players[index];
 
 		currentPlayer.receiveCards(1);
+		updateDeckCounter();
 	}
 }
 

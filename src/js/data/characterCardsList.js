@@ -81,7 +81,7 @@ export default [
 		]
 	},
 	{
-		"name": "Elisia",
+		"name": "Elisa",
 		"description": "Elisa is a dreamy girl. She loves blind dates and believes that someday her prince in shinny armor will show up. She is often daydreaming, not paying much attention to what people say. Her bubbly personality always makes her friends laugh but she doesn’t know why.",
 		"image": "nasdpnasdkasd",
 		"traits": [

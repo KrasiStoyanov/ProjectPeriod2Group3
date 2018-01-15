@@ -25,6 +25,17 @@ let loadState = {
 
 		game.load.image('actionCardBack', './src/images/action-card-back.png');
 
+		game.load.image('Bart', './src/images/Bart.png');
+		game.load.image('Carlos', './src/images/Carlos.png');
+		game.load.image('Elisa', './src/images/Elisa.png');
+		game.load.image('Fiona', './src/images/Fiona.png');
+		game.load.image('Jenny', './src/images/Jenny.png');
+		game.load.image('John', './src/images/John.png');
+		game.load.image('Mark', './src/images/Mark.png');
+		game.load.image('Stefania', './src/images/Stefania.png');
+
+		game.load.image('deck', './src/images/Deck.png');
+
 		game.load.image('logo', './src/images/logo.png');
 		game.load.image('whiteTransparentLogo', './src/images/white-transparent-logo.png');
 

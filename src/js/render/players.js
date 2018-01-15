@@ -3,9 +3,11 @@
 
 import * as playerInteraction from '../selection/playerInteraction';
 import * as playerHelpers from '../player/helpers';
+import { displayDeckCounter } from './actionDeck';
+import { selectedPlayerImage, sidePlayerImageSize, name, sidePlayerRectangle } from '../constants/player';
 
 let fontProps = {
-    font: '24px Karla',
+    font: '30px Karla',
     fill: '#fff'
 };
 
@@ -16,6 +18,7 @@ let cardGroup;
 let listOfCardsGroup;
 let playersGroup;
 let traitsGroup;
+let playerImage;
 
 /**
  * @function
@@ -23,8 +26,8 @@ let traitsGroup;
  * @param { object } gameObject - The game object.
  * @description Display the selected.
  */
-function displaySelectedPlayer (gameObject, id) {
-	game = gameObject;
+function displaySelectedPlayer (id, gameObject) {
+	game = gameObject ? gameObject : game;
 	selectedPlayerGroup = game.add.group();
 
 	let player = playerHelpers.getPlayer(id);
@@ -32,11 +35,27 @@ function displaySelectedPlayer (gameObject, id) {
 
 	playerHelpers.updateSelectedPlayer(id);
 
-	nameText = game.add.text(50, 600, playerName, fontProps);
+	nameText = game.add.text(name.margin.left, game.world.height - 50, playerName, fontProps);
+	nameText.anchor.set(0);
+	nameText.angle = -90;
+
+	let playerImageY = game.world.height - selectedPlayerImage.height;
+	playerImage = game.add.sprite(selectedPlayerImage.margin.left, playerImageY, playerName);
+	playerImage.scale.setTo(selectedPlayerImage.height / playerImage.height);
+
+	if (playerImage.width > selectedPlayerImage.width) {
+		playerImage.scale.setTo(1);
+		playerImageY = game.world.height - playerImage.height;
+
+		playerImage.x = selectedPlayerImage.margin.left;
+		playerImage.y = playerImageY;
+	}
+
+	selectedPlayerGroup.add(playerImage);
 	selectedPlayerGroup.add(nameText);
 
-	displaySelectedPlayerTraits();
-	displaySelectedPlayerCards();
+	updateSelectedPlayerTraits();
+	updateSelectedPlayerCards();
 
 	game.world.add(selectedPlayerGroup);
 }
@@ -55,13 +74,34 @@ function displaySidePlayers (gameObject) {
 
 	for (let index = 0; index < players.length; index += 1) {
 		let currentPlayer = players[index];
-		if (!currentPlayer.isSelected) {
-			let nameText = game.add.text(50, 50 * index, currentPlayer.name, fontProps);
+		let playerGroup = game.add.group();
 
-    		nameText.inputEnabled = true;
-			nameText.events.onInputDown.add(() => updateSelectedPlayer(currentPlayer), this);
-			playersGroup.add(nameText);
+		playerGroup.position.x = sidePlayerRectangle.margin.left;
+		playerGroup.position.y = (sidePlayerRectangle.height * index) + sidePlayerRectangle.gutter * index;
+		playerGroup.inputEnableChildren = true;
+
+		if (!currentPlayer.isSelected) {
+			let rectangle = new Phaser.Graphics(game, 0, 0);
+			rectangle.beginFill(0xf0f0f0);
+			rectangle.drawRoundedRect(0, 0, sidePlayerRectangle.width, sidePlayerRectangle.height, 15);
+			rectangle.endFill();
+			rectangle.events.onInputDown.add(() => updateSelectedPlayer(currentPlayer), this);
+
+			let imageMarginLeft = sidePlayerRectangle.width / 2;
+			let imageMarginTop = sidePlayerRectangle.height / 2;
+			let playerImage = game.add.sprite(imageMarginLeft, imageMarginTop, currentPlayer.name);
+
+			playerImage.anchor.set(0.5, 0.5);
+			playerImage.scale.setTo(sidePlayerImageSize.height / playerImage.height);
+
+			playerImage.inputEnabled = true;
+			playerImage.events.onInputDown.add(() => updateSelectedPlayer(currentPlayer), this);
+
+			playerGroup.add(rectangle);
+			playerGroup.add(playerImage);
 		}
+
+		playersGroup.add(playerGroup);
 	}
 }
 
@@ -72,16 +112,11 @@ function displaySidePlayers (gameObject) {
  * @description Update the selected player.
  */
 function updateSelectedPlayer (player) {
-	let playerName = player.name;
-
-	listOfCardsGroup.removeAll(true);
 	playerHelpers.updateSelectedPlayer(player.id);
-
-	updateSelectedPlayerCards();
-	updateSelectedPlayerTraits();
-	nameText.setText(playerName);
+	selectedPlayerGroup.removeAll(true);
 
 	updateSidePlayers();
+	displaySelectedPlayer(player.id);
 }
 
 /**
@@ -90,6 +125,7 @@ function updateSelectedPlayer (player) {
  * @description Update side players.
  */
 function updateSidePlayers () {
+	playersGroup = playersGroup ? playersGroup : game.add.group();
 	playersGroup.removeAll(true);
 
 	displaySidePlayers();
@@ -134,6 +170,7 @@ function displaySelectedPlayerCards () {
  * @description Update selected player cards.
  */
 function updateSelectedPlayerCards () {
+	listOfCardsGroup = listOfCardsGroup ? listOfCardsGroup : game.add.group();
 	listOfCardsGroup.removeAll(true);
 
 	displaySelectedPlayerCards();
@@ -195,6 +232,7 @@ function displaySelectedPlayerTraits () {
  * @description Update selected player traits.
  */
 function updateSelectedPlayerTraits () {
+	traitsGroup = traitsGroup ? traitsGroup : game.add.group();
 	traitsGroup.removeAll(true);
 
 	displaySelectedPlayerTraits();
