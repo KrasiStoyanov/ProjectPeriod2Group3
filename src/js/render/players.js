@@ -1,4 +1,3 @@
-
 'use strict';
 
 import * as playerInteraction from '../selection/playerInteraction';
@@ -10,6 +9,11 @@ import { generateActionCard } from './actionCards';
 let fontProps = {
     font: '30px Karla',
     fill: '#fff'
+};
+
+let sidePlayerNumberProps = {
+    font: '12px Karla',
+    fill: '#131313'
 };
 
 let game;
@@ -70,7 +74,7 @@ function displaySelectedPlayer (id, gameObject) {
 function displaySidePlayers (gameObject) {
 	game = gameObject ? gameObject : game;
 
-	let players = playerHelpers.getPlayers();
+	let players = playerHelpers.getSidePlayers();
 	playersGroup = game.add.group();
 
 	for (let index = 0; index < players.length; index += 1) {
@@ -88,6 +92,8 @@ function displaySidePlayers (gameObject) {
 			rectangle.endFill();
 			rectangle.events.onInputDown.add(() => updateSelectedPlayer(currentPlayer), this);
 
+			let playerNumber = game.add.text(10, 10, currentPlayer.id + 1, sidePlayerNumberProps);
+
 			let imageMarginLeft = sidePlayerRectangle.width / 2;
 			let imageMarginTop = sidePlayerRectangle.height / 2;
 			let playerImage = game.add.sprite(imageMarginLeft, imageMarginTop, currentPlayer.name);
@@ -99,6 +105,7 @@ function displaySidePlayers (gameObject) {
 			playerImage.events.onInputDown.add(() => updateSelectedPlayer(currentPlayer), this);
 
 			playerGroup.add(rectangle);
+			playerGroup.add(playerNumber);
 			playerGroup.add(playerImage);
 		}
 
@@ -146,8 +153,6 @@ function displaySelectedPlayerCards () {
 		let currentCard = cardsInHand[index];
 		let traits = currentCard.traits;
 		cardGroup = game.add.group();
-
-		generateActionCard(currentCard, game);
 
 		cardGroup.inputEnableChildren = true;
 		for (let jndex in traits) {
