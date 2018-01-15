@@ -5,6 +5,7 @@ import * as playerInteraction from '../selection/playerInteraction';
 import * as playerHelpers from '../player/helpers';
 import { displayDeckCounter } from './actionDeck';
 import { selectedPlayerImage, sidePlayerImageSize, name, sidePlayerRectangle } from '../constants/player';
+import { generateActionCard } from './actionCards';
 
 let fontProps = {
     font: '30px Karla',
@@ -145,6 +146,8 @@ function displaySelectedPlayerCards () {
 		let currentCard = cardsInHand[index];
 		let traits = currentCard.traits;
 		cardGroup = game.add.group();
+
+		generateActionCard(currentCard, game);
 
 		cardGroup.inputEnableChildren = true;
 		for (let jndex in traits) {

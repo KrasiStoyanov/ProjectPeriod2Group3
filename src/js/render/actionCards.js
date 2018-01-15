@@ -8,6 +8,12 @@ const traitFontProps = {
 	fill: '#ffffff'
 };
 
+const actionFontProps = {
+	font: '12px Karla',
+	fill: '#131313',
+	textAlign: 'center'
+};
+
 let game;
 let topTrait;
 let bottomTrait;
@@ -20,6 +26,8 @@ let topTraitText;
 
 let bottomTraitIcon;
 let bottomTraitText;
+
+let actionText;
 
 /**
  * @function
@@ -53,9 +61,12 @@ function generateActionCard (card, gameObject) {
 	bottomTraitGroup.add(bottomTraitIcon);
 	bottomTraitGroup.add(bottomTraitText);
 
+	setActionText();
+
 	actionCardGroup.add(backOfActionCard);
 	actionCardGroup.add(topTraitGroup);
 	actionCardGroup.add(bottomTraitGroup);
+	actionCardGroup.add(actionText);
 }
 
 /**
@@ -96,6 +107,14 @@ function setBottomTrait () {
 	let bottomTraitTextY = bottomTraitIconY + traitProps.text.margin.top;
 
 	bottomTraitText = game.add.text(bottomTraitTextX, bottomTraitTextY, topTrait.value, traitFontProps);
+}
+
+function setActionText () {
+	let actionTextX = backOfActionCard.width / 2;
+	let actionTextY = backOfActionCard.height / 2;
+
+	actionText = game.add.text(actionTextX, actionTextY, action, actionFontProps);
+	actionText.anchor.set(0.5, 0.5);
 }
 
 export {
