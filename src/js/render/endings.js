@@ -51,7 +51,7 @@ function getEndingBasedOnResults () {
     if (failureCounter === 0) {
         return endings.good;
     } else if (failureCounter === 1) {
-        returnendings.neutral;
+        return endings.neutral;
     } else if (failureCounter > 1) {
         return endings.bad;
     }

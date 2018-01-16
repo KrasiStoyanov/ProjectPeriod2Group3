@@ -87,7 +87,7 @@ function displaySidePlayers (gameObject) {
 
 		if (!currentPlayer.isSelected) {
 			let rectangle = new Phaser.Graphics(game, 0, 0);
-			rectangle.beginFill(0xf0f0f0);
+			rectangle.beginFill(0xffffff);
 			rectangle.drawRoundedRect(0, 0, sidePlayerRectangle.width, sidePlayerRectangle.height, 15);
 			rectangle.endFill();
 			rectangle.events.onInputDown.add(() => updateSelectedPlayer(currentPlayer), this);
@@ -147,28 +147,19 @@ function updateSidePlayers () {
 function displaySelectedPlayerCards () {
 	let selectedPlayer = playerHelpers.getSelectedPlayer();
 	let cardsInHand = selectedPlayer.cardsInHand;
+
 	listOfCardsGroup = game.add.group();
+	listOfCardsGroup.x = 320;
+	listOfCardsGroup.y = game.world.height - (185 + 10);
 
 	for (let index in cardsInHand) {
 		let currentCard = cardsInHand[index];
-		let traits = currentCard.traits;
-		cardGroup = game.add.group();
+		let generatedCard = generateActionCard(currentCard, game);
+		generatedCard.scale.setTo(185 / generatedCard.height);
 
-		cardGroup.inputEnableChildren = true;
-		for (let jndex in traits) {
-			let currentTrait = traits[jndex];
-			let traitFontProps = {
-				font: '18px Karla',
-				fill: 'rgba(255, 255, 255, .7)'
-			};
+		generatedCard.x = (generatedCard.width * index) + (10 * index + 1);
 
-			let traitText = game.add.text((150 * index) + 50, 650 + (50 * jndex), `${currentTrait.name}: ${currentTrait.value}`, traitFontProps);
-
-			traitText.events.onInputDown.add(() => playerInteraction.onActionCardClick(selectedPlayer, currentCard), this);
-			cardGroup.add(traitText);
-		}
-
-		listOfCardsGroup.add(cardGroup);
+		listOfCardsGroup.add(generatedCard);
 	}
 }
 

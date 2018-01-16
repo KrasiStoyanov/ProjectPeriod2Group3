@@ -10,8 +10,9 @@ import { surrender } from '../challenges/stages';
  * @param { object } card - The card.
  * @description Place card on user interaction.
  */
-function onActionCardClick (player, card) {
+function placeActionCard (player, card) {
 	player.placeCard(card);
+	
 	updateSelectedPlayerCards();
 }
 
@@ -26,6 +27,6 @@ function onSurrenderClick () {
 }
 
 export {
-	onActionCardClick,
+	placeActionCard,
 	onSurrenderClick
 };

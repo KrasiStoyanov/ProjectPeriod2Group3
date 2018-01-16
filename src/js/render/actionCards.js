@@ -2,16 +2,19 @@
 
 import { traitProps, actionProps } from '../constants/actionCards';
 import { getIdOfTraitIcon } from './helpers';
+import { getSelectedPlayer } from '../player/helpers';
+import * as playerInteraction from '../selection/playerInteraction';
 
 const traitFontProps = {
-	font: '12px Karla',
+	font: '16px Karla',
 	fill: '#ffffff'
 };
 
 const actionFontProps = {
-	font: '12px Karla',
+	font: '16px Karla',
 	fill: '#131313',
-	textAlign: 'center'
+	align: 'center',
+	wordWrap: true
 };
 
 let game;
@@ -20,6 +23,7 @@ let bottomTrait;
 let action;
 let traiticonSize;
 let backOfActionCard;
+let selectedPlayer;
 
 let topTraitIcon;
 let topTraitText;
@@ -39,11 +43,12 @@ let actionText;
 function generateActionCard (card, gameObject) {
 	game = gameObject ? gameObject : game;
 
-	let actionCardGroup = game.add.group();
-	let topTraitGroup = game.add.group();
-	let bottomTraitGroup = game.add.group();
-
+	selectedPlayer = getSelectedPlayer();
 	backOfActionCard = game.add.sprite(0, 0, 'actionCardBack');
+	
+	backOfActionCard.inputEnabled = true;
+	backOfActionCard.input.enableDrag(true);
+	backOfActionCard.events.onDragStop.add(() => playerInteraction.placeActionCard(selectedPlayer, card), this);
 
 	let traits = card.traits;
 	action = card.action;
@@ -53,20 +58,19 @@ function generateActionCard (card, gameObject) {
 
 	setTopTrait();
 
-	topTraitGroup.add(topTraitIcon);
-	topTraitGroup.add(topTraitText);
+	backOfActionCard.addChild(topTraitIcon);
+	backOfActionCard.addChild(topTraitText);
 
 	setBottomTrait();
 
-	bottomTraitGroup.add(bottomTraitIcon);
-	bottomTraitGroup.add(bottomTraitText);
+	backOfActionCard.addChild(bottomTraitIcon);
+	backOfActionCard.addChild(bottomTraitText);
 
 	setActionText();
 
-	actionCardGroup.add(backOfActionCard);
-	actionCardGroup.add(topTraitGroup);
-	actionCardGroup.add(bottomTraitGroup);
-	actionCardGroup.add(actionText);
+	backOfActionCard.addChild(actionText);
+
+	return backOfActionCard;
 }
 
 /**
@@ -83,8 +87,8 @@ function setTopTrait () {
 	topTraitIcon = game.add.sprite(topTraitIconX, topTraitIconY, 'whiteTraits', topTraitIconIndex);
 	topTraitIcon.scale.setTo(traiticonSize / topTraitIcon.width);
 
-	let topTraitTextX = traitProps.icon.margin.left + topTraitIcon.height + traitProps.text.margin.left;
-	let topTraitTextY = traitProps.icon.margin.top + traitProps.text.margin.top;
+	let topTraitTextX = topTraitIconX + topTraitIcon.width + traitProps.text.margin.left;
+	let topTraitTextY = topTraitIconY + traitProps.text.margin.top;
 
 	topTraitText = game.add.text(topTraitTextX, topTraitTextY, topTrait.value, traitFontProps);
 }
@@ -107,14 +111,21 @@ function setBottomTrait () {
 	let bottomTraitTextY = bottomTraitIconY + traitProps.text.margin.top;
 
 	bottomTraitText = game.add.text(bottomTraitTextX, bottomTraitTextY, topTrait.value, traitFontProps);
+	bottomTraitText.anchor.set(1, 0);
 }
 
+/**
+ * @function
+ * @name setActionText
+ * @description Set the action text.
+ */
 function setActionText () {
 	let actionTextX = backOfActionCard.width / 2;
 	let actionTextY = backOfActionCard.height / 2;
 
 	actionText = game.add.text(actionTextX, actionTextY, action, actionFontProps);
 	actionText.anchor.set(0.5, 0.5);
+	actionText.wordWrapWidth = backOfActionCard.width - (actionProps.margin.left + actionProps.margin.right);
 }
 
 export {
