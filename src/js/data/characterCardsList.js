@@ -22,7 +22,7 @@ export default [
 			},
 			{
 				"name": "empathy",
-				"value": -2
+				"value": 2
 			}
 		]
 	},
@@ -33,11 +33,11 @@ export default [
 		"traits": [
 			{
 				"name": "charisma",
-				"value": -1
+				"value": 2
 			},
 			{
 				"name": "perseverance",
-				"value": 2
+				"value": 3
 			},
 			{
 				"name": "intelligence",
@@ -64,19 +64,19 @@ export default [
 			},
 			{
 				"name": "perseverance",
-				"value": -3
-			},
-			{
-				"name": "intelligence",
 				"value": 1
 			},
 			{
-				"name": "pop culture",
+				"name": "intelligence",
 				"value": 3
 			},
 			{
+				"name": "pop culture",
+				"value": 2
+			},
+			{
 				"name": "empathy",
-				"value": -1
+				"value": -2
 			}
 		]
 	},
@@ -87,7 +87,7 @@ export default [
 		"traits": [
 			{
 				"name": "charisma",
-				"value": 3
+				"value": 2
 			},
 			{
 				"name": "perseverance",
@@ -95,15 +95,15 @@ export default [
 			},
 			{
 				"name": "intelligence",
-				"value": -2
+				"value": -1
 			},
 			{
 				"name": "pop culture",
-				"value": 1
+				"value": 3
 			},
 			{
-				"name": "charisma",
-				"value": 2
+				"name": "empathy",
+				"value": 1
 			}
 		]
 	},
@@ -126,7 +126,7 @@ export default [
 			},
 			{
 				"name": "pop culture",
-				"value": -3
+				"value": -2
 			},
 			{
 				"name": "empathy",
@@ -153,11 +153,11 @@ export default [
 			},
 			{
 				"name": "pop culture",
-				"value": -1
+				"value": 2
 			},
 			{
 				"name": "empathy",
-				"value": -3
+				"value": -1
 			}
 		]
 	},
@@ -176,7 +176,7 @@ export default [
 			},
 			{
 				"name": "intelligence",
-				"value": -2
+				"value": -1
 			},
 			{
 				"name": "pop culture",
@@ -184,7 +184,7 @@ export default [
 			},
 			{
 				"name": "empathy",
-				"value": -1
+				"value": -2
 			}
 		]
 	},
