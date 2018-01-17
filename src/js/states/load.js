@@ -41,6 +41,10 @@ let loadState = {
 
 		game.load.image('waves', './src/images/waves.png');
 		game.load.image('wavesCopy', './src/images/waves.png');
+
+		game.load.image('pauseButton', './src/images/pause.png');
+		game.load.image('surrenderButton', './src/images/surrenderButton.png');
+		game.load.image('challengeCard', './src/images/challengeCard.png');
 	},
 	/**
 	 * @function

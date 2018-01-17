@@ -17,11 +17,13 @@ let deckRemain;
  */
 function displayDeck () {
     let deck = game.add.sprite(300, 300, 'deck');
+    deck.anchor.x=0.5;
+    deck.anchor.y=0.5;
 };
 
 /**
  * @function
- * @name displayDeckCiunter
+ * @name displayDeckCounter
  * @param game
  * @description display deck counter
  */
@@ -29,7 +31,9 @@ function displayDeckCounter (gameObject) {
     game = gameObject ? gameObject : game;
     let cardsLeft = actionDeck.cardsLeft();
 
-    deckRemain = game.add.text(350, 250, cardsLeft, fontProps);
+    deckRemain = game.add.text(300, 150, cardsLeft, fontProps);
+    deckRemain.anchor.x= 0.5;
+    deckRemain.anchor.y= 0.5;
 
 }
 
