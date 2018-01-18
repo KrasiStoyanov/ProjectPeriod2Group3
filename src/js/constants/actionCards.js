@@ -4,6 +4,20 @@ const limits = {
 	maxChallengeId: 21 // Change when new action cards have been added
 };
 
+/** Size of an action card */
+const size = {
+	width: 120,
+	height: 185
+};
+
+/** Margins */
+const margin = {
+	top: 10,
+	right: 10,
+	bottom: 10,
+	left: 10,
+};
+
 /** Positioning and dimensions of the traits */
 const traitProps = {
 	icon: {
@@ -35,6 +49,8 @@ const actionProps = {
 
 export {
 	limits,
+	size,
+	margin,
 	traitProps,
 	actionProps
 };

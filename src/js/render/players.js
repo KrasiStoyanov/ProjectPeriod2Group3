@@ -4,7 +4,7 @@ import * as playerInteraction from '../selection/playerInteraction';
 import * as playerHelpers from '../player/helpers';
 import { displayDeckCounter } from './actionDeck';
 import { selectedPlayerImage, sidePlayerImageSize, name, sidePlayerRectangle } from '../constants/player';
-import { generateActionCard } from './actionCards';
+import { displayTabSystem, updateTabSystem, renderCards } from './tabSystem';
 
 let fontProps = {
     font: '30px Karla',
@@ -124,6 +124,7 @@ function updateSelectedPlayer (player) {
 	selectedPlayerGroup.removeAll(true);
 
 	updateSidePlayers();
+	updateTabSystem();
 	displaySelectedPlayer(player.id);
 }
 
@@ -145,22 +146,7 @@ function updateSidePlayers () {
  * @description Display the cards of the selected player.
  */
 function displaySelectedPlayerCards () {
-	let selectedPlayer = playerHelpers.getSelectedPlayer();
-	let cardsInHand = selectedPlayer.cardsInHand;
-
-	listOfCardsGroup = game.add.group();
-	listOfCardsGroup.x = 320;
-	listOfCardsGroup.y = game.world.height - (185 + 10);
-
-	for (let index in cardsInHand) {
-		let currentCard = cardsInHand[index];
-		let generatedCard = generateActionCard(currentCard, game);
-		generatedCard.scale.setTo(185 / generatedCard.height);
-
-		generatedCard.x = (generatedCard.width * index) + (10 * index + 1);
-
-		listOfCardsGroup.add(generatedCard);
-	}
+	displayTabSystem();
 }
 
 /**
@@ -169,9 +155,7 @@ function displaySelectedPlayerCards () {
  * @description Update selected player cards.
  */
 function updateSelectedPlayerCards () {
-	listOfCardsGroup = listOfCardsGroup ? listOfCardsGroup : game.add.group();
-	listOfCardsGroup.removeAll(true);
-
+	updateTabSystem(game);
 	displaySelectedPlayerCards();
 }
 
@@ -219,7 +203,7 @@ function displaySelectedPlayerTraits () {
 	let worldBottomPosition = game.world.height;
 	let worldLeftPosition = 0;
 	const marginBottom = 215;
-	const marginLeft = 340;
+	const marginLeft = 380;
 
 	traitsGroup.bottom = worldBottomPosition - marginBottom;
 	traitsGroup.left = worldLeftPosition + marginLeft;

@@ -22,7 +22,7 @@ let topTrait;
 let bottomTrait;
 let action;
 let traiticonSize;
-let backOfActionCard;
+let actionCardGroup;
 let selectedPlayer;
 
 let topTraitIcon;
@@ -44,11 +44,11 @@ function generateActionCard (card, gameObject) {
 	game = gameObject ? gameObject : game;
 
 	selectedPlayer = getSelectedPlayer();
-	backOfActionCard = game.add.sprite(0, 0, 'actionCardBack');
+	actionCardGroup = game.add.sprite(0, 0, 'actionCardBack');
 	
-	backOfActionCard.inputEnabled = true;
-	backOfActionCard.input.enableDrag(true);
-	backOfActionCard.events.onDragStop.add(() => playerInteraction.placeActionCard(selectedPlayer, card), this);
+	actionCardGroup.inputEnabled = true;
+	actionCardGroup.input.enableDrag(true);
+	actionCardGroup.events.onDragStop.add(() => playerInteraction.placeActionCard(selectedPlayer, card), this);
 
 	let traits = card.traits;
 	action = card.action;
@@ -58,19 +58,19 @@ function generateActionCard (card, gameObject) {
 
 	setTopTrait();
 
-	backOfActionCard.addChild(topTraitIcon);
-	backOfActionCard.addChild(topTraitText);
+	actionCardGroup.addChild(topTraitIcon);
+	actionCardGroup.addChild(topTraitText);
 
 	setBottomTrait();
 
-	backOfActionCard.addChild(bottomTraitIcon);
-	backOfActionCard.addChild(bottomTraitText);
+	actionCardGroup.addChild(bottomTraitIcon);
+	actionCardGroup.addChild(bottomTraitText);
 
 	setActionText();
 
-	backOfActionCard.addChild(actionText);
+	actionCardGroup.addChild(actionText);
 
-	return backOfActionCard;
+	return actionCardGroup;
 }
 
 /**
@@ -101,8 +101,8 @@ function setTopTrait () {
 function setBottomTrait () {
 	let bottomTraitIconIndex = getIdOfTraitIcon(bottomTrait.name);
 
-	let bottomTraitIconX = backOfActionCard.width - (traitProps.icon.size + traitProps.icon.margin.right);
-	let bottomTraitIconY = backOfActionCard.height - (traitProps.icon.size + traitProps.icon.margin.bottom);
+	let bottomTraitIconX = actionCardGroup.width - (traitProps.icon.size + traitProps.icon.margin.right);
+	let bottomTraitIconY = actionCardGroup.height - (traitProps.icon.size + traitProps.icon.margin.bottom);
 
 	bottomTraitIcon = game.add.sprite(bottomTraitIconX, bottomTraitIconY, 'whiteTraits', bottomTraitIconIndex);
 	bottomTraitIcon.scale.setTo(traiticonSize / bottomTraitIcon.width);
@@ -120,12 +120,12 @@ function setBottomTrait () {
  * @description Set the action text.
  */
 function setActionText () {
-	let actionTextX = backOfActionCard.width / 2;
-	let actionTextY = backOfActionCard.height / 2;
+	let actionTextX = actionCardGroup.width / 2;
+	let actionTextY = actionCardGroup.height / 2;
 
 	actionText = game.add.text(actionTextX, actionTextY, action, actionFontProps);
 	actionText.anchor.set(0.5, 0.5);
-	actionText.wordWrapWidth = backOfActionCard.width - (actionProps.margin.left + actionProps.margin.right);
+	actionText.wordWrapWidth = actionCardGroup.width - (actionProps.margin.left + actionProps.margin.right);
 }
 
 export {

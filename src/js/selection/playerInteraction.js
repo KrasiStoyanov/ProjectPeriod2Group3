@@ -11,9 +11,10 @@ import { surrender } from '../challenges/stages';
  * @description Place card on user interaction.
  */
 function placeActionCard (player, card) {
-	player.placeCard(card);
-	
-	updateSelectedPlayerCards();
+	let hasPlacedCard = player.placeCard(card);
+	if (hasPlacedCard) {
+		updateSelectedPlayerCards();
+	}
 }
 
 /**

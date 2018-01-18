@@ -7,7 +7,8 @@ import * as playerHelpers from '../player/helpers';
 import { dealChallenge } from '../challenges/stages';
 import * as playersRender from '../render/players';
 import { displayChallenge } from '../render/challenges';
-import { displayDeck, displayDeckCounter, updateDeckCounter} from '../render/actionDeck';
+import { displayDeck, displayDeckCounter, updateDeckCounter } from '../render/actionDeck';
+import { displayTabSystem } from '../render/tabSystem';
 
 let mainScreen = {
 	/**
