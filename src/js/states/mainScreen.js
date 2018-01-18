@@ -9,6 +9,7 @@ import * as playersRender from '../render/players';
 import { displayChallenge } from '../render/challenges';
 import { displayDeck, displayDeckCounter, updateDeckCounter } from '../render/actionDeck';
 import { displayTabSystem } from '../render/tabSystem';
+import {displayPauseButton} from '../render/buttons';
 
 let mainScreen = {
 	/**
@@ -44,6 +45,7 @@ let mainScreen = {
 		displayChallenge(game);
 		
 		displayDeck(game);
+		displayPauseButton(game);
 	},
 	/**
 	 * @function

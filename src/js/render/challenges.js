@@ -2,16 +2,35 @@
 
 import { currentChallenge } from '../challenges/stages';
 import { onSurrenderClick } from '../selection/playerInteraction';
+import { getIdOfTraitIcon } from './helpers';
 
 let fontProps = {
-	font: '18px Karla',
-	fill: '#fff',
+	font: '20px Karla',
+	fill: '#000000',
 	align: 'center',
 	boundsAlignH: 'center',
 	boundsAlignV: 'middle',
 	wordWrap: true,
-	wordWrapWidth: 400
+	wordWrapWidth: 250
 };
+let stageFontProp ={
+	font: '26px Karla',
+	fill: '#000000',
+	align: 'center',
+	boundsAlignH: 'center',
+	boundsAlignV: 'middle',
+	wordWrap: true,
+	wordWrapWidth: 250
+}
+let traitValueFontProps ={
+	font: '20px Karla',
+	fill: '#ffffff',
+	align: 'center',
+	boundsAlignH: 'center',
+	boundsAlignV: 'middle',
+	wordWrap: true,
+	wordWrapWidth: 250
+}
 
 let challenge;
 let stage;
@@ -25,6 +44,9 @@ let stageText;
 let challengeText;
 let traitText;
 let remainingPointsText;
+let traitIcon;
+let traitIconIndex;
+let challengeBackground;
 
 /**
  * @function
@@ -33,22 +55,27 @@ let remainingPointsText;
  * @description Display the current challenge.
  */
 function displayChallenge (gameObject) {
+	game = gameObject ? gameObject : game;
+	challengeBackground= game.add.sprite(game.world.centerX, game.world.centerY-100, 'challengeCard');
+	challengeBackground.anchor.x= 0.5;
+	challengeBackground.anchor.y= 0.5;
+	challengeBackground.bringToBack;
+	
 	challenge = currentChallenge.challenge;
 	stage = currentChallenge.stage;
 	trait = currentChallenge.traits[0];
 	traitName = trait.name;
 	traitValue = trait.value;
 	
-	game = gameObject;
-
-	challengeText = game.add.text(game.world.centerX, 100, challenge, fontProps);
+	challengeText = game.add.text(game.world.centerX, 200, challenge, fontProps);
 	challengeText.anchor.x = 0.5;
 	challengeText.anchor.y = 0;
-
+	
 	displayStage();
 	displayTrait();
 	displayPointsLeft();
 	displaySurrenderButton();
+	
 }
 
 /**
@@ -57,10 +84,12 @@ function displayChallenge (gameObject) {
  * @description Display the current stage.
  */
 function displayStage () {
-	stageText = game.add.text(game.world.centerX, 50, `${stage} life`, fontProps);
+	stageText = game.add.text(game.world.centerX, 125, `${stage} life`, stageFontProp);
 
 	stageText.anchor.x = 0.5;
 	stageText.anchor.y = 0;
+	
+	
 }
 
 /**
@@ -69,11 +98,21 @@ function displayStage () {
  * @description Display the challenge's trait.
  */
 function displayTrait () {
-	traitText = game.add.text(game.world.centerX, 215, `${traitName}: ${traitValue}`, fontProps);
+	
+	let traitValueY=challengeBackground.bottom;
+	traitIconIndex=getIdOfTraitIcon(traitName);
+	traitValue = trait.value;
 
+	traitIcon = game.add.sprite(game.world.centerX,traitValueY-60, 'whiteTraits', traitIconIndex)
+	traitIcon.anchor.x=0.5;
+		
+	let traitIconY=traitIcon.top;
+	
+	
+	traitText = game.add.text(game.world.centerX, traitIconY, traitValue, traitValueFontProps);
 	traitText.anchor.x = 0.5;
-	traitText.anchor.y = 0;
-}
+	traitText.anchor.y = 1;
+	}
 
 /**
  * @function
@@ -93,10 +132,11 @@ function displayPointsLeft () {
  * @description Display the surrender option.
  */
 function displaySurrenderButton () {
-	surrenderButton = game.add.text(game.world.centerX, game.world.centerY - 50, 'Surrender', fontProps);
+	surrenderButton = game.add.sprite(game.world.centerX,  challengeBackground.top-40, 'surrenderButton');
 
+	surrenderButton.scale.setTo(0.8,0.8)
 	surrenderButton.anchor.x = 0.5;
-	surrenderButton.anchor.y = 0.5;
+	surrenderButton.anchor.y = 0;
 
 	surrenderButton.inputEnabled = true;
 	surrenderButton.events.onInputDown.add(onSurrenderClick, this);
@@ -119,17 +159,22 @@ function updatePointsLeft (remainingPoints) {
  * @description Update the current challenge.
  */
 function updateChallenge () {
+	traitIcon.destroy();
+	traitText.destroy();
+	
 	challenge = currentChallenge.challenge;
 	stage = currentChallenge.stage;
 	trait = currentChallenge.traits[0];
-	traitName = trait.name;
-	traitValue = trait.value;
-
+	
+	displayTrait();
 	challengeText.setText(challenge);
-	stageText.setText(stage);
-	traitText.setText(`${traitName}: ${traitValue}`);
+	stageText.setText(`${stage} life`);
+	
+	
+	
 
 	updatePointsLeft(traitValue);
+	
 }
 
 /**
