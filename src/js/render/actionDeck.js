@@ -8,7 +8,7 @@ let fontProps = {
     fill: 'rgba(255, 255, 255, .7)'
 };
 
-let deckRemain;
+let cardsLeftText;
 
 /**
  * @function
@@ -17,9 +17,8 @@ let deckRemain;
  */
 function displayDeck () {
     let deck = game.add.sprite(300, 300, 'deck');
-    deck.anchor.x=0.5;
-    deck.anchor.y=0.5;
-};
+    deck.anchor.set(0.5, 0.5);
+}
 
 /**
  * @function
@@ -29,12 +28,11 @@ function displayDeck () {
  */
 function displayDeckCounter (gameObject) {
     game = gameObject ? gameObject : game;
+
     let cardsLeft = actionDeck.cardsLeft();
-
-    deckRemain = game.add.text(300, 150, cardsLeft, fontProps);
-    deckRemain.anchor.x= 0.5;
-    deckRemain.anchor.y= 0.5;
-
+    cardsLeftText = game.add.text(300, 150, cardsLeft, fontProps);
+    cardsLeftText.anchor.x= 0.5;
+    cardsLeftText.anchor.y= 0.5;
 }
 
 /**
@@ -45,7 +43,7 @@ function displayDeckCounter (gameObject) {
 function updateDeckCounter () {
     let cardsLeft = actionDeck.cardsLeft();
 
-    deckRemain.setText(cardsLeft);
+    cardsLeftText.setText(cardsLeft);
 }
 
 

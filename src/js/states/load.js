@@ -24,6 +24,7 @@ let loadState = {
 		game.load.spritesheet('whiteTraits', './src/images/trait-icons-white-spritesheeet.png', 50, 50, 5);
 
 		game.load.image('actionCardBack', './src/images/action-card-back.png');
+		game.load.image('challengeCardBack', './src/images/challenge-card-back.png');
 
 		game.load.image('Bart', './src/images/Bart.png');
 		game.load.image('Carlos', './src/images/Carlos.png');
@@ -44,7 +45,6 @@ let loadState = {
 
 		game.load.image('pauseButton', './src/images/pause.png');
 		game.load.image('surrenderButton', './src/images/surrenderButton.png');
-		game.load.image('challengeCard', './src/images/challengeCard.png');
 	},
 	/**
 	 * @function

@@ -3,34 +3,29 @@
 import { currentChallenge } from '../challenges/stages';
 import { onSurrenderClick } from '../selection/playerInteraction';
 import { getIdOfTraitIcon } from './helpers';
+import * as challengeCardConstants from '../constants/challengeCards';
 
 let fontProps = {
-	font: '20px Karla',
-	fill: '#000000',
+	font: '18px Karla',
+	fill: '#000',
 	align: 'center',
 	boundsAlignH: 'center',
 	boundsAlignV: 'middle',
 	wordWrap: true,
 	wordWrapWidth: 250
 };
-let stageFontProp ={
+
+let stageFontProp = {
 	font: '26px Karla',
-	fill: '#000000',
-	align: 'center',
-	boundsAlignH: 'center',
-	boundsAlignV: 'middle',
-	wordWrap: true,
-	wordWrapWidth: 250
-}
-let traitValueFontProps ={
+	fill: '#000',
+	align: 'center'
+};
+
+let traitValueFontProps = {
 	font: '20px Karla',
-	fill: '#ffffff',
-	align: 'center',
-	boundsAlignH: 'center',
-	boundsAlignV: 'middle',
-	wordWrap: true,
-	wordWrapWidth: 250
-}
+	fill: '#fff',
+	align: 'center'
+};
 
 let challenge;
 let stage;
@@ -47,6 +42,7 @@ let remainingPointsText;
 let traitIcon;
 let traitIconIndex;
 let challengeBackground;
+let challengeCardGroup;
 
 /**
  * @function
@@ -56,10 +52,17 @@ let challengeBackground;
  */
 function displayChallenge (gameObject) {
 	game = gameObject ? gameObject : game;
-	challengeBackground= game.add.sprite(game.world.centerX, game.world.centerY-100, 'challengeCard');
-	challengeBackground.anchor.x= 0.5;
-	challengeBackground.anchor.y= 0.5;
+
+	challengeCardGroup = game.add.group();
+
+	challengeBackground = game.add.sprite(0, 0, 'challengeCardBack');
+	challengeBackground.scale.set(challengeCardConstants.size.height / challengeBackground.height);
 	challengeBackground.bringToBack;
+
+	challengeCardGroup.add(challengeBackground);
+
+	challengeCardGroup.x = game.world.centerX - (challengeBackground.width / 2);
+	challengeCardGroup.y = 60;
 	
 	challenge = currentChallenge.challenge;
 	stage = currentChallenge.stage;
@@ -67,11 +70,8 @@ function displayChallenge (gameObject) {
 	traitName = trait.name;
 	traitValue = trait.value;
 	
-	challengeText = game.add.text(game.world.centerX, 200, challenge, fontProps);
-	challengeText.anchor.x = 0.5;
-	challengeText.anchor.y = 0;
-	
 	displayStage();
+	displayChallengeText();
 	displayTrait();
 	displayPointsLeft();
 	displaySurrenderButton();
@@ -84,12 +84,27 @@ function displayChallenge (gameObject) {
  * @description Display the current stage.
  */
 function displayStage () {
-	stageText = game.add.text(game.world.centerX, 125, `${stage} life`, stageFontProp);
+	let textX = challengeBackground.centerX;
+	stageText = game.add.text(textX, challengeCardConstants.stageMargin.top, `${stage} Life`, stageFontProp);
+	stageText.anchor.set(0.5, 0);
 
-	stageText.anchor.x = 0.5;
-	stageText.anchor.y = 0;
+	challengeCardGroup.add(stageText);
+}
+
+/**
+ * @function
+ * @name displayChallengeText
+ * @description Display the challenge text.
+ */
+function displayChallengeText () {
+	let textX = challengeBackground.centerX;
+	let textY = challengeCardConstants.challengeTextMargin.top + challengeCardConstants.challengeTextMargin.bottom + stageText.height;
 	
-	
+	fontProps.wordWrapWidth = challengeBackground.width - (challengeCardConstants.challengeTextMargin.right + challengeCardConstants.challengeTextMargin.left);
+	challengeText = game.add.text(textX, textY, challenge, fontProps);
+	challengeText.anchor.set(0.5, 0);
+
+	challengeCardGroup.add(challengeText);
 }
 
 /**
@@ -98,21 +113,22 @@ function displayStage () {
  * @description Display the challenge's trait.
  */
 function displayTrait () {
-	
-	let traitValueY=challengeBackground.bottom;
-	traitIconIndex=getIdOfTraitIcon(traitName);
-	traitValue = trait.value;
+	let traitValueY = challengeBackground.bottom - (challengeCardConstants.traitIcon.height + challengeCardConstants.traitIcon.margin.bottom);
+	traitIconIndex = getIdOfTraitIcon(traitName);
 
-	traitIcon = game.add.sprite(game.world.centerX,traitValueY-60, 'whiteTraits', traitIconIndex)
-	traitIcon.anchor.x=0.5;
+	traitIcon = game.add.sprite(challengeBackground.centerX, traitValueY, 'whiteTraits');
+	traitIcon.frame = traitIconIndex;
+	traitIcon.anchor.set(0.5, 0);
 		
-	let traitIconY=traitIcon.top;
-	
-	
-	traitText = game.add.text(game.world.centerX, traitIconY, traitValue, traitValueFontProps);
+	let traitIconY = traitIcon.top;
+
+	traitText = game.add.text(challengeBackground.centerX, traitIconY, traitValue, traitValueFontProps);
 	traitText.anchor.x = 0.5;
 	traitText.anchor.y = 1;
-	}
+
+	challengeCardGroup.add(traitIcon);
+	challengeCardGroup.add(traitText);
+}
 
 /**
  * @function
@@ -132,9 +148,9 @@ function displayPointsLeft () {
  * @description Display the surrender option.
  */
 function displaySurrenderButton () {
-	surrenderButton = game.add.sprite(game.world.centerX,  challengeBackground.top-40, 'surrenderButton');
+	surrenderButton = game.add.sprite(game.world.centerX,  15, 'surrenderButton');
 
-	surrenderButton.scale.setTo(0.8,0.8)
+	surrenderButton.scale.setTo(30 / surrenderButton.height);
 	surrenderButton.anchor.x = 0.5;
 	surrenderButton.anchor.y = 0;
 
@@ -165,16 +181,14 @@ function updateChallenge () {
 	challenge = currentChallenge.challenge;
 	stage = currentChallenge.stage;
 	trait = currentChallenge.traits[0];
+	traitName = trait.name;
+	traitValue = trait.value;
 	
 	displayTrait();
 	challengeText.setText(challenge);
 	stageText.setText(`${stage} life`);
 	
-	
-	
-
 	updatePointsLeft(traitValue);
-	
 }
 
 /**
