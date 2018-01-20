@@ -152,7 +152,6 @@ function displayPointsLeft () {
 	remainingPointsText = game.add.text((1.45 * game.world.centerX), (0.272 * game.world.centerY), `${traitValue}/${traitValue}`, counterFontProps);
 	remainingPointsText.anchor.x = 0.5;
 	remainingPointsText.anchor.y = 0.5;
-	console.log(remainingPointsText);
 }
 
 /**
