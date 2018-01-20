@@ -32,6 +32,20 @@ const traitIcon = {
 	}
 };
 
+const remainingPoints = {
+	icon: {
+		size: {
+			height: 80
+		},
+		margin: {
+			left: 15
+		}
+	},
+	margin: {
+		left: 50
+	}
+}
+
 /** The rounds per stage */
 const roundsPerStage = 2;
 
@@ -41,5 +55,6 @@ export {
 	stageMargin,
 	challengeTextMargin,
 	traitIcon,
+	remainingPoints,
 	roundsPerStage
 };
