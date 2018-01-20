@@ -4,7 +4,7 @@ import * as playerInteraction from '../selection/playerInteraction';
 import * as playerHelpers from '../player/helpers';
 import { displayDeckCounter } from './actionDeck';
 import { selectedPlayerImage, sidePlayerImageSize, name, sidePlayerRectangle } from '../constants/player';
-import { displayTabSystem, updateTabSystem, renderCards } from './tabSystem';
+import { displayTabSystem, updateTabSystem } from './tabSystem';
 
 let fontProps = {
     font: '30px Karla',
@@ -124,7 +124,6 @@ function updateSelectedPlayer (player) {
 	selectedPlayerGroup.removeAll(true);
 
 	updateSidePlayers();
-	updateTabSystem();
 	displaySelectedPlayer(player.id);
 }
 
@@ -146,7 +145,7 @@ function updateSidePlayers () {
  * @description Display the cards of the selected player.
  */
 function displaySelectedPlayerCards () {
-	displayTabSystem();
+	displayTabSystem(1);
 }
 
 /**

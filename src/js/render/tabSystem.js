@@ -16,9 +16,12 @@ let previousCardX = actionCardConstants.margin.left;
 let previousCardId = 0;
 let currentTab = 1;
 
-function displayTabSystem () {
+function displayTabSystem (whichTab) {
 	tabSystemGroup = game.add.group();
 	listOfCardsGroup = game.add.group();
+
+	whichTab = whichTab ? whichTab : currentTab;
+	currentTab = whichTab;
 
 	background = new Phaser.Graphics(game, 0, 0);
 
@@ -32,9 +35,9 @@ function displayTabSystem () {
 	let selectedPlayer = playerHelpers.getSelectedPlayer();
 	let cardsInHand = selectedPlayer.cardsInHand;
 	if (cardsInHand.length > maxAmountOfVisibleCards) {
-		displayTabs(currentTab);
+		displayTabs();
 	} else {
-		destroyTabs();
+		updateTabs();
 	}
 
 	let heightOfTabSystem = tabSystemConstants.size.height;
@@ -58,7 +61,7 @@ function displayTabSystem () {
 	tabSystemGroup.add(background);
 	tabSystemGroup.add(listOfCardsGroup);
 
-	renderCards(currentTab);
+	renderCards();
 }
 
 function updateTabSystem (gameObject) {
@@ -67,65 +70,66 @@ function updateTabSystem (gameObject) {
 	listOfCardsGroup = listOfCardsGroup ? listOfCardsGroup : game.add.group();
 	listOfCardsGroup.removeAll(true);
 
-	destroyTabs();
-
 	previousCardId = 0;
 	previousCardX = actionCardConstants.margin.left;
+
+	displayTabSystem();
 }
 
-function displayTabs (selected) {
+function displayTabs () {
 	let selectedPlayer = playerHelpers.getSelectedPlayer();
 	let cardsInHand = selectedPlayer.cardsInHand;
 	let tabNumber = Math.ceil(cardsInHand.length / maxAmountOfVisibleCards);
-	selected = selected ? selected : 1;
-	tabGroup = game.add.group();
 
-	let labelX = tabSystemConstants.tab.size.width / 2;
-	let labelY = tabSystemConstants.tab.size.height / 2;
-	for (let index = 0; index < tabNumber; index += 1) {
-		let tabNumber = index + 1;
-		let group = game.add.group();
-		group.inputEnableChildren = true;
+	tabGroup = tabGroup ? tabGroup : game.add.group();
+	if (tabNumber > 1) {
+		let labelX = tabSystemConstants.tab.size.width / 2;
+		let labelY = tabSystemConstants.tab.size.height / 2;
+		for (let index = 0; index < tabNumber; index += 1) {
+			let tabNumber = index + 1;
+			let group = game.add.group();
+			group.inputEnableChildren = true;
 
-		let rectangle = new Phaser.Graphics(game, 0, 0);
-		if (tabNumber === selected) {
-			rectangle.beginFill(tabSystemConstants.tab.colors.selected);
-		} else {
-			rectangle.beginFill(tabSystemConstants.tab.colors.notSelected);
+			let rectangle = new Phaser.Graphics(game, 0, 0);
+			if (tabNumber === currentTab) {
+				rectangle.beginFill(tabSystemConstants.tab.colors.selected);
+			} else {
+				rectangle.beginFill(tabSystemConstants.tab.colors.notSelected);
+			}
+
+			rectangle.drawRoundedRect(0, 0, tabSystemConstants.tab.size.width, tabSystemConstants.tab.size.height, 15);
+			rectangle.endFill();
+			
+			rectangle.inputEnabled = true;
+			rectangle.events.onInputDown.add(() => {
+				updateTabs(index + 1);
+				renderCards();
+			}, this);
+
+			let label = game.add.text(labelX, labelY, tabNumber, { font: '14px Karla', fill: '#fff' });
+			label.anchor.set(0.5, 0.5);
+			
+			label.inputEnabled = true;
+			label.events.onInputDown.add(() => {
+				updateTabs(index + 1);
+				renderCards();
+			}, this);
+
+			group.add(rectangle);
+			group.add(label);
+
+			group.x = index * tabSystemConstants.tab.size.width;
+
+			tabGroup.add(group);
 		}
 
-		rectangle.drawRoundedRect(0, 0, tabSystemConstants.tab.size.width, tabSystemConstants.tab.size.height, 15);
-		rectangle.endFill();
-		
-		rectangle.inputEnabled = true;
-		rectangle.events.onInputDown.add(() => {
-			updateTabs(tabNumber);
-			renderCards(tabNumber);
-		}, this);
+		tabGroup.x = tabSystemConstants.tab.margin.left;
+		tabGroup.y = -(tabSystemConstants.tab.size.height - 15);
 
-		let label = game.add.text(labelX, labelY, tabNumber, { font: '14px Karla', fill: '#fff' });
-		label.anchor.set(0.5, 0.5);
-		
-		label.inputEnabled = true;
-		label.events.onInputDown.add(() => {
-			updateTabs(tabNumber);
-			renderCards(tabNumber);
-		}, this);
-
-		group.add(rectangle);
-		group.add(label);
-
-		group.x = index * tabSystemConstants.tab.size.width;
-
-		tabGroup.add(group);
+		tabSystemGroup.add(tabGroup);
+		tabSystemGroup.bringToTop(background);
+		tabSystemGroup.bringToTop(listOfCardsGroup);
 	}
-
-	tabGroup.x = tabSystemConstants.tab.margin.left;
-	tabGroup.y = -(tabSystemConstants.tab.size.height - 15);
-
-	tabSystemGroup.add(tabGroup);
-	tabSystemGroup.bringToTop(background);
-	tabSystemGroup.bringToTop(listOfCardsGroup);
 }
 
 function destroyTabs () {
@@ -135,22 +139,20 @@ function destroyTabs () {
 }
 
 function updateTabs (whichTab) {
-	tabGroup.removeAll(true);
+	currentTab = whichTab;
 
+	destroyTabs();
 	displayTabs(whichTab);
 }
 
-function renderCards (whichTab) {
-	whichTab = whichTab ? whichTab : 1;
-
+function renderCards () {
 	listOfCardsGroup.removeAll(true);
-	if (whichTab === 1) {
+	if (currentTab === 1) {
 		previousCardId = 0;
-	} else if (whichTab  === 2) {
+	} else if (currentTab  === 2) {
 		previousCardId = maxAmountOfVisibleCards;
 	}
 
-	currentTab = whichTab;
 	previousCardX = actionCardConstants.margin.left;
 
 	let selectedPlayer = playerHelpers.getSelectedPlayer();
@@ -180,6 +182,5 @@ function renderCard (card) {
 
 export {
 	displayTabSystem,
-	updateTabSystem,
-	renderCards
+	updateTabSystem
 }

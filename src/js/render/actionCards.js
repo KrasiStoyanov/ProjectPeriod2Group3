@@ -110,7 +110,7 @@ function setBottomTrait () {
 	let bottomTraitTextX = bottomTraitIconX - traitProps.text.margin.right;
 	let bottomTraitTextY = bottomTraitIconY + traitProps.text.margin.top;
 
-	bottomTraitText = game.add.text(bottomTraitTextX, bottomTraitTextY, topTrait.value, traitFontProps);
+	bottomTraitText = game.add.text(bottomTraitTextX, bottomTraitTextY, bottomTrait.value, traitFontProps);
 	bottomTraitText.anchor.set(1, 0);
 }
 
