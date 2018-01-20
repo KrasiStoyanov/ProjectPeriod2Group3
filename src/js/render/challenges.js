@@ -27,6 +27,11 @@ let traitValueFontProps = {
 	align: 'center'
 };
 
+let counterFontProps = {
+	font: 	'100px Karla',
+	fill: 	'#7f767f'
+}
+
 let challenge;
 let stage;
 let trait;
@@ -43,6 +48,7 @@ let traitIcon;
 let traitIconIndex;
 let challengeBackground;
 let challengeCardGroup;
+let counterIcon;
 
 /**
  * @function
@@ -75,7 +81,7 @@ function displayChallenge (gameObject) {
 	displayTrait();
 	displayPointsLeft();
 	displaySurrenderButton();
-	
+
 }
 
 /**
@@ -136,10 +142,17 @@ function displayTrait () {
  * @description Display the points left which are needed for passing the challenge.
  */
 function displayPointsLeft () {
-	remainingPointsText = game.add.text(game.world.centerX, game.world.centerY, `${traitValue}/${traitValue}`, fontProps);
+	traitIconIndex = getIdOfTraitIcon(traitName);
+	counterIcon = game.add.sprite((1.7 * game.world.centerX), (0.267 * game.world.centerY), 'whiteTraits');
+	counterIcon.frame = traitIconIndex;
+	counterIcon.scale.setTo(2, 2);
+	counterIcon.tint = 0x7f767f;
+	counterIcon.anchor.set(0.5, 0.5);
 
+	remainingPointsText = game.add.text((1.45 * game.world.centerX), (0.272 * game.world.centerY), `${traitValue}/${traitValue}`, counterFontProps);
 	remainingPointsText.anchor.x = 0.5;
-	remainingPointsText.anchor.y = 0;
+	remainingPointsText.anchor.y = 0.5;
+	console.log(remainingPointsText);
 }
 
 /**
@@ -177,7 +190,9 @@ function updatePointsLeft (remainingPoints) {
 function updateChallenge () {
 	traitIcon.destroy();
 	traitText.destroy();
-	
+	counterIcon.destroy();
+	remainingPointsText.destroy()
+
 	challenge = currentChallenge.challenge;
 	stage = currentChallenge.stage;
 	trait = currentChallenge.traits[0];
@@ -185,6 +200,7 @@ function updateChallenge () {
 	traitValue = trait.value;
 	
 	displayTrait();
+	displayPointsLeft();
 	challengeText.setText(challenge);
 	stageText.setText(`${stage} life`);
 	

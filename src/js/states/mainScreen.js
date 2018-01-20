@@ -37,15 +37,17 @@ let mainScreen = {
 		let firstPlayerToStart = playerHelpers.getPlayer(firstPlayerToStartId);
 		let listOfCards = firstPlayerToStart.cardsInHand;
 
-		playerHelpers.updateSelectedPlayer(firstPlayerToStartId);
-		playersRender.displaySelectedPlayer(firstPlayerToStartId, game);
-		playersRender.displaySidePlayers(game);
+
 
 		let currentChallenge = dealChallenge();
 		displayChallenge(game);
 		
 		displayDeck(game);
 		displayPauseButton(game);
+
+		playerHelpers.updateSelectedPlayer(firstPlayerToStartId);
+		playersRender.displaySelectedPlayer(firstPlayerToStartId, game);
+		playersRender.displaySidePlayers(game);
 	},
 	/**
 	 * @function
