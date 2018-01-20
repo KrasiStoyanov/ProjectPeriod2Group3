@@ -28,8 +28,8 @@ let traitValueFontProps = {
 };
 
 let counterFontProps = {
-	font: 	'100px Karla',
-	fill: 	'#7f767f'
+	font: '100px Karla',
+	fill: '#788282'
 }
 
 let challenge;
@@ -49,6 +49,7 @@ let traitIconIndex;
 let challengeBackground;
 let challengeCardGroup;
 let counterIcon;
+let remainingPointsGroup;
 
 /**
  * @function
@@ -81,7 +82,6 @@ function displayChallenge (gameObject) {
 	displayTrait();
 	displayPointsLeft();
 	displaySurrenderButton();
-
 }
 
 /**
@@ -142,16 +142,22 @@ function displayTrait () {
  * @description Display the points left which are needed for passing the challenge.
  */
 function displayPointsLeft () {
-	traitIconIndex = getIdOfTraitIcon(traitName);
-	counterIcon = game.add.sprite((1.7 * game.world.centerX), (0.267 * game.world.centerY), 'whiteTraits');
-	counterIcon.frame = traitIconIndex;
-	counterIcon.scale.setTo(2, 2);
-	counterIcon.tint = 0x7f767f;
-	counterIcon.anchor.set(0.5, 0.5);
+	remainingPointsGroup = game.add.group();
+	remainingPointsGroup.x = challengeCardGroup.right + challengeCardConstants.remainingPoints.margin.left;
+	remainingPointsGroup.y = challengeCardGroup.y;
 
-	remainingPointsText = game.add.text((1.45 * game.world.centerX), (0.272 * game.world.centerY), `${traitValue}/${traitValue}`, counterFontProps);
-	remainingPointsText.anchor.x = 0.5;
-	remainingPointsText.anchor.y = 0.5;
+	remainingPointsText = game.add.text(0, 0, `${traitValue}/${traitValue}`, counterFontProps);
+
+	let counterIconX = remainingPointsText.width + challengeCardConstants.remainingPoints.icon.margin.left;
+	let counterIconY = remainingPointsText.height / 2;
+	traitIconIndex = getIdOfTraitIcon(traitName);
+
+	counterIcon = game.add.sprite(counterIconX, counterIconY, 'grayTraits');
+	counterIcon.frame = traitIconIndex;
+	counterIcon.anchor.set(0, 0.5);
+
+	remainingPointsGroup.add(remainingPointsText);
+	remainingPointsGroup.add(counterIcon);
 }
 
 /**
@@ -179,6 +185,16 @@ function updatePointsLeft (remainingPoints) {
 	let initialPoints = traitValue;
 
 	remainingPointsText.setText(`${remainingPoints}/${initialPoints}`);
+
+	updatePointsLeftIcon();
+}
+
+function updatePointsLeftIcon () {
+	let counterIconX = remainingPointsText.width + challengeCardConstants.remainingPoints.icon.margin.left;
+	let counterIconY = remainingPointsText.height / 2;
+
+	counterIcon.x = counterIconX;
+	counterIcon.y = counterIconY;
 }
 
 /**

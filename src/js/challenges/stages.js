@@ -58,13 +58,7 @@ function calculatePoints (trait) {
 	}
 
 	let finalPoints = trait.value + bonusPoints;
-	if (finalPoints < 0) {
-		if (remainingPoints + finalPoints <= 0) {
-			challengePassed();
-		} else {
-			remainingPoints += finalPoints;
-		}
-	} else {
+	if (finalPoints > 0) {
 		if (remainingPoints - finalPoints <= 0) {
 			challengePassed();
 		} else {
