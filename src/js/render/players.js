@@ -8,7 +8,7 @@ import { displayTabSystem, updateTabSystem, getBounds } from './tabSystem';
 
 let fontProps = {
     font: '30px Karla',
-    fill: '#fff'
+    fill: '#00000'
 };
 
 let sidePlayerNumberProps = {
@@ -24,6 +24,7 @@ let listOfCardsGroup;
 let playersGroup;
 let traitsGroup;
 let playerImage;
+let selectedPlayerBackground;
 
 /**
  * @function
@@ -33,10 +34,17 @@ let playerImage;
  */
 function displaySelectedPlayer (id, gameObject) {
 	game = gameObject ? gameObject : game;
-	selectedPlayerGroup = game.add.group();
-
+	
 	let player = playerHelpers.getPlayer(id);
 	let playerName = player.name;
+
+	selectedPlayerBackground =new Phaser.Graphics(game, game.worldLeftPosition, game.worldBottomPosition);
+	selectedPlayerBackground.beginFill(0xffffff);
+	selectedPlayerBackground.drawRect(0, game.world.height/3*2, game.world.width, game.world.height/3);
+	selectedPlayerBackground.endFill();
+	game.world.add(selectedPlayerBackground);
+
+	selectedPlayerGroup = game.add.group();
 
 	playerHelpers.updateSelectedPlayer(id);
 
@@ -67,7 +75,6 @@ function displaySelectedPlayer (id, gameObject) {
 
 	selectedPlayerGroup.add(playerImage);
 	selectedPlayerGroup.add(nameText);
-
 	game.world.add(selectedPlayerGroup);
 }
 
