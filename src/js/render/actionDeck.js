@@ -5,7 +5,8 @@ import * as actionDeck from '../decks/actionDeck';
 let game;
 let fontProps = {
     font: '25px Karla',
-    fill: 'rgba(255, 255, 255, .7)'
+    fontWeight: 'bold',
+    fill: 'rgba(0, 0, 0, .7)'
 };
 
 let cardsLeftText;
@@ -30,7 +31,7 @@ function displayDeckCounter (gameObject) {
     game = gameObject ? gameObject : game;
 
     let cardsLeft = actionDeck.cardsLeft();
-    cardsLeftText = game.add.text(300, 150, cardsLeft, fontProps);
+    cardsLeftText = game.add.text(300, 150, `${cardsLeft} left`, fontProps);
     cardsLeftText.anchor.x= 0.5;
     cardsLeftText.anchor.y= 0.5;
 }
@@ -43,7 +44,7 @@ function displayDeckCounter (gameObject) {
 function updateDeckCounter () {
     let cardsLeft = actionDeck.cardsLeft();
 
-    cardsLeftText.setText(cardsLeft);
+    cardsLeftText.setText(`${cardsLeft} left`);
 }
 
 
