@@ -105,6 +105,15 @@ function displaySidePlayers (gameObject) {
 			rectangle.endFill();
 			rectangle.events.onInputDown.add(() => updateSelectedPlayer(currentPlayer), this);
 
+
+			let sidePlayerBackground = new Phaser.Graphics(game,0,0)
+			
+			sidePlayerBackground.beginFill(0x00000);
+			sidePlayerBackground.drawRect(-10,0,(rectangle.width+20),(game.world.height-game.world.height/3));
+			sidePlayerBackground.endFill();
+			sidePlayerBackground.anchor.x=0.5;
+			sidePlayerBackground.anchor.y=0.5;
+			
 			let playerNumber = game.add.text(10, 10, currentPlayer.id + 1, sidePlayerNumberProps);
 
 			let imageMarginLeft = sidePlayerRectangle.width / 2;
@@ -116,14 +125,15 @@ function displaySidePlayers (gameObject) {
 
 			playerImage.inputEnabled = true;
 			playerImage.events.onInputDown.add(() => updateSelectedPlayer(currentPlayer), this);
-
+			playerGroup.add(sidePlayerBackground)
 			playerGroup.add(rectangle);
 			playerGroup.add(playerNumber);
 			playerGroup.add(playerImage);
 		}
-
+		
 		playersGroup.add(playerGroup);
 	}
+	
 }
 
 /**
@@ -231,6 +241,11 @@ function updateSelectedPlayerTraits () {
 	traitsGroup.removeAll(true);
 
 	displaySelectedPlayerTraits();
+}
+function backgroundImage(){
+	
+	
+
 }
 
 export {
