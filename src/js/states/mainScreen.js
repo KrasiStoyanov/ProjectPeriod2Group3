@@ -45,9 +45,10 @@ let mainScreen = {
 		displayDeck(game);
 		displayPauseButton(game);
 
+		playersRender.displaySidePlayers(game);
 		playerHelpers.updateSelectedPlayer(firstPlayerToStartId);
 		playersRender.displaySelectedPlayer(firstPlayerToStartId, game);
-		playersRender.displaySidePlayers(game);
+		
 	},
 	/**
 	 * @function
