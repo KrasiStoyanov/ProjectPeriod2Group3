@@ -4,7 +4,7 @@ import * as playerInteraction from '../selection/playerInteraction';
 import * as playerHelpers from '../player/helpers';
 import { displayDeckCounter } from './actionDeck';
 import { selectedPlayerImage, sidePlayerImageSize, name, sidePlayerRectangle } from '../constants/player';
-import { displayTabSystem, updateTabSystem } from './tabSystem';
+import { displayTabSystem, updateTabSystem, getBounds } from './tabSystem';
 
 let fontProps = {
     font: '30px Karla',
@@ -40,12 +40,21 @@ function displaySelectedPlayer (id, gameObject) {
 
 	playerHelpers.updateSelectedPlayer(id);
 
-	nameText = game.add.text(name.margin.left, game.world.height - 50, playerName, fontProps);
-	nameText.anchor.set(0);
+	updateSelectedPlayerTraits();
+	updateSelectedPlayerCards();
+
+	let tabSystemBounds = getBounds();
+	let nameTextX = tabSystemBounds.left - name.margin.right;
+	let nameTextY = game.world.height - 50;
+
+	nameText = game.add.text(nameTextX, nameTextY, playerName, fontProps);
+	nameText.anchor.set(0, 1);
 	nameText.angle = -90;
 
+	let playerImageX = selectedPlayerImage.margin.left;
 	let playerImageY = game.world.height - selectedPlayerImage.height;
-	playerImage = game.add.sprite(selectedPlayerImage.margin.left, playerImageY, playerName);
+
+	playerImage = game.add.sprite(playerImageX, playerImageY, playerName);
 	playerImage.scale.setTo(selectedPlayerImage.height / playerImage.height);
 
 	if (playerImage.width > selectedPlayerImage.width) {
@@ -58,9 +67,6 @@ function displaySelectedPlayer (id, gameObject) {
 
 	selectedPlayerGroup.add(playerImage);
 	selectedPlayerGroup.add(nameText);
-
-	updateSelectedPlayerTraits();
-	updateSelectedPlayerCards();
 
 	game.world.add(selectedPlayerGroup);
 }

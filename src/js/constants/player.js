@@ -39,7 +39,7 @@ const sidePlayerRectangle = {
 
 const name = {
 	margin: {
-		left: 270
+		right: 10
 	}
 };
 

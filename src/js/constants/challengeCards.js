@@ -5,6 +5,8 @@ const stages = {
 	late: "Late"
 };
 
+const dragAndDropBoundriesOffset = 60;
+
 /** Sizes */
 const size = {
 	height: 420
@@ -51,6 +53,7 @@ const roundsPerStage = 2;
 
 export {
 	stages,
+	dragAndDropBoundriesOffset,
 	size,
 	stageMargin,
 	challengeTextMargin,

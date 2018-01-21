@@ -51,6 +51,8 @@ let challengeCardGroup;
 let counterIcon;
 let remainingPointsGroup;
 
+let dragAndDropBoundries;
+
 /**
  * @function
  * @name displayChallenge
@@ -82,6 +84,13 @@ function displayChallenge (gameObject) {
 	displayTrait();
 	displayPointsLeft();
 	displaySurrenderButton();
+
+	dragAndDropBoundries = {
+		top: challengeCardGroup.top,
+		right: challengeCardGroup.right,
+		bottom: challengeCardGroup.bottom,
+		left: challengeCardGroup.left
+	};
 }
 
 /**
@@ -222,6 +231,10 @@ function updateChallenge () {
 	updatePointsLeft(traitValue);
 }
 
+function getDragAndDropBoundries () {
+	return dragAndDropBoundries;
+}
+
 /**
  * @function
  * @name endGame
@@ -235,5 +248,6 @@ export {
 	displayChallenge,
 	updatePointsLeft,
 	updateChallenge,
+	getDragAndDropBoundries,
 	endGame
 }

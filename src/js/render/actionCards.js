@@ -48,7 +48,7 @@ function generateActionCard (card, gameObject) {
 	
 	actionCardGroup.inputEnabled = true;
 	actionCardGroup.input.enableDrag(true);
-	actionCardGroup.events.onDragStop.add(() => playerInteraction.placeActionCard(selectedPlayer, card), this);
+	actionCardGroup.events.onDragStop.add((sprite) => playerInteraction.dropCard(selectedPlayer, card, sprite), this);
 
 	let traits = card.traits;
 	action = card.action;

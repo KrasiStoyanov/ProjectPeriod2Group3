@@ -178,9 +178,27 @@ function renderCard (card) {
 	previousCardX = previousCardX + actionCardConstants.size.width + actionCardConstants.margin.left;
 
 	listOfCardsGroup.add(generatedCard);
+	let position = {
+		x: generatedCard.x,
+		y: generatedCard.y
+	};
+
+	generatedCard.variable = position;
+}
+
+function getBounds () {
+	let bounds = {
+		top: tabSystemGroup.top,
+		right: tabSystemGroup.right,
+		bottom: tabSystemGroup.bottom,
+		left: tabSystemGroup.left
+	};
+
+	return bounds;
 }
 
 export {
 	displayTabSystem,
-	updateTabSystem
+	updateTabSystem,
+	getBounds
 }
