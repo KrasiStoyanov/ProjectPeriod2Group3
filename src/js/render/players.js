@@ -71,7 +71,7 @@ function displaySelectedPlayer (id, gameObject) {
 	let backgroundX = 0;
 	let backgroundY = traitsGroup.top - 20;
 	let backgroundWidth = game.width;
-	let backgroundHeight = game.width - backgroundY;
+	let backgroundHeight = game.height - backgroundY;
 
 	selectedPlayerBackground = new Phaser.Graphics(game, 0, game.worldBottomPosition);
 	selectedPlayerBackground.beginFill(0xffffff);
@@ -102,7 +102,7 @@ function displaySidePlayers (gameObject) {
 	let backgroundX = 0;
 	let backgroundY = 0;
 	let backgroundWidth = sidePlayerRectangle.width + (sidePlayerRectangle.gutter * 2);
-	let backgroundHeight = game.height;
+	let backgroundHeight = game.height-(game.height-(traitsGroup.top-20));
 
 	sidePlayersBackground = new Phaser.Graphics(game,0,0);
 	sidePlayersBackground.beginFill(0x00000);
