@@ -20,8 +20,8 @@ let endingText;
 /**
  * @function
  * @name displayEnding
- * @param { object } gameObject 
- * @description Display the ending of this game on screen
+ * @param { object } The game object.
+ * @description Display the ending.
  */
 function displayEnding (gameObject) {
     game = gameObject ? gameObject : game;
@@ -36,7 +36,8 @@ function displayEnding (gameObject) {
 /**
  * @function
  * @name decideEndingsId
- * @description Calculate the failure times and decide which ending it is.
+ * @return { string } The correct ending.
+ * @description Get the proper ending based on the results.
  */
 function getEndingBasedOnResults () {
     let failureCounter = 0;
@@ -50,7 +51,7 @@ function getEndingBasedOnResults () {
     if (failureCounter === 0) {
         return endings.good;
     } else if (failureCounter === 1) {
-        returnendings.neutral;
+        return endings.neutral;
     } else if (failureCounter > 1) {
         return endings.bad;
     }

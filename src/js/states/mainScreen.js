@@ -7,6 +7,9 @@ import * as playerHelpers from '../player/helpers';
 import { dealChallenge } from '../challenges/stages';
 import * as playersRender from '../render/players';
 import { displayChallenge } from '../render/challenges';
+import { displayDeck, displayDeckCounter, updateDeckCounter } from '../render/actionDeck';
+import { displayTabSystem } from '../render/tabSystem';
+import {displayPauseButton} from '../render/buttons';
 
 let mainScreen = {
 	/**
@@ -18,23 +21,34 @@ let mainScreen = {
 	create: (game) => {
 		let players = playerHelpers.getPlayers();
 		let amountOfCardsToBeInitiallyDealt = playerHelpers.amountOfCardsToBeInitiallyDealt();
+
+		displayDeckCounter(game);
+
 		for (let index = 0; index < amountOfCardsToBeInitiallyDealt; index += 1) {
 			for (let jndex = 0; jndex < players.length; jndex += 1) {
 				let player = players[jndex];
 
 				player.receiveCards(1);
+				
+				updateDeckCounter(game);
 			}
 		}
 
 		let firstPlayerToStart = playerHelpers.getPlayer(firstPlayerToStartId);
 		let listOfCards = firstPlayerToStart.cardsInHand;
 
-		playerHelpers.updateSelectedPlayer(firstPlayerToStartId);
-		playersRender.displaySelectedPlayer(game, firstPlayerToStartId);
-		playersRender.displaySidePlayers(game);
+
 
 		let currentChallenge = dealChallenge();
 		displayChallenge(game);
+		
+		displayDeck(game);
+		displayPauseButton(game);
+
+		playersRender.displaySidePlayers(game);
+		playerHelpers.updateSelectedPlayer(firstPlayerToStartId);
+		playersRender.displaySelectedPlayer(firstPlayerToStartId, game);
+		
 	},
 	/**
 	 * @function

@@ -76,8 +76,9 @@ function removeCard (deck, id) {
 /**
  * @function 
  * @name returnDeckRemain
- * @param { array } deck 
- * @description Return how many cards left in the deck array.
+ * @param { array } deck - The deck.
+ * @return { number } The length of the deck.
+ * @description Return how many cards are left in the deck.
  */
 function returnDeckRemain (deck) {
 	return deck.length;

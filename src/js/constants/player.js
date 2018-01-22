@@ -15,6 +15,34 @@ const maxAmountOfPlayers = 5;
 /** The id of the player that would be initially selected when the game starts */
 const firstPlayerToStartId = 0;
 
+const selectedPlayerImage = {
+	width: 170,
+	height: 250,
+	margin: {
+		left: 75
+	}
+};
+
+const sidePlayerImageSize = {
+	width: 90,
+	height: 100
+};
+
+const sidePlayerRectangle = {
+	width: 125,
+	height: 125,
+	gutter: 6,
+	margin: {
+		left: 40
+	}
+};
+
+const name = {
+	margin: {
+		right: 10
+	}
+};
+
 export {
 	minAmountOfCardsInitial,
 	maxAmountOfCardsInitial,
@@ -23,4 +51,8 @@ export {
 	minAmountOfPlayers,
 	maxAmountOfPlayers,
 	firstPlayerToStartId,
+	selectedPlayerImage,
+	sidePlayerImageSize,
+	sidePlayerRectangle,
+	name
 };

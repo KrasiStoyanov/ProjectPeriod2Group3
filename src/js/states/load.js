@@ -19,11 +19,33 @@ let loadState = {
 		game.load.image('characterCard7', './src/images/character-7.png');
 		game.load.image('characterCard8', './src/images/character-8.png');
 
+		game.load.spritesheet('positiveTraits', './src/images/trait-icons-positive-spritesheet.png', 36, 36, 5);
+		game.load.spritesheet('negativeTraits', './src/images/trait-icons-negative-spritesheet.png', 36, 36, 5);
+		game.load.spritesheet('whiteTraits', './src/images/trait-icons-white-spritesheet.png', 50, 50, 5);
+		game.load.spritesheet('grayTraits', './src/images/trait-icons-gray-spritesheet.png', 81, 81, 5);
+
+		game.load.image('actionCardBack', './src/images/action-card-back.png');
+		game.load.image('challengeCardBack', './src/images/challenge-card-back.png');
+
+		game.load.image('Bart', './src/images/Bart.png');
+		game.load.image('Carlos', './src/images/Carlos.png');
+		game.load.image('Elisa', './src/images/Elisa.png');
+		game.load.image('Fiona', './src/images/Fiona.png');
+		game.load.image('Jenny', './src/images/Jenny.png');
+		game.load.image('John', './src/images/John.png');
+		game.load.image('Mark', './src/images/Mark.png');
+		game.load.image('Stefania', './src/images/Stefania.png');
+
+		game.load.image('deck', './src/images/Deck.png');
+
 		game.load.image('logo', './src/images/logo.png');
 		game.load.image('whiteTransparentLogo', './src/images/white-transparent-logo.png');
 
 		game.load.image('waves', './src/images/waves.png');
 		game.load.image('wavesCopy', './src/images/waves.png');
+
+		game.load.image('pauseButton', './src/images/pause.png');
+		game.load.image('surrenderButton', './src/images/surrenderButton.png');
 	},
 	/**
 	 * @function

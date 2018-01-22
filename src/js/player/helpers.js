@@ -3,7 +3,8 @@
 import Player from './Player';
 import * as playerValidator from '../validators/playerValidator';
 import * as playerConstants from '../constants/player';
-import { currentChallenge } from '../challenges/stages';
+import { updateDeckCounter } from '../render/actionDeck';
+
 
 let players = [];
 let selectedPlayer;
@@ -91,6 +92,24 @@ function getSelectedPlayer () {
 
 /**
  * @function
+ * @name getSidePlayers
+ * @return { array } The side players.
+ * @description Receive the side players.
+ */
+function getSidePlayers () {
+	let sidePlayers = [];
+	for (let index in players) {
+		let currentPlayer = players[index];
+		if (!currentPlayer.isSelected) {
+			sidePlayers.push(currentPlayer);
+		}
+	}
+
+	return sidePlayers;
+}
+
+/**
+ * @function
  * @name playersReceiveCardsAfterChallenge
  * @description Player should receive a card after passing/failing a challenge.
  */
@@ -99,6 +118,7 @@ function playersReceiveCardsAfterChallenge () {
 		let currentPlayer = players[index];
 
 		currentPlayer.receiveCards(1);
+		updateDeckCounter();
 	}
 }
 
@@ -172,6 +192,7 @@ export {
 	amountOfCardsToBeInitiallyDealt,
 	updateSelectedPlayer,
 	getSelectedPlayer,
+	getSidePlayers,
 	playersReceiveCardsAfterChallenge,
 	giftActionCard,
 	suitablePlayersSuggestion
