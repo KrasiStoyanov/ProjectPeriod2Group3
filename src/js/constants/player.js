@@ -33,7 +33,7 @@ const sidePlayerRectangle = {
 	height: 125,
 	gutter: 6,
 	margin: {
-		left: 40
+		left: 6
 	}
 };
 

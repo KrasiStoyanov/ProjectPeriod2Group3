@@ -25,6 +25,7 @@ let playersGroup;
 let traitsGroup;
 let playerImage;
 let selectedPlayerBackground;
+let sidePlayersBackground;
 
 /**
  * @function
@@ -37,12 +38,6 @@ function displaySelectedPlayer (id, gameObject) {
 	
 	let player = playerHelpers.getPlayer(id);
 	let playerName = player.name;
-
-	selectedPlayerBackground =new Phaser.Graphics(game, game.worldLeftPosition, game.worldBottomPosition);
-	selectedPlayerBackground.beginFill(0xffffff);
-	selectedPlayerBackground.drawRect(0, game.world.height/3*2, game.world.width, game.world.height/3);
-	selectedPlayerBackground.endFill();
-	game.world.add(selectedPlayerBackground);
 
 	selectedPlayerGroup = game.add.group();
 
@@ -73,6 +68,17 @@ function displaySelectedPlayer (id, gameObject) {
 		playerImage.y = playerImageY;
 	}
 
+	let backgroundX = 0;
+	let backgroundY = traitsGroup.top - 20;
+	let backgroundWidth = game.width;
+	let backgroundHeight = game.width - backgroundY;
+
+	selectedPlayerBackground = new Phaser.Graphics(game, 0, game.worldBottomPosition);
+	selectedPlayerBackground.beginFill(0xffffff);
+	selectedPlayerBackground.drawRect(backgroundX, backgroundY, backgroundWidth, backgroundHeight);
+	selectedPlayerBackground.endFill();
+
+	selectedPlayerGroup.add(selectedPlayerBackground);
 	selectedPlayerGroup.add(playerImage);
 	selectedPlayerGroup.add(nameText);
 	game.world.add(selectedPlayerGroup);
@@ -88,31 +94,38 @@ function displaySidePlayers (gameObject) {
 	game = gameObject ? gameObject : game;
 
 	let players = playerHelpers.getSidePlayers();
+
 	playersGroup = game.add.group();
+	playersGroup.x = 34;
+	playersGroup.y = 0;
+
+	let backgroundX = 0;
+	let backgroundY = 0;
+	let backgroundWidth = sidePlayerRectangle.width + (sidePlayerRectangle.gutter * 2);
+	let backgroundHeight = game.height;
+
+	sidePlayersBackground = new Phaser.Graphics(game,0,0);
+	sidePlayersBackground.beginFill(0x00000);
+	sidePlayersBackground.drawRect(backgroundX, backgroundY, backgroundWidth, backgroundHeight);
+	sidePlayersBackground.endFill();
+
+	playersGroup.add(sidePlayersBackground);
 
 	for (let index = 0; index < players.length; index += 1) {
 		let currentPlayer = players[index];
 		let playerGroup = game.add.group();
 
-		playerGroup.position.x = sidePlayerRectangle.margin.left;
-		playerGroup.position.y = (sidePlayerRectangle.height * index) + sidePlayerRectangle.gutter * index;
+		playerGroup.x = sidePlayerRectangle.margin.left;
+		playerGroup.y = (sidePlayerRectangle.height * index) + (sidePlayerRectangle.gutter * (index + 1));
 		playerGroup.inputEnableChildren = true;
 
 		if (!currentPlayer.isSelected) {
 			let rectangle = new Phaser.Graphics(game, 0, 0);
+
 			rectangle.beginFill(0xffffff);
 			rectangle.drawRoundedRect(0, 0, sidePlayerRectangle.width, sidePlayerRectangle.height, 15);
 			rectangle.endFill();
 			rectangle.events.onInputDown.add(() => updateSelectedPlayer(currentPlayer), this);
-
-
-			let sidePlayerBackground = new Phaser.Graphics(game,0,0)
-			
-			sidePlayerBackground.beginFill(0x00000);
-			sidePlayerBackground.drawRect(-10,0,(rectangle.width+20),(game.world.height-game.world.height/3));
-			sidePlayerBackground.endFill();
-			sidePlayerBackground.anchor.x=0.5;
-			sidePlayerBackground.anchor.y=0.5;
 			
 			let playerNumber = game.add.text(10, 10, currentPlayer.id + 1, sidePlayerNumberProps);
 
@@ -125,7 +138,7 @@ function displaySidePlayers (gameObject) {
 
 			playerImage.inputEnabled = true;
 			playerImage.events.onInputDown.add(() => updateSelectedPlayer(currentPlayer), this);
-			playerGroup.add(sidePlayerBackground)
+
 			playerGroup.add(rectangle);
 			playerGroup.add(playerNumber);
 			playerGroup.add(playerImage);
