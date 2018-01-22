@@ -8,7 +8,7 @@ import { displayTabSystem, updateTabSystem, getBounds } from './tabSystem';
 
 let fontProps = {
     font: '30px Karla',
-    fill: '#fff'
+    fill: '#00000'
 };
 
 let sidePlayerNumberProps = {
@@ -24,6 +24,7 @@ let listOfCardsGroup;
 let playersGroup;
 let traitsGroup;
 let playerImage;
+let selectedPlayerBackground;
 
 /**
  * @function
@@ -33,10 +34,17 @@ let playerImage;
  */
 function displaySelectedPlayer (id, gameObject) {
 	game = gameObject ? gameObject : game;
-	selectedPlayerGroup = game.add.group();
-
+	
 	let player = playerHelpers.getPlayer(id);
 	let playerName = player.name;
+
+	selectedPlayerBackground =new Phaser.Graphics(game, game.worldLeftPosition, game.worldBottomPosition);
+	selectedPlayerBackground.beginFill(0xffffff);
+	selectedPlayerBackground.drawRect(0, game.world.height/3*2, game.world.width, game.world.height/3);
+	selectedPlayerBackground.endFill();
+	game.world.add(selectedPlayerBackground);
+
+	selectedPlayerGroup = game.add.group();
 
 	playerHelpers.updateSelectedPlayer(id);
 
@@ -67,7 +75,6 @@ function displaySelectedPlayer (id, gameObject) {
 
 	selectedPlayerGroup.add(playerImage);
 	selectedPlayerGroup.add(nameText);
-
 	game.world.add(selectedPlayerGroup);
 }
 
@@ -98,6 +105,15 @@ function displaySidePlayers (gameObject) {
 			rectangle.endFill();
 			rectangle.events.onInputDown.add(() => updateSelectedPlayer(currentPlayer), this);
 
+
+			let sidePlayerBackground = new Phaser.Graphics(game,0,0)
+			
+			sidePlayerBackground.beginFill(0x00000);
+			sidePlayerBackground.drawRect(-10,0,(rectangle.width+20),(game.world.height-game.world.height/3));
+			sidePlayerBackground.endFill();
+			sidePlayerBackground.anchor.x=0.5;
+			sidePlayerBackground.anchor.y=0.5;
+			
 			let playerNumber = game.add.text(10, 10, currentPlayer.id + 1, sidePlayerNumberProps);
 
 			let imageMarginLeft = sidePlayerRectangle.width / 2;
@@ -109,14 +125,15 @@ function displaySidePlayers (gameObject) {
 
 			playerImage.inputEnabled = true;
 			playerImage.events.onInputDown.add(() => updateSelectedPlayer(currentPlayer), this);
-
+			playerGroup.add(sidePlayerBackground)
 			playerGroup.add(rectangle);
 			playerGroup.add(playerNumber);
 			playerGroup.add(playerImage);
 		}
-
+		
 		playersGroup.add(playerGroup);
 	}
+	
 }
 
 /**
@@ -224,6 +241,11 @@ function updateSelectedPlayerTraits () {
 	traitsGroup.removeAll(true);
 
 	displaySelectedPlayerTraits();
+}
+function backgroundImage(){
+	
+	
+
 }
 
 export {
