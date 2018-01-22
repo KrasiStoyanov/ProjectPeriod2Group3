@@ -47,8 +47,9 @@ let mainScreen = {
 
 		
 		playerHelpers.updateSelectedPlayer(firstPlayerToStartId);
-		playersRender.displaySelectedPlayer(firstPlayerToStartId, game);
 		playersRender.displaySidePlayers(game);
+		playersRender.displaySelectedPlayer(firstPlayerToStartId, game);
+		
 		
 	},
 	/**

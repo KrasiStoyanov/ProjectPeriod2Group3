@@ -102,7 +102,7 @@ function displaySidePlayers (gameObject) {
 	let backgroundX = 0;
 	let backgroundY = 0;
 	let backgroundWidth = sidePlayerRectangle.width + (sidePlayerRectangle.gutter * 2);
-	let backgroundHeight = game.height-(game.height-(traitsGroup.top-20));
+	let backgroundHeight = game.height;
 
 	sidePlayersBackground = new Phaser.Graphics(game,0,0);
 	sidePlayersBackground.beginFill(0x00000);
