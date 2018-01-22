@@ -111,9 +111,13 @@ function isOverSidePlayer (player, card, sprite) {
 
 			let shouldGiftCardToPlayer = isOverAnElement(dragAndDropBoundries, 0);
 			if (shouldGiftCardToPlayer) {
-				player.giftCard(card, currentChild.playerId);
+				let hasGiftedCard = player.giftCard(card, currentChild.playerId);
+				if (!hasGiftedCard) {
+					moveCardBack(sprite);
+				} else {
+					updateSelectedPlayerCards();
+				}
 
-				updateSelectedPlayerCards();
 			}
 		}
 	}

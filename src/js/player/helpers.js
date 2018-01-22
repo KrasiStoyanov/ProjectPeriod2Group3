@@ -116,6 +116,7 @@ function getSidePlayers () {
 function playersReceiveCardsAfterChallenge () {
 	for (let index = 0; index < players.length; index += 1) {
 		let currentPlayer = players[index];
+		currentPlayer.giftingCounter = 0;
 
 		currentPlayer.receiveCards(1);
 		updateDeckCounter();

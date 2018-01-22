@@ -20,6 +20,7 @@ export default class Player {
 		this._traits = characterCard.traits;
 		this._cardsInHand = [];
 		this._isSelected = false;
+		this._giftingCounter = 0;
 	}
 
 	/**
@@ -86,6 +87,19 @@ export default class Player {
 	}
 
 	/**
+     * Say if a player is selected.
+     * @return { boolean } If player is selected.
+     */
+	get giftingCounter() {
+		return this._giftingCounter;
+	}
+
+	/** Set the state of the plpayer if he is selected. */
+	set giftingCounter(value) {
+		this._giftingCounter = value;
+	}
+
+	/**
 	 * @function
 	 * @name receiveCards
 	 * @param { number } amount - The amount of cards that need to be dealt.
@@ -126,9 +140,16 @@ export default class Player {
 	 * @description Gift the card to the chosen player.
 	 */
 	giftCard(card, playerId) {
-		giftActionCard(card, playerId);
+		if (this.giftingCounter < 1) {
+			giftActionCard(card, playerId);
 
-		this.removeCard(card.id);
+			this.removeCard(card.id);
+			this.giftingCounter = 1;
+
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
