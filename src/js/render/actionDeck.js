@@ -32,8 +32,8 @@ function displayDeckCounter (gameObject) {
 
     let cardsLeft = actionDeck.cardsLeft();
     cardsLeftText = game.add.text(300, 150, `${cardsLeft} left`, fontProps);
-    cardsLeftText.anchor.x= 0.5;
-    cardsLeftText.anchor.y= 0.5;
+    cardsLeftText.anchor.x = 0.5;
+    cardsLeftText.anchor.y = 0.5;
 }
 
 /**
