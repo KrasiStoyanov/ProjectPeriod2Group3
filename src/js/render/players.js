@@ -139,14 +139,24 @@ function displaySidePlayers (gameObject) {
 			playerImage.inputEnabled = true;
 			playerImage.events.onInputDown.add(() => updateSelectedPlayer(currentPlayer), this);
 
+			let position = {
+				x: playerGroup.x,
+				y: playerGroup.y
+			};
+
 			playerGroup.add(rectangle);
 			playerGroup.add(playerNumber);
 			playerGroup.add(playerImage);
+			playerGroup.variable = position;
+			playerGroup.playerId = currentPlayer.id;
 		}
 		
 		playersGroup.add(playerGroup);
 	}
-	
+}
+
+function getSidePlayersGroup () {
+	return playersGroup;
 }
 
 /**
@@ -264,5 +274,6 @@ function backgroundImage(){
 export {
 	displaySelectedPlayer,
 	displaySidePlayers,
-	updateSelectedPlayerCards
+	updateSelectedPlayerCards,
+	getSidePlayersGroup
 }

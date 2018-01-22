@@ -184,6 +184,10 @@ function renderCard (card) {
 	};
 
 	generatedCard.variable = position;
+	generatedCard.originalSize = {
+		width: generatedCard.width,
+		height: generatedCard.height
+	};
 }
 
 function getBounds () {
