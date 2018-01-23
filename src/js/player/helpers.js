@@ -4,7 +4,7 @@ import Player from './Player';
 import * as playerValidator from '../validators/playerValidator';
 import * as playerConstants from '../constants/player';
 import { updateDeckCounter } from '../render/actionDeck';
-
+import { currentChallenge } from '../challenges/stages';
 
 let players = [];
 let selectedPlayer;
@@ -130,9 +130,15 @@ function playersReceiveCardsAfterChallenge () {
  */
 function giftActionCard (card, playerId) {
 	let receivingPlayer = getPlayer(playerId);
-	
-	card.playerId = receivingPlayer.id;
-	receivingPlayer.cardsInHand.push(card);
+	let receivingPlayerCards = receivingPlayer.cardsInHand;
+	if (receivingPlayerCards.length < playerConstants.maxAmountOfCards) {
+		card.playerId = receivingPlayer.id;
+		receivingPlayer.cardsInHand.push(card);
+
+		return true;
+	}
+
+	return false;
 }
 
 /**
@@ -144,29 +150,39 @@ function giftActionCard (card, playerId) {
 function suitablePlayersSuggestion (card) {
 	let suitablePlayers = [];
 	let cardTraits = card.traits;
-	let currentChallengeTrait = currentChallenge.traits[0];
 
 	for (let index = 0; index < players.length; index += 1) {
 		let currentPlayer = players[index];
 		let playerTraits = currentPlayer.traits;
 		for (let jndex = 0; jndex < cardTraits.length; jndex += 1) {
-			for (let key in playerTraits) {
-				let trait = playerTraits[key];
-				let ifArrayContainsCurrentPlayer = ifSuitablePlayersContainCurrentPlayer(suitablePlayers, currentPlayer);
-				if (currentPlayer.id !== selectedPlayer.id && !ifArrayContainsCurrentPlayer) {
-					if (trait.name === currentChallengeTrait.name) {
-						if (trait.value > 0) {
-							suitablePlayers.push(currentPlayer);
+			let currentCardTrait = cardTraits[jndex];
+			let ifArrayContainsCurrentPlayer = ifSuitablePlayersContainCurrentPlayer(suitablePlayers, currentPlayer);
+			let hasAddedPlayer = ifPlayerTraitsPositive(currentPlayer, playerTraits, currentCardTrait, ifArrayContainsCurrentPlayer);
 
-							break;
-						}
-					}
-				}
+			if (hasAddedPlayer) {
+				suitablePlayers.push(currentPlayer);
+
+				break;
 			}
 		}
 	}
 
 	return suitablePlayers;
+}
+
+function ifPlayerTraitsPositive (currentPlayer, playerTraits, currentCardTrait, ifArrayContainsCurrentPlayer) {
+	for (let key in playerTraits) {
+		let trait = playerTraits[key];
+		if (currentPlayer.id !== selectedPlayer.id && !ifArrayContainsCurrentPlayer) {
+			if (trait.name === currentCardTrait.name) {
+				if (trait.value > 0) {
+					return true;
+				}
+
+				return false;
+			}
+		}
+	}
 }
 
 /**

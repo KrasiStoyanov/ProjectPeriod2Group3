@@ -5,6 +5,7 @@ import { surrender } from '../challenges/stages';
 import { getDragAndDropBoundries } from '../render/challenges';
 import { getSidePlayersGroup } from '../render/players';
 import * as challengeCardConstants from '../constants/challengeCards';
+import { suitablePlayersSuggestion } from '../player/helpers';
 
 let game;
 let hasPlacedCard;
@@ -34,6 +35,38 @@ function onSurrenderClick () {
 	updateSelectedPlayerCards();
 }
 
+function startDragging (card, sprite, gameObject) {
+	sprite.bringToTop();
+	let suitablePlayers = suitablePlayersSuggestion(card);
+
+	let sidePlayersGroup = getSidePlayersGroup();
+	let sidePlayersGroupChildren = sidePlayersGroup.children;
+	for (let index in sidePlayersGroupChildren) {
+		let currentChild = sidePlayersGroupChildren[index];
+		if (currentChild.name === 'group') {
+			let isSuitable = false;
+			for (let jndex in suitablePlayers) {
+				let currentPlayer = suitablePlayers[jndex];
+				if (currentChild.playerId === currentPlayer.id) {
+					isSuitable = true;
+
+					break;
+				}
+			}
+
+			if (!isSuitable) {
+				let characterThumbnail = currentChild.children[currentChild.children.length - 1];
+
+				let darkenTween = game.add.tween(characterThumbnail);
+				darkenTween.to({
+					alpha: 0.1,
+					tint: 0x121212
+				}, 200, Phaser.Easing.Quadratic.InOut, true);
+			}
+		}
+	}
+}
+
 function dropCard (player, card, sprite) {
 	spritePosition = {
 		top: sprite.worldPosition.y,
@@ -44,6 +77,24 @@ function dropCard (player, card, sprite) {
 
 	isOverChallengeCard(player, card, sprite);
 	isOverSidePlayer(player, card, sprite);
+	sidePlayersToNormal();
+}
+
+function sidePlayersToNormal () {
+	let sidePlayersGroup = getSidePlayersGroup();
+	let sidePlayersGroupChildren = sidePlayersGroup.children;
+	for (let index in sidePlayersGroupChildren) {
+		let currentChild = sidePlayersGroupChildren[index];
+		if (currentChild.name === 'group') {
+			let characterThumbnail = currentChild.children[currentChild.children.length - 1];
+
+			let returnToNormalTween = game.add.tween(characterThumbnail);
+			returnToNormalTween.to({
+				alpha: 1,
+				tint: 0xffffff
+			}, 200, Phaser.Easing.Quadratic.InOut, true);
+		}
+	}
 }
 
 function ifGoingToSidePlayers (card, sprite, gameObject) {
@@ -189,6 +240,7 @@ function isOverAnElement (boundries, offset) {
 export {
 	placeActionCard,
 	onSurrenderClick,
+	startDragging,
 	ifGoingToSidePlayers,
 	dropCard
 }

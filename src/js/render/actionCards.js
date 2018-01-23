@@ -48,7 +48,7 @@ function generateActionCard (card, gameObject) {
 	
 	actionCardGroup.inputEnabled = true;
 	actionCardGroup.input.enableDrag(true);
-	actionCardGroup.events.onDragStart.add(bringCardToTop, this);
+	actionCardGroup.events.onDragStart.add((sprite) => playerInteraction.startDragging(card, sprite, game), this);
 	actionCardGroup.events.onDragUpdate.add((sprite) => playerInteraction.ifGoingToSidePlayers(card, sprite, game), this);
 	actionCardGroup.events.onDragStop.add((sprite) => playerInteraction.dropCard(selectedPlayer, card, sprite), this);
 
@@ -73,10 +73,6 @@ function generateActionCard (card, gameObject) {
 	actionCardGroup.addChild(actionText);
 
 	return actionCardGroup;
-}
-
-function bringCardToTop (sprite) {
-	sprite.bringToTop();
 }
 
 /**

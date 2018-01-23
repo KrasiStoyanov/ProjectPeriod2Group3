@@ -141,12 +141,13 @@ export default class Player {
 	 */
 	giftCard(card, playerId) {
 		if (this.giftingCounter < 1) {
-			giftActionCard(card, playerId);
+			let hasGiftedCard = giftActionCard(card, playerId);
+			if (hasGiftedCard) {
+				this.removeCard(card.id);
+				this.giftingCounter = 1;
 
-			this.removeCard(card.id);
-			this.giftingCounter = 1;
-
-			return true;
+				return true;
+			}
 		}
 
 		return false;
