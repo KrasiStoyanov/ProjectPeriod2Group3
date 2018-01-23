@@ -4,7 +4,7 @@ let loadState = {
 	/**
 	 * @function
 	 * @name preload
-	 * @param { object } game - The game object.
+ 	 * @param { Phaser.Game } gameObject - The game object.
 	 * @description Load all assets for the game.
 	 */
 	preload: (game) => {
@@ -46,10 +46,11 @@ let loadState = {
 
 		game.load.image('surrenderButton', './src/images/surrenderButton.png');
 	},
+	
 	/**
 	 * @function
 	 * @name create
-	 * @param { object } game - The game object.
+ 	 * @param { Phaser.Game } gameObject - The game object.
 	 * @description When done with the preload function, go to next state.
 	 */
 	create: (game) => {

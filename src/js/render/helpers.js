@@ -10,6 +10,7 @@ let backgroundColorName;
 /**
  * @function
  * @name generateRandomBackgroundColor
+ * @param { Phaser.Game } gameObject - The game object.
  * @description Generate and set a random background color.
  */
 function generateRandomBackgroundColor (gameObject) {
@@ -39,7 +40,6 @@ function getBackgroundColor () {
 /**
  * @function
  * @name lightenBackgroundColor
- * @param { number } By how much should the background be lightened.
  * @description Lighten the background color.
  */
 function lightenBackgroundColor () {
@@ -49,6 +49,12 @@ function lightenBackgroundColor () {
 	game.stage.backgroundColor = lightBackgroundColors[backgroundColorName];
 }
 
+/**
+ * @function
+ * @name getIdOfTraitIcon
+ * @return { number } The id of the trait icon.
+ * @description Get the id of the trait icon.
+ */
 function getIdOfTraitIcon (trait) {
 	let index = 0;
 	for (let key in traitConstants.types) {

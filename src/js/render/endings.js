@@ -20,7 +20,7 @@ let endingText;
 /**
  * @function
  * @name displayEnding
- * @param { object } The game object.
+ * @param { Phaser.Game } gameObject - The game object.
  * @description Display the ending.
  */
 function displayEnding (gameObject) {

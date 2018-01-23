@@ -32,7 +32,6 @@ function placeActionCard (actionCard) {
 
 		return true;
 	} else {
-		// Show the user that his card is not suitable for the challenge
 		return false;
 	}
 }

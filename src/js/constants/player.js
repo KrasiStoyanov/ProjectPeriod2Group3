@@ -15,6 +15,7 @@ const maxAmountOfPlayers = 5;
 /** The id of the player that would be initially selected when the game starts */
 const firstPlayerToStartId = 0;
 
+/** Styles for the selected player image */
 const selectedPlayerImage = {
 	width: 170,
 	height: 250,
@@ -23,11 +24,13 @@ const selectedPlayerImage = {
 	}
 };
 
+/** Styles for the side player images */
 const sidePlayerImageSize = {
 	width: 90,
 	height: 100
 };
 
+/** Styles for the side player rectangles */
 const sidePlayerRectangle = {
 	width: 125,
 	height: 125,
@@ -37,6 +40,7 @@ const sidePlayerRectangle = {
 	}
 };
 
+/** Styles for the selected player name */
 const name = {
 	margin: {
 		right: 10

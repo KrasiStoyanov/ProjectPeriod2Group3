@@ -4,7 +4,7 @@ import Player from './Player';
 import * as playerValidator from '../validators/playerValidator';
 import * as playerConstants from '../constants/player';
 import { updateDeckCounter } from '../render/actionDeck';
-
+import { currentChallenge } from '../challenges/stages';
 
 let players = [];
 let selectedPlayer;
@@ -39,7 +39,7 @@ function getPlayers () {
 /**
  * @function
  * @name getPlayer
- * @param { number } id - The id of the player.
+ * @param { number } id - The ID of the player.
  * @return { object } The player.
  */
 function getPlayer (id) {
@@ -64,6 +64,7 @@ function amountOfCardsToBeInitiallyDealt () {
 /**
  * @function
  * @name updateSelectedPlayer
+ * @param { number } id - The new player ID.
  * @description Update the selected player.
  */
 function updateSelectedPlayer (id) {
@@ -116,10 +117,106 @@ function getSidePlayers () {
 function playersReceiveCardsAfterChallenge () {
 	for (let index = 0; index < players.length; index += 1) {
 		let currentPlayer = players[index];
+		currentPlayer.giftingCounter = 0;
 
 		currentPlayer.receiveCards(1);
 		updateDeckCounter();
 	}
+}
+
+/**
+ * @function
+ * @name giftActionCard
+ * @param { object } card - The card that is being gifted.
+ * @param { number } playerId - The ID of the player that will receive the card.
+ * @return { boolean } Whether the card has been gifted.
+ * @description Gift the action card to the chosen player.
+ */
+function giftActionCard (card, playerId) {
+	let receivingPlayer = getPlayer(playerId);
+	let receivingPlayerCards = receivingPlayer.cardsInHand;
+	if (receivingPlayerCards.length < playerConstants.maxAmountOfCards) {
+		card.playerId = receivingPlayer.id;
+		receivingPlayer.cardsInHand.push(card);
+
+		return true;
+	}
+
+	return false;
+}
+
+/**
+ * @function
+ * @name suitablePlayersSuggestion
+ * @param { object } card - The card that is being gifted.
+ * @return { array } The suitable players.
+ * @description Detect all suitable players to receive the gifted card.
+ */
+function suitablePlayersSuggestion (card) {
+	let suitablePlayers = [];
+	let cardTraits = card.traits;
+
+	for (let index = 0; index < players.length; index += 1) {
+		let currentPlayer = players[index];
+		let playerTraits = currentPlayer.traits;
+		for (let jndex = 0; jndex < cardTraits.length; jndex += 1) {
+			let currentCardTrait = cardTraits[jndex];
+			let ifArrayContainsCurrentPlayer = ifSuitablePlayersContainCurrentPlayer(suitablePlayers, currentPlayer);
+			let hasAddedPlayer = ifPlayerTraitsPositive(currentPlayer, playerTraits, currentCardTrait, ifArrayContainsCurrentPlayer);
+
+			if (hasAddedPlayer) {
+				suitablePlayers.push(currentPlayer);
+
+				break;
+			}
+		}
+	}
+
+	return suitablePlayers;
+}
+
+/**
+ * @function
+ * @name ifPlayerTraitsPositive
+ * @param { object } currentPlayer - The current player.
+ * @param { object } playerTraits - The current player's traits.
+ * @param { object } currentCardTrait - The current trait of the card.
+ * @param { boolean } ifArrayContainsCurrentPlayer - If this player has already been added to the array.
+ * @return { boolean } If traits are positive.
+ * @description See if the current player has a positive trait value for the corresponding trait from the action card.
+ */
+function ifPlayerTraitsPositive (currentPlayer, playerTraits, currentCardTrait, ifArrayContainsCurrentPlayer) {
+	for (let key in playerTraits) {
+		let trait = playerTraits[key];
+		if (currentPlayer.id !== selectedPlayer.id && !ifArrayContainsCurrentPlayer) {
+			if (trait.name === currentCardTrait.name) {
+				if (trait.value > 0) {
+					return true;
+				}
+
+				return false;
+			}
+		}
+	}
+}
+
+/**
+ * @function
+ * @name ifSuitablePlayersContainCurrentPlayer
+ * @param { arra } suitablePlayers - The list of all suitable players to receive the gifted card.
+ * @param { object } player - The receiving player.
+ * @return { boolean } If player is already in array.
+ * @description Check if player is already in the array of suitable players.
+ */
+function ifSuitablePlayersContainCurrentPlayer (suitablePlayers, player) {
+	for (let index = 0; index < suitablePlayers.length; index += 1) {
+		let currentPlayer = suitablePlayers[index];
+		if (currentPlayer.id === player.id) {
+			return true;
+		}
+	}
+
+	return false;
 }
 
 export {
@@ -130,5 +227,7 @@ export {
 	updateSelectedPlayer,
 	getSelectedPlayer,
 	getSidePlayers,
-	playersReceiveCardsAfterChallenge
+	playersReceiveCardsAfterChallenge,
+	giftActionCard,
+	suitablePlayersSuggestion
 }
