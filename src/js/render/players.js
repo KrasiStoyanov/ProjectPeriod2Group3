@@ -30,8 +30,8 @@ let sidePlayersBackground;
 /**
  * @function
  * @name displaySelectedPlayer
- * @param { object } gameObject - The game object.
- * @description Display the selected.
+ * @param { Phaser.Game } gameObject - The game object.
+ * @description Display the selected player.
  */
 function displaySelectedPlayer (id, gameObject) {
 	game = gameObject ? gameObject : game;
@@ -87,7 +87,7 @@ function displaySelectedPlayer (id, gameObject) {
 /**
  * @function
  * @name displaySidePlayers
- * @param { object } gameObject - The game object.
+ * @param { Phaser.Game } gameObject - The game object.
  * @description Display side players.
  */
 function displaySidePlayers (gameObject) {
@@ -155,6 +155,12 @@ function displaySidePlayers (gameObject) {
 	}
 }
 
+/**
+ * @function
+ * @name getSidePlayersGroup
+ * @return { Phaser.Group } The side players group.
+ * @description Get the side players group.
+ */
 function getSidePlayersGroup () {
 	return playersGroup;
 }
@@ -264,11 +270,6 @@ function updateSelectedPlayerTraits () {
 	traitsGroup.removeAll(true);
 
 	displaySelectedPlayerTraits();
-}
-function backgroundImage(){
-	
-	
-
 }
 
 export {

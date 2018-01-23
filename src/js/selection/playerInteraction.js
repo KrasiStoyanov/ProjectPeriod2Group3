@@ -35,6 +35,14 @@ function onSurrenderClick () {
 	updateSelectedPlayerCards();
 }
 
+/**
+ * @function
+ * @name startDragging
+ * @param { object } card - The card that is being dragged.
+ * @param { Phaser.Sprite } sprite - The sprite that represents the card in the render.
+ * @param { Phaser.Game } gameObject - The game object.
+ * @description Manipulate the sprite based on its position.
+ */
 function startDragging (card, sprite, gameObject) {
 	sprite.bringToTop();
 	let suitablePlayers = suitablePlayersSuggestion(card);
@@ -67,6 +75,14 @@ function startDragging (card, sprite, gameObject) {
 	}
 }
 
+/**
+ * @function
+ * @name dropCard
+ * @param { object } player - The selected player.
+ * @param { object } card - The card that is being dragged.
+ * @param { Phaser.Sprite } sprite - The sprite that represents the card in the render.
+ * @description Manipulate the sprite based on its position.
+ */
 function dropCard (player, card, sprite) {
 	spritePosition = {
 		top: sprite.worldPosition.y,
@@ -80,6 +96,11 @@ function dropCard (player, card, sprite) {
 	sidePlayersToNormal();
 }
 
+/**
+ * @function
+ * @name sidePlayersToNormal
+ * @description Return the side player thumbnails to normal after the card has been dropped.
+ */
 function sidePlayersToNormal () {
 	let sidePlayersGroup = getSidePlayersGroup();
 	let sidePlayersGroupChildren = sidePlayersGroup.children;
@@ -97,6 +118,14 @@ function sidePlayersToNormal () {
 	}
 }
 
+/**
+ * @function
+ * @name ifGoingToSidePlayers
+ * @param { object } card - The card that is being dragged.
+ * @param { Phaser.Sprite } sprite - The sprite that represents the card in the render.
+ * @param { Phaser.Game } gameObject - The game object.
+ * @description If the card is being dragged to the side players' area.
+ */
 function ifGoingToSidePlayers (card, sprite, gameObject) {
 	game = gameObject ? gameObject : game;
 
@@ -110,6 +139,12 @@ function ifGoingToSidePlayers (card, sprite, gameObject) {
 	isOverSidePlayersSide(sprite);
 }
 
+/**
+ * @function
+ * @name isOverSidePlayersSide
+ * @param { Phaser.Sprite } sprite - The sprite that represents the card in the render.
+ * @description If the card is over the side players' area.
+ */
 function isOverSidePlayersSide (sprite) {
 	let dragAndDropBoundries = {
 		top: 0,
@@ -122,6 +157,13 @@ function isOverSidePlayersSide (sprite) {
 	changeCardSize(sprite, shouldSmallerCard);
 }
 
+/**
+ * @function
+ * @name isOverSidePlayersSide
+ * @param { Phaser.Sprite } sprite - The sprite that represents the card in the render.
+ * @param { boolean } shouldSmaller - If the card should be shrinked.
+ * @description Change the size of the card depending on its position.
+ */
 function changeCardSize (sprite, shouldSmaller) {
 	let changeCardSizeTween = game.add.tween(sprite);
 	if (shouldSmaller) {
@@ -137,6 +179,12 @@ function changeCardSize (sprite, shouldSmaller) {
 	}
 }
 
+/**
+ * @function
+ * @name moveCardBack
+ * @param { Phaser.Sprite } sprite - The sprite that represents the card in the render.
+ * @description If unsuccessfully placed, the card should be returned to its initial position.
+ */
 function moveCardBack (sprite) {
 	let moveBackTween = game.add.tween(sprite);
 	moveBackTween.to({
@@ -147,6 +195,14 @@ function moveCardBack (sprite) {
 	changeCardSize(sprite, false);
 }
 
+/**
+ * @function
+ * @name isOverSidePlayer
+ * @param { object } player - The selected player.
+ * @param { object } card - The card that is being dragged.
+ * @param { Phaser.Sprite } sprite - The sprite that represents the card in the render.
+ * @description If the card is over a certain side player.
+ */
 function isOverSidePlayer (player, card, sprite) {
 	let sidePlayersGroup = getSidePlayersGroup();
 	let sidePlayersGroupChildren = sidePlayersGroup.children;
@@ -174,6 +230,14 @@ function isOverSidePlayer (player, card, sprite) {
 	}
 }
 
+/**
+ * @function
+ * @name isOverSidePlayer
+ * @param { object } player - The selected player.
+ * @param { object } card - The card that is being dragged.
+ * @param { Phaser.Sprite } sprite - The sprite that represents the card in the render.
+ * @description If the card is over the challenge card.
+ */
 function isOverChallengeCard (player, card, sprite) {
 	let dragAndDropBoundries = getDragAndDropBoundries();
 	let shouldPlaceCard = isOverAnElement(dragAndDropBoundries, challengeCardConstants.dragAndDropBoundriesOffset);
@@ -187,6 +251,13 @@ function isOverChallengeCard (player, card, sprite) {
 	}
 }
 
+/**
+ * @function
+ * @name isOverAnElement
+ * @param { object } boundries - The area in which the card should be.
+ * @param { number } offset - If there is an offset set for that area.
+ * @description If the card is over an element depending on the values of the variables.
+ */
 function isOverAnElement (boundries, offset) {
 	let isInTopBoundriesOfChallengeCard = {
 		min: spritePosition.top <= boundries.bottom + offset,

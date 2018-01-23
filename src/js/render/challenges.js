@@ -56,7 +56,7 @@ let dragAndDropBoundries;
 /**
  * @function
  * @name displayChallenge
- * @param { object } gameObject - The game object.
+ * @param { Phaser.Game } gameObject - The game object.
  * @description Display the current challenge.
  */
 function displayChallenge (gameObject) {
@@ -188,6 +188,7 @@ function displaySurrenderButton () {
 /**
  * @function
  * @name updatePointsLeft
+ * @param { number } remaingingPoints - The amount of remaining points.
  * @description Update the points left which are needed for passing the challenge.
  */
 function updatePointsLeft (remainingPoints) {
@@ -198,6 +199,11 @@ function updatePointsLeft (remainingPoints) {
 	updatePointsLeftIcon();
 }
 
+/**
+ * @function
+ * @name updatePointsLeftIcon
+ * @description Update the points left icon.
+ */
 function updatePointsLeftIcon () {
 	let counterIconX = remainingPointsText.width + challengeCardConstants.remainingPoints.icon.margin.left;
 	let counterIconY = remainingPointsText.height / 2;
@@ -231,6 +237,11 @@ function updateChallenge () {
 	updatePointsLeft(traitValue);
 }
 
+/**
+ * @function
+ * @name getDragAndDropBoundries
+ * @return { object } The drag and droup boundries.
+ */
 function getDragAndDropBoundries () {
 	return dragAndDropBoundries;
 }

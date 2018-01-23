@@ -24,7 +24,7 @@ function displayDeck () {
 /**
  * @function
  * @name displayDeckCounter
- * @param game
+ * @param { Phaser.Game } gameObject - The game object.
  * @description display deck counter
  */
 function displayDeckCounter (gameObject) {

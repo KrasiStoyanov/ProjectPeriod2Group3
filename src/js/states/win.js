@@ -6,7 +6,7 @@ let winState = {
 	/**
 	 * @function
 	 * @name create
-	 * @param { object } game - The game object.
+ 	 * @param { Phaser.Game } gameObject - The game object.
 	 * @description This is the place where the ending is displayed.
 	 */
 	create: (game) => {

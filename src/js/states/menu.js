@@ -6,7 +6,7 @@ let menuState = {
 	/**
 	 * @function
 	 * @name create
-	 * @param { object } game - The game object.
+ 	 * @param { Phaser.Game } gameObject - The game object.
 	 * @description This is the place where the main menu is displayed and manipulated.
 	 */
 	create: (game) => {

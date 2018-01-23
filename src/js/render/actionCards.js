@@ -37,7 +37,8 @@ let actionText;
  * @function
  * @name generateActionCard
  * @param { object } card - The action card.
- * @param { object } gameObject - The game object.
+ * @param { Phaser.Game } gameObject - The game object.
+ * @return { Phaser.Group } The card group.
  * @description Generate an action card.
  */
 function generateActionCard (card, gameObject) {

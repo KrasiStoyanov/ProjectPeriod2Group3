@@ -14,7 +14,7 @@ let mainScreen = {
 	/**
 	 * @function
 	 * @name create
-	 * @param { object } game - The game object.
+ 	 * @param { Phaser.Game } gameObject - The game object.
 	 * @description This is the place where the main play screen is displayed and manipulated.
 	 */
 	create: (game) => {
@@ -50,10 +50,11 @@ let mainScreen = {
 		
 		
 	},
+	
 	/**
 	 * @function
 	 * @name win
-	 * @param { object } game - The game object.
+ 	 * @param { Phaser.Game } gameObject - The game object.
 	 * @description After finishing the game go to next state.
 	 */
 	win: (game) => {

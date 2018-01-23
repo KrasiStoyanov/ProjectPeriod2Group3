@@ -87,14 +87,14 @@ export default class Player {
 	}
 
 	/**
-     * Say if a player is selected.
-     * @return { boolean } If player is selected.
+     * Counter for limiting the number of gifted cards per player per challenge.
+     * @return { number } The number of gifted cards.
      */
 	get giftingCounter() {
 		return this._giftingCounter;
 	}
 
-	/** Set the state of the plpayer if he is selected. */
+	/** Set the value of the counter. */
 	set giftingCounter(value) {
 		this._giftingCounter = value;
 	}
@@ -137,6 +137,8 @@ export default class Player {
 	 * @function
 	 * @name giftCard
 	 * @param { object } card - The card that the player gifts.
+	 * @param { number } playerId - The ID of the player who will receive the card.
+	 * @return { boolean } Whether the person has gifted the card.
 	 * @description Gift the card to the chosen player.
 	 */
 	giftCard(card, playerId) {
