@@ -15,6 +15,15 @@ let playerSelectionState = {
 		lightenBackgroundColor();
     	playerSlots.create(game);
     	characterSelection(game);
+	},
+	/**
+	 * @function
+	 * @name update
+	 * @param { object } game
+	 * @description This is where the animations are called, and sprites are manipulated 
+	 */
+	update: (game) =>{
+
 	}
 };
 

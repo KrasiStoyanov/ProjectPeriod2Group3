@@ -4,7 +4,7 @@ import * as CharacterDeck from '../decks/characterDeck';
 import * as playerHelpers from '../player/helpers';
 import * as playerValidator from '../validators/playerValidator';
 import { slotCoordinates } from '../render/playerSlots';
-
+let game
 // Using this for now
 const characterCardImages = [
     "./src/images/character-1.png",
@@ -23,15 +23,17 @@ const characterCardImages = [
  * @param { object } game - The game object.
  * @description Rendering and manipulating the character selection function.
  */
-function characterSelection (game) {
+function characterSelection (gameObject) {
+    game = gameObject ? gameObject : game;
     let characterDeck = CharacterDeck.getDeck();
     let characterDeckLength = characterCardImages.length;
     for (var index = 0; index < characterDeckLength; index += 1) {
     	let currentCard = characterDeck[index];
     	let gutter = 50;
-
+        let characterCardY=50;
         let characterCard = game.add.sprite((198 * index) + (gutter * (index + 1)), 50, `characterCard${index + 1}`);
-
+       
+        let characterCardScale= characterCardY
         characterCard.scale.setTo(1, 1);
         characterCard.variable = currentCard;
 
@@ -72,8 +74,11 @@ function onCharacterDragStop (sprite, pointer) {
                 droppedAt.x >= currentSlot.x - 100) {
                 if (droppedAt.y <= currentSlot.y + 100 &&
                     droppedAt.y >= currentSlot.y - 100) {
-                    sprite.position.x = currentSlot.x;
-                    sprite.position.y = currentSlot.y;
+                     sprite.position.x = currentSlot.x;
+                     sprite.position.y = currentSlot.y;
+                    //sprite.destroy();
+                   
+                    let characterIcon = game.add.sprite(slotCoordinates.x, slotCoordinates.y, displayCharacterImage);
 
                     let characterCard = sprite.variable;
                     let player = playerHelpers.addPlayer(characterCard);
@@ -96,6 +101,10 @@ function onPlaySelect (button) {
     playerValidator.validateNumberOfPlayersSelected(players);
     
     button.game.state.start('mainScreen');
+}
+function displayCharacterImage(id){
+    let characterName=CharacterDeck.getDeck();
+    return characterName.id;
 }
 
 export default characterSelection;
