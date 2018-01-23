@@ -8,7 +8,7 @@ let playerSelectionState = {
 	/**
 	 * @function
 	 * @name create
-	 * @param { object } game - The game object.
+ 	 * @param { Phaser.Game } gameObject - The game object.
 	 * @description This is the place where the users select the number of players and choose their characters.
 	 */
 	create: (game) => {

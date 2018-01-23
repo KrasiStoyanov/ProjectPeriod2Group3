@@ -16,6 +16,12 @@ let previousCardX = actionCardConstants.margin.left;
 let previousCardId = 0;
 let currentTab = 1;
 
+/**
+ * @function
+ * @name displayTabSystem
+ * @param { number } whichTab - The index of the tab.
+ * @description Display the tab system.
+ */
 function displayTabSystem (whichTab) {
 	tabSystemGroup = game.add.group();
 	listOfCardsGroup = game.add.group();
@@ -64,6 +70,12 @@ function displayTabSystem (whichTab) {
 	renderCards();
 }
 
+/**
+ * @function
+ * @name updateTabSystem
+ * @param { Phaser.Game } gameObject - The game object.
+ * @description Update the tab system.
+ */
 function updateTabSystem (gameObject) {
 	game = gameObject ? gameObject : game;
 
@@ -76,6 +88,11 @@ function updateTabSystem (gameObject) {
 	displayTabSystem();
 }
 
+/**
+ * @function
+ * @name displayTabs
+ * @description Render the tabs.
+ */
 function displayTabs () {
 	let selectedPlayer = playerHelpers.getSelectedPlayer();
 	let cardsInHand = selectedPlayer.cardsInHand;
@@ -132,12 +149,22 @@ function displayTabs () {
 	}
 }
 
+/**
+ * @function
+ * @name destroyTabs
+ * @description Remove the tabs.
+ */
 function destroyTabs () {
 	tabGroup = tabGroup ? tabGroup : game.add.group();
 
 	tabGroup.removeAll(true);
 }
 
+/**
+ * @function
+ * @name updateTabs
+ * @description Update the tabs.
+ */
 function updateTabs (whichTab) {
 	currentTab = whichTab;
 
@@ -145,6 +172,11 @@ function updateTabs (whichTab) {
 	displayTabs(whichTab);
 }
 
+/**
+ * @function
+ * @name renderCards
+ * @description Render the cards in the hand of the selected player.
+ */
 function renderCards () {
 	listOfCardsGroup.removeAll(true);
 	if (currentTab === 1) {
@@ -167,6 +199,12 @@ function renderCards () {
 	}
 }
 
+/**
+ * @function
+ * @name renderCards
+ * @param { object } card - The card that needs to be rendered.
+ * @description Render the current card.
+ */
 function renderCard (card) {
 	let generatedCard = generateActionCard(card, game);
 
@@ -184,8 +222,17 @@ function renderCard (card) {
 	};
 
 	generatedCard.variable = position;
+	generatedCard.originalSize = {
+		width: generatedCard.width,
+		height: generatedCard.height
+	};
 }
 
+/**
+ * @function
+ * @name getBounds
+ * @return { object } The bounds of the tab system.
+ */
 function getBounds () {
 	let bounds = {
 		top: tabSystemGroup.top,

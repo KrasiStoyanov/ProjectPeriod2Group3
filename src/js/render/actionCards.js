@@ -37,7 +37,8 @@ let actionText;
  * @function
  * @name generateActionCard
  * @param { object } card - The action card.
- * @param { object } gameObject - The game object.
+ * @param { Phaser.Game } gameObject - The game object.
+ * @return { Phaser.Group } The card group.
  * @description Generate an action card.
  */
 function generateActionCard (card, gameObject) {
@@ -48,6 +49,8 @@ function generateActionCard (card, gameObject) {
 	
 	actionCardGroup.inputEnabled = true;
 	actionCardGroup.input.enableDrag(true);
+	actionCardGroup.events.onDragStart.add((sprite) => playerInteraction.startDragging(card, sprite, game), this);
+	actionCardGroup.events.onDragUpdate.add((sprite) => playerInteraction.ifGoingToSidePlayers(card, sprite, game), this);
 	actionCardGroup.events.onDragStop.add((sprite) => playerInteraction.dropCard(selectedPlayer, card, sprite), this);
 
 	let traits = card.traits;

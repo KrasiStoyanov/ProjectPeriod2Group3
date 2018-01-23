@@ -5,6 +5,7 @@ const stages = {
 	late: "Late"
 };
 
+/** Drag and drop boundries when placing an action card */
 const dragAndDropBoundriesOffset = 60;
 
 /** Sizes */
@@ -26,6 +27,7 @@ const challengeTextMargin = {
 	left: 20
 };
 
+/** Styles for the trait icon */
 const traitIcon = {
 	height: 50,
 	margin: {
@@ -34,6 +36,7 @@ const traitIcon = {
 	}
 };
 
+/** Styles for the remaining points */
 const remainingPoints = {
 	icon: {
 		size: {

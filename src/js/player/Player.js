@@ -3,6 +3,7 @@
 import { validatePlayerAmountOfCards } from '../validators/playerValidator';
 import * as actionDeck from '../decks/actionDeck';
 import { placeActionCard } from '../challenges/stages';
+import { giftActionCard } from './helpers';
 
 let id = 0;
 
@@ -19,6 +20,7 @@ export default class Player {
 		this._traits = characterCard.traits;
 		this._cardsInHand = [];
 		this._isSelected = false;
+		this._giftingCounter = 0;
 	}
 
 	/**
@@ -85,6 +87,19 @@ export default class Player {
 	}
 
 	/**
+     * Counter for limiting the number of gifted cards per player per challenge.
+     * @return { number } The number of gifted cards.
+     */
+	get giftingCounter() {
+		return this._giftingCounter;
+	}
+
+	/** Set the value of the counter. */
+	set giftingCounter(value) {
+		this._giftingCounter = value;
+	}
+
+	/**
 	 * @function
 	 * @name receiveCards
 	 * @param { number } amount - The amount of cards that need to be dealt.
@@ -116,6 +131,28 @@ export default class Player {
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 * @function
+	 * @name giftCard
+	 * @param { object } card - The card that the player gifts.
+	 * @param { number } playerId - The ID of the player who will receive the card.
+	 * @return { boolean } Whether the person has gifted the card.
+	 * @description Gift the card to the chosen player.
+	 */
+	giftCard(card, playerId) {
+		if (this.giftingCounter < 1) {
+			let hasGiftedCard = giftActionCard(card, playerId);
+			if (hasGiftedCard) {
+				this.removeCard(card.id);
+				this.giftingCounter = 1;
+
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**

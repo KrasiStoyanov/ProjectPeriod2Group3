@@ -15,7 +15,7 @@ let wavesTweenWavy;
 /**
  * @function
  * @name displayMainMenu
- * @param { object } gameObject - The game object.
+ * @param { Phaser.Game } gameObject - The game object.
  * @description Display the main menu.
  */
 function displayMainMenu (gameObject) {
