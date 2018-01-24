@@ -9,7 +9,7 @@ let loadState = {
 	 */
 	preload: (game) => {
 		game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-		game.load.image('button', './src/images/button.png');
+		game.load.image('playButton', './src/images/playButton.png');
 		game.load.image('characterCard1', './src/images/character-1.png');
 		game.load.image('characterCard2', './src/images/character-2.png');
 		game.load.image('characterCard3', './src/images/character-3.png');
@@ -18,6 +18,16 @@ let loadState = {
 		game.load.image('characterCard6', './src/images/character-6.png');
 		game.load.image('characterCard7', './src/images/character-7.png');
 		game.load.image('characterCard8', './src/images/character-8.png');
+
+		game.load.image('characterCard1Back',"./src/images/character-1-back.png")
+		game.load.image('characterCard2Back', './src/images/character-2-back.png');
+		game.load.image('characterCard3Back', './src/images/character-3-back.png');
+		game.load.image('characterCard4Back', './src/images/character-4-back.png');
+		game.load.image('characterCard5Back', './src/images/character-5-back.png');
+		game.load.image('characterCard6Back', './src/images/character-6-back.png');
+		game.load.image('characterCard7Back', './src/images/character-7-back.png');
+		game.load.image('characterCard8Back', './src/images/character-8-back.png');
+
 
 		game.load.spritesheet('positiveTraits', './src/images/trait-icons-positive-spritesheet.png', 36, 36, 5);
 		game.load.spritesheet('negativeTraits', './src/images/trait-icons-negative-spritesheet.png', 36, 36, 5);

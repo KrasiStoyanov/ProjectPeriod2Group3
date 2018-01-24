@@ -313,5 +313,6 @@ export {
 	onSurrenderClick,
 	startDragging,
 	ifGoingToSidePlayers,
-	dropCard
+	dropCard,
+	changeCardSize
 }
