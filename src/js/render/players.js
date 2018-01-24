@@ -207,7 +207,7 @@ function displaySelectedPlayerCards () {
  */
 function updateSelectedPlayerCards () {
 	updateTabSystem(game);
-	displaySelectedPlayerCards();
+	// displaySelectedPlayerCards();
 }
 
 /**

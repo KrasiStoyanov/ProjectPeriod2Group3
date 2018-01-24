@@ -78,9 +78,9 @@ function displayTabSystem (whichTab) {
  */
 function updateTabSystem (gameObject) {
 	game = gameObject ? gameObject : game;
-
+	
 	listOfCardsGroup = listOfCardsGroup ? listOfCardsGroup : game.add.group();
-	listOfCardsGroup.removeAll(true);
+	listOfCardsGroup.destroy(true, false);
 
 	previousCardId = 0;
 	previousCardX = actionCardConstants.margin.left;
