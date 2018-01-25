@@ -3,7 +3,7 @@
 import * as CharacterDeck from '../decks/characterDeck';
 import * as playerHelpers from '../player/helpers';
 import * as playerValidator from '../validators/playerValidator';
-import { slotCoordinates, rectangleParameters, backgrondRectangleHeight } from '../render/playerSlots';
+import { slotCoordinates, rectangleParameters, backgrondRectangleHeigh, getPlayerSlots } from '../render/playerSlots';
 import {sidePlayerImageSize, sidePlayerRectangle } from '../constants/player';
 import ChallengeCard from '../card-types/ChallengeCard';
 import {changeCardSize,} from '../selection/playerInteraction';
@@ -125,7 +125,7 @@ function onCharacterDragUpdate (sprite, pointer){
 function resizeCard (sprite, shouldSmaller) {
     const initialScale =((game.world.height/3)/sprite.height);
     if (shouldSmaller) {
-        sprite.scale.setTo(initialScale*0.65);
+        sprite.scale.setTo(initialScale / 2);
     } else {
         sprite.scale.setTo(initialScale);
     }
@@ -164,45 +164,100 @@ function onCharacterDragStop (sprite, pointer) {
         y: sprite.position.y
     };
 
-    for (let index = 0; index < slotCoordinates.length; index += 1) {
-        let currentSlot = slotCoordinates[index];
+    let playerSlots = getPlayerSlots();
+    let playerSlotsChildren = playerSlots.children;
+    for (let index = 0; index < playerSlotsChildren.length; index += 1) {
+        let currentSlot = playerSlotsChildren[index];
         
-        if (currentSlot.isEmpty) {
-            if (droppedAt.x <= currentSlot.x-(game.world.width*0.173) + rectangleParameters[0].width && 
-                droppedAt.x >= currentSlot.x-(game.world.width*0.173) - rectangleParameters[0].width) {
-                if (droppedAt.y <= currentSlot.y + 100 &&
-                    droppedAt.y >= currentSlot.y - 100) {
-                     sprite.position.x = currentSlot.x;
-                     sprite.position.y = currentSlot.y;
-                    
-                    let portraitMarginLeft = ((rectangleParameters[0].width)/2);
-                    let portraitMarginTop = ((rectangleParameters[0].height)/2)
-                    
-                    let portraitPositionX = currentSlot.x + portraitMarginLeft;
-                    let portraitPositionY = currentSlot.y + portraitMarginTop;
-                    sprite.destroy();
-                    
+        if (slotCoordinates[index].isEmpty) {
+            spritePosition = {
+                top: sprite.worldPosition.y,
+                right: sprite.worldPosition.x + sprite.width,
+                bottom: sprite.worldPosition.y + sprite.height,
+                left: sprite.worldPosition.x
+            };
+            
+            let isPlacedOnSlot = isOverSlot(currentSlot, 0);
+            if (isPlacedOnSlot) {
+                 sprite.position.x = currentSlot.x;
+                 sprite.position.y = currentSlot.y;
+                
+                let portraitMarginLeft = ((rectangleParameters[0].width)/2);
+                let portraitMarginTop = ((rectangleParameters[0].height)/2)
+                
+                let portraitPositionX = currentSlot.x + portraitMarginLeft;
+                let portraitPositionY = currentSlot.y + portraitMarginTop;
+                sprite.destroy();
+                
 
-                    let characterCard = sprite.variable;
-                    let player = playerHelpers.addPlayer(characterCard);
-                    let characterIcon = game.add.sprite(portraitPositionX, portraitPositionY, player.name);
-                    characterIcon.anchor.x = 0.5;
-                    characterIcon.anchor.y = 0.5;
-                    let portraitScale = (rectangleParameters[0].height*0.72)/characterIcon.height;
-                    // 0.72 is the ratio used with the side player render
-                    characterIcon.scale.setTo(portraitScale);
-                   
-                    
-                    slotCoordinates[index].isEmpty = false;
-                    players = playerHelpers.getPlayers();
-                    if (players.length >= minAmountOfPlayers){
-                        renderPlayButton();
-                        }
-
-                        break;
+                let characterCard = sprite.variable;
+                let player = playerHelpers.addPlayer(characterCard);
+                let characterIcon = game.add.sprite(portraitPositionX, portraitPositionY, player.name);
+                characterIcon.anchor.x = 0.5;
+                characterIcon.anchor.y = 0.5;
+                let portraitScale = (rectangleParameters[0].height*0.72)/characterIcon.height;
+                characterIcon.scale.setTo(portraitScale);
+               
+                
+                slotCoordinates[index].isEmpty = false;
+                players = playerHelpers.getPlayers();
+                if (players.length >= minAmountOfPlayers){
+                    renderPlayButton();
                 }
+
+                break;
             }
         }
+    }
+}
+
+function isOverSlot (boundries, offset) {
+    let isInTopBoundriesOfChallengeCard = {
+        min: spritePosition.top <= boundries.bottom + offset,
+        max: spritePosition.top >= boundries.top - offset
+    };
+
+    let isInRightBoundriesOfChallengeCard = {
+        min: spritePosition.right >= boundries.left - offset,
+        max: spritePosition.right <= boundries.right + offset
+    };
+
+    let isInBottomBoundriesOfChallengeCard = {
+        min: spritePosition.bottom <= boundries.bottom + offset,
+        max: spritePosition.bottom >= boundries.top - offset
+    };
+
+    let isInLeftBoundriesOfChallengeCard = {
+        min: spritePosition.left >= boundries.left - offset,
+        max: spritePosition.left <= boundries.right + offset
+    };
+
+    if (isInTopBoundriesOfChallengeCard.min && isInTopBoundriesOfChallengeCard.max) {
+        if (isInRightBoundriesOfChallengeCard.min && isInRightBoundriesOfChallengeCard.max) {           
+            return true;
+        } else if (isInLeftBoundriesOfChallengeCard.min && isInLeftBoundriesOfChallengeCard.max) {          
+            return true;
+        }
+    } else if (isInRightBoundriesOfChallengeCard.min && isInRightBoundriesOfChallengeCard.max) {
+        if (isInTopBoundriesOfChallengeCard.min && isInTopBoundriesOfChallengeCard.max) {           
+            return true;
+        } else if (isInBottomBoundriesOfChallengeCard.min && isInBottomBoundriesOfChallengeCard.max) {          
+            return true;
+        }
+    } else if (isInBottomBoundriesOfChallengeCard.min && isInBottomBoundriesOfChallengeCard.max) {
+        if (isInRightBoundriesOfChallengeCard.min && isInRightBoundriesOfChallengeCard.max) {           
+            return true;
+        } else if (isInLeftBoundriesOfChallengeCard.min && isInLeftBoundriesOfChallengeCard.max) {          
+            return true;
+        }
+    } else if (isInLeftBoundriesOfChallengeCard.min && isInLeftBoundriesOfChallengeCard.max) {
+        if (isInTopBoundriesOfChallengeCard.min && isInTopBoundriesOfChallengeCard.max) {           
+            return true;
+        } else if (isInBottomBoundriesOfChallengeCard.min && isInBottomBoundriesOfChallengeCard.max) {          
+            return true;
+        }
+    } else {
+        return false;
     }
 }
 
