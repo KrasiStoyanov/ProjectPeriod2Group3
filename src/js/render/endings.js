@@ -34,6 +34,8 @@ function displayEnding (gameObject) {
     game.stage.backgroundColor = '#000000';
     displayBackground();
 
+    fontProps.wordWrapWidth = game.world.width - 150;
+
     endingText = game.add.text(game.world.centerX, (game.world.centerY * 1.15), ending, fontProps);
     endingText.anchor.setTo(0.5, 0.5);
 }
