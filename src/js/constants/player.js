@@ -1,5 +1,7 @@
 'use strict';
 
+import { progressBar, barWidth } from './progressBar';
+
 /** The min and max amount of cards that the players should have initially */
 const minAmountOfCardsInitial = 5;
 const maxAmountOfCardsInitial = 6;
@@ -24,6 +26,16 @@ const selectedPlayerImage = {
 	}
 };
 
+const selectedPlayerTraits = {
+	icon: {
+		size: 35
+	},
+	margin: {
+		top: 10,
+		bottom: 10
+	}
+};
+
 /** Styles for the side player images */
 const sidePlayerImageSize = {
 	width: 90,
@@ -37,6 +49,13 @@ const sidePlayerRectangle = {
 	gutter: 6,
 	margin: {
 		left: 6
+	}
+};
+
+/** Side players position */
+const sidePlayers = {
+	margin: {
+		left: progressBar.margin.left + barWidth + progressBar.margin.right
 	}
 };
 
@@ -56,7 +75,9 @@ export {
 	maxAmountOfPlayers,
 	firstPlayerToStartId,
 	selectedPlayerImage,
+	selectedPlayerTraits,
 	sidePlayerImageSize,
 	sidePlayerRectangle,
+	sidePlayers,
 	name
 };

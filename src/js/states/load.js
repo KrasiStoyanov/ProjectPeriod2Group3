@@ -24,6 +24,9 @@ let loadState = {
 		game.load.spritesheet('whiteTraits', './src/images/trait-icons-white-spritesheet.png', 50, 50, 5);
 		game.load.spritesheet('grayTraits', './src/images/trait-icons-gray-spritesheet.png', 81, 81, 5);
 
+		game.load.spritesheet('passedChallengeStatus', './src/images/passed-challenge-status.png');
+		game.load.spritesheet('failedChallengeStatus', './src/images/failed-challenge-status.png');
+
 		game.load.image('actionCardBack', './src/images/action-card-back.png');
 		game.load.image('challengeCardBack', './src/images/challenge-card-back.png');
 
