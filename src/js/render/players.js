@@ -3,7 +3,7 @@
 import * as playerInteraction from '../selection/playerInteraction';
 import * as playerHelpers from '../player/helpers';
 import { displayDeckCounter } from './actionDeck';
-import { selectedPlayerImage, sidePlayerImageSize, name, sidePlayerRectangle } from '../constants/player';
+import { selectedPlayerImage, sidePlayerImageSize, name, sidePlayerRectangle, sidePlayers } from '../constants/player';
 import { displayTabSystem, updateTabSystem, getBounds } from './tabSystem';
 
 let fontProps = {
@@ -24,7 +24,6 @@ let listOfCardsGroup;
 let playersGroup;
 let traitsGroup;
 let playerImage;
-let selectedPlayerBackground;
 let sidePlayersBackground;
 
 /**
@@ -68,17 +67,6 @@ function displaySelectedPlayer (id, gameObject) {
 		playerImage.y = playerImageY;
 	}
 
-	let backgroundX = 0;
-	let backgroundY = traitsGroup.top - 20;
-	let backgroundWidth = game.width;
-	let backgroundHeight = game.height - backgroundY;
-
-	selectedPlayerBackground = new Phaser.Graphics(game, 0, game.worldBottomPosition);
-	selectedPlayerBackground.beginFill(0xffffff);
-	selectedPlayerBackground.drawRect(backgroundX, backgroundY, backgroundWidth, backgroundHeight);
-	selectedPlayerBackground.endFill();
-
-	selectedPlayerGroup.add(selectedPlayerBackground);
 	selectedPlayerGroup.add(playerImage);
 	selectedPlayerGroup.add(nameText);
 	game.world.add(selectedPlayerGroup);
@@ -96,20 +84,8 @@ function displaySidePlayers (gameObject) {
 	let players = playerHelpers.getSidePlayers();
 
 	playersGroup = game.add.group();
-	playersGroup.x = 34;
+	playersGroup.x = sidePlayers.margin.left;
 	playersGroup.y = 0;
-
-	let backgroundX = 0;
-	let backgroundY = 0;
-	let backgroundWidth = sidePlayerRectangle.width + (sidePlayerRectangle.gutter * 2);
-	let backgroundHeight = game.height;
-
-	sidePlayersBackground = new Phaser.Graphics(game,0,0);
-	sidePlayersBackground.beginFill(0x00000);
-	sidePlayersBackground.drawRect(backgroundX, backgroundY, backgroundWidth, backgroundHeight);
-	sidePlayersBackground.endFill();
-
-	playersGroup.add(sidePlayersBackground);
 
 	for (let index = 0; index < players.length; index += 1) {
 		let currentPlayer = players[index];
@@ -207,7 +183,7 @@ function displaySelectedPlayerCards () {
  */
 function updateSelectedPlayerCards () {
 	updateTabSystem(game);
-	displaySelectedPlayerCards();
+	// displaySelectedPlayerCards();
 }
 
 /**

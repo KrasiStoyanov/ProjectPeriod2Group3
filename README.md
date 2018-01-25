@@ -30,6 +30,8 @@
 │   ├── js
 │   |   ├── card-types
 │   |   |   ├── ...
+│   |   ├── challenges
+│   |   |   ├── ...
 │   |   ├── constants
 │   |   |   ├── ...
 │   |   ├── data
@@ -37,6 +39,12 @@
 │   |   ├── decks
 │   |   |   ├── ...
 │   |   ├── player
+│   |   |   ├── ...
+│   |   ├── render
+│   |   |   ├── ...
+│   |   ├── selection
+│   |   |   ├── ...
+│   |   ├── states
 │   |   |   ├── ...
 │   |   ├── validators
 │   |   |   ├── ...
@@ -52,10 +60,14 @@
 1. `build` is the folder where the compiled code is placed.
 2. `node_modules` is the folder with all the installed npm packages
 3. `card-types` is the folder with the cards skeleton
+3. `challenges` is the folder with the challenge stages
 4. `constants` is the folder with all the global types and values stored in several variables, which could be accessed in every file if needed
 5. `data` is the folder where all the data objects for our game are stored
 6. `decks` is the folder with the code which returns the complete decks with all cards in them
 7. `player` is the folder with the actual player class and all his functionality
+7. `render` is the folder with all the rendering files
+7. `selection` is the folder with the user selection - drag and dropping, clicking, etc.
+7. `states` is the folder with all the states in the game
 8. `validators` is the folder with all the validator helpers
 9. `game.js` for now is the file containing all the code for the game
 10. `main.js` is the file that combines all the modules

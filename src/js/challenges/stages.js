@@ -6,6 +6,7 @@ import { isSuitableForChallenge } from '../validators/actionCardValidator';
 import { updatePointsLeft, updateChallenge, endGame } from '../render/challenges';
 import { updateSelectedPlayerCards } from '../render/players';
 import { playersReceiveCardsAfterChallenge, getSelectedPlayer, updateSelectedPlayer, getPlayer } from '../player/helpers';
+import { updateProgressBar } from '../render/progressBar';
 
 let currentChallenge;
 let currentStage = challengeCardConstants.stages.early;
@@ -81,6 +82,7 @@ function challengePassed () {
 	dealChallenge();
 	updateChallenge();
 	playersReceiveCardsAfterChallenge();
+	updateProgressBar();
 }
 
 /**
@@ -158,6 +160,7 @@ function surrender () {
 	updateChallenge();
 	playersReceiveCardsAfterChallenge();
 	updateSelectedPlayerCards();
+	updateProgressBar();
 }
 
 /**
@@ -178,6 +181,14 @@ function playersReceiveCardsBackAfterSurrender () {
 	}
 }
 
+function getHowManyChallengesHavePassed () {
+	return challengesList.length;
+}
+
+function getChallengesList () {
+	return challengesList;
+}
+
 export {
 	challengesList,
 	placeActionCard,
@@ -185,5 +196,7 @@ export {
 	dealChallenge,
 	currentChallenge,
 	currentStage,
-	surrender
+	surrender,
+	getHowManyChallengesHavePassed,
+	getChallengesList
 }

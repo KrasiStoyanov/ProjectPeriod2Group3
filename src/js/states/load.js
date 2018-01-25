@@ -34,6 +34,9 @@ let loadState = {
 		game.load.spritesheet('whiteTraits', './src/images/trait-icons-white-spritesheet.png', 50, 50, 5);
 		game.load.spritesheet('grayTraits', './src/images/trait-icons-gray-spritesheet.png', 81, 81, 5);
 
+		game.load.spritesheet('passedChallengeStatus', './src/images/passed-challenge-status.png');
+		game.load.spritesheet('failedChallengeStatus', './src/images/failed-challenge-status.png');
+
 		game.load.image('actionCardBack', './src/images/action-card-back.png');
 		game.load.image('challengeCardBack', './src/images/challenge-card-back.png');
 
@@ -55,6 +58,12 @@ let loadState = {
 		game.load.image('wavesCopy', './src/images/waves.png');
 
 		game.load.image('surrenderButton', './src/images/surrenderButton.png');
+
+		game.load.image('good','./src/images/Robin_good.png')
+		game.load.image('neutral','./src/images/Robin_neutral.png')
+		game.load.image('bad','./src/images/Robin_bad.png')
+		game.load.image('againLight','./src/images/TRY AGAIN_white.png')
+		game.load.image('againDark','./src/images/TRY AGAIN_dark.png')
 	},
 	
 	/**
