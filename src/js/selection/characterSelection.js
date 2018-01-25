@@ -198,6 +198,8 @@ function onCharacterDragStop (sprite, pointer) {
                     if (players.length >= minAmountOfPlayers){
                         renderPlayButton();
                         }
+
+                        break;
                 }
             }
         }
